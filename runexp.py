@@ -1,0 +1,135 @@
+import numpy as np
+import scipy.sparse as sp
+import time
+from random import seed
+from random import randint
+from gurobipy import *
+from nonten import nonten,krcomp,predict
+import pyten
+from pyten.method import *
+from pyten.tenclass import Tensor  # Use it to construct Tensor object
+from pyten.tools import tenerror
+
+##################################################################
+# EDIT THESE TO CHANGE PROBLEM SETUP
+# Problem parameters
+r = (10,10,10)
+n = 500
+corners = 10
+reps = 100
+##################################################################
+
+# Compute derived parameters
+p = len(r)
+cum_r = np.insert(np.cumsum(r), 0, 0)
+
+nonten_results = np.zeros((reps, 2)) 
+amcomp_results = np.zeros((reps, 2)) 
+silrtc_results = np.zeros((reps, 2)) 
+tncomp_results = np.zeros((reps, 2)) 
+
+for rep in range(reps):
+    print("Starting Reptition No.", rep+1)
+
+    # Generate random tensor within rank-1 tensor ball
+    phi = np.zeros(np.prod(r))
+    pho = np.zeros(r)
+    lam = np.random.uniform(0,1,corners)
+    lam = lam/np.sum(lam)
+    for ind in range(corners):
+        the = np.random.uniform(0,1,np.sum(r))
+        the = 1.0*(the < 0.5)
+
+        the_t = the[cum_r[0]:cum_r[1]]
+        for k in range(1,p):
+            the_t = np.tensordot(the_t, the[cum_r[k]:cum_r[k+1]], axes = 0)
+
+        phi += lam[ind]*the_t.flatten()
+        pho += lam[ind]*the_t
+
+    # Generate n samples randomly drawn from the tensor entries
+    X = np.zeros(n, dtype=int)
+    Xs = np.zeros(np.prod(r), dtype=int)
+    Y = np.zeros(n)
+    Yo = -1*np.ones(np.prod(r))
+    for ind in range(n):
+        ind_s2i = np.ravel_multi_index([randint(0,r[k]-1) for k in range(p)], r)
+        X[ind] = ind_s2i
+        Y[ind] = phi[ind_s2i]
+        Yo[ind_s2i] = phi[ind_s2i]
+    Yo = Yo.reshape(r)
+
+    print("")
+    print("Running BCG...")
+    last_time = time.time()
+    psi_n = nonten(X, Y, r, tol=1e-4)
+    curr_time = time.time()
+    elapsed_time = curr_time - last_time
+    nonten_results[rep, 0] = np.dot(phi-psi_n,phi-psi_n)/np.dot(phi,phi)
+    nonten_results[rep, 1] = elapsed_time
+    
+    print("")
+    print("Running ALS...")
+    last_time = time.time()
+    psi_q = krcomp(X, Y, r, corners, 0.1, tol=1e-4)
+    #[Tpsi, psi_q] = cp_als(Tensor(Yo), corners, Yo > -0.5, maxiter=1000, printitn=100)
+    curr_time = time.time()
+    elapsed_time = curr_time - last_time
+    amcomp_results[rep, 0] = np.dot(phi-psi_q,phi-psi_q)/np.dot(phi,phi)
+    #amcomp_results[rep, 0] = np.dot(phi-psi_q.data.flatten(),phi-psi_q.data.flatten())/np.dot(phi,phi)
+    amcomp_results[rep, 1] = elapsed_time
+
+    print("")
+    print("Running SiLRTC...")
+    last_time = time.time()
+    psi_q = silrtc(Tensor(Yo), Yo > -0.5)
+    curr_time = time.time()
+    elapsed_time = curr_time - last_time
+    silrtc_results[rep, 0] = np.dot(phi-psi_q.data.flatten(),phi-psi_q.data.flatten())/np.dot(phi,phi)
+    silrtc_results[rep, 1] = elapsed_time
+    last_time = time.time()
+
+    print("Running TNCP...")
+    last_time = time.time()
+    selft = TNCP(Tensor(Yo), Yo > -0.5, corners)
+    selft.run()
+    curr_time = time.time()
+    elapsed_time = curr_time - last_time
+    tncomp_results[rep, 0] = np.dot(phi-selft.X.data.flatten(),phi-selft.X.data.flatten())/np.dot(phi,phi)
+    tncomp_results[rep, 1] = elapsed_time
+    print("")
+
+print("")
+print("Experiment Results: ")
+print("")
+
+print("BCG:")
+print("Mean (NMSE, Time)")
+print(np.mean(nonten_results,0))
+
+print("Standard Error (NMSE, Time)")
+print(np.std(nonten_results,0)/np.sqrt(reps))
+
+print("")
+print("ALS:")
+print("Mean (NMSE, Time)")
+print(np.mean(amcomp_results,0))
+
+print("Standard Error (NMSE, Time)")
+print(np.std(amcomp_results,0)/np.sqrt(reps))
+
+print("")
+print("SiLRTC:")
+print("Mean (NMSE, Time)")
+print(np.mean(silrtc_results,0))
+
+print("Standard Error (NMSE, Time)")
+print(np.std(silrtc_results,0)/np.sqrt(reps))
+
+print("")
+print("TNCP:")
+print("Mean (NMSE, Time)")
+print(np.mean(tncomp_results,0))
+
+print("Standard Error (NMSE, Time)")
+print(np.std(tncomp_results,0)/np.sqrt(reps))
