@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: pyten
+Version: 1.0.0
+Summary: Tools for the decomposition & completion of tensors
+Home-page: 
+Author: HELIOS
+Author-email: qqsong@tamu.edu
+Requires: numpy
+Requires: scipy
+Requires: pandas
+License-File: LICENSE

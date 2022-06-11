@@ -1,5 +1,5 @@
 # Nonnegative Tensor Completion via Integer Optimization
-This repository is an realization of the algorithm proposed in this [paper](https://arxiv.org/abs/2111.04580)
+This repository is an realization of the algorithm proposed in this [paper](https://arxiv.org/abs/2111.04580).
 
 ## DEPENDENCIES
 

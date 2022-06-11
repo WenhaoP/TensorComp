@@ -1,0 +1,15 @@
+name: TenCom
+channels:
+  - https://conda.anaconda.org/gurobi
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10.4
+  - gurobi=9.5.1
+  - pandas=1.4.2
+  - numpy=1.22.4
+  - scipy=1.8.1
+  - notebook=6.4.12
+  - pip=22.1.2
+  - pip:
+    - -r requirements.txt
