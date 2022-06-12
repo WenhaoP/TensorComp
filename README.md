@@ -21,6 +21,16 @@ This code is written in Python 3. It requires:
 
 3. Install any needed missing standard packages.
 
+## CONDA INSTALLATION
+
+Run
+
+```{bash}
+conda env create -f environment.yml
+```
+
+to create the conda environment.
+
 ## RUNNING AN EXPERIMENT
 
 To run an experiment, use the command "python runexp.py". To change the problem instance, edit 
