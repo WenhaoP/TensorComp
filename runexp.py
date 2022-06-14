@@ -20,7 +20,7 @@ reps = 100
 ##################################################################
 
 # Compute derived parameters
-p = len(r)
+p = len(r) # order of the tenor
 cum_r = np.insert(np.cumsum(r), 0, 0)
 
 nonten_results = np.zeros((reps, 2)) 
