@@ -181,7 +181,9 @@ def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
     return(psi_q)
 
 def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
-
+    '''
+    lpar: lambda parameter in eqn (8)
+    '''
     # Setup timer
     elapsed_time = 0
     last_time = time.process_time()
@@ -277,31 +279,31 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
 
     # Initialize bookkeeping variables
     iter_count = 0
-    prnt_count = 0
-    sigd_count = 0
-    orcl_count = 0
-    ip_count = 0
-    bestbd = 0
-    as_drops = 0
-    m._gap = float('inf')
+    prnt_count = 0 # print count
+    sigd_count = 0 # simplex gradient descent (in BCG paper)
+    orcl_count = 0 # oracle count
+    ip_count = 0 # integer program count 
+    bestbd = 0 # best lower bound for obj func in eqn 8
+    as_drops = 0 # active set drop (in BCG paper)
+    m._gap = float('inf') # gap for BCG
     last_gap = float('inf')
 
     # Best point to date
-    Pts = np.ones((un,1))
-    Vts = np.ones((np.sum(r),1))
-    psi_q = np.ones(un)
+    Pts = np.ones((un,1)) # points in the polytope of known entries (projected)
+    Vts = np.ones((np.sum(r),1)) # points in the polytope of all entries #
+    psi_q = np.ones(un) # 
     the_q = np.ones(np.sum(r))
-    lamb = np.array([[1]])
+    lamb = np.array([[1]]) # convex comb coefficients of vertices in C1
 
     is_true = True
     while is_true:
         iter_count += 1
         # calculate linearized cost
-        c = np.zeros(un)
+        c = np.zeros(un) # gradient of the obj function
         for ind in range(n):
             c[Xn[ind]] += -2/n*(Y[ind] - lpar*psi_q[Xn[ind]])
             
-        pro = np.dot(lpar*c,Pts)
+        pro = np.dot(lpar*c,Pts) # in BCG paper
         psi_a = Pts[:,np.argmax(pro)]
         psi_f = Pts[:,np.argmin(pro)]
         

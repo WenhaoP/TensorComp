@@ -47,13 +47,13 @@ for rep in range(reps):
         phi += lam[ind]*the_t.flatten()
         pho += lam[ind]*the_t
 
-    # Generate n samples randomly drawn from the tensor entries
-    X = np.zeros(n, dtype=int)
+    # Generate n samples randomly drawn from the tensor entries # Q: definition of "n samples"?
+    X = np.zeros(n, dtype=int) # indices of known entries
     Xs = np.zeros(np.prod(r), dtype=int)
-    Y = np.zeros(n)
-    Yo = -1*np.ones(np.prod(r))
+    Y = np.zeros(n) # values of known entries
+    Yo = -1*np.ones(np.prod(r)) # Q: -1 represent unknown entries?
     for ind in range(n):
-        ind_s2i = np.ravel_multi_index([randint(0,r[k]-1) for k in range(p)], r)
+        ind_s2i = np.ravel_multi_index([randint(0,r[k]-1) for k in range(p)], r) # index of known entry
         X[ind] = ind_s2i
         Y[ind] = phi[ind_s2i]
         Yo[ind_s2i] = phi[ind_s2i]
