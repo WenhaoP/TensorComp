@@ -47,8 +47,8 @@ for rep in range(reps):
         phi += lam[ind]*the_t.flatten()
         pho += lam[ind]*the_t
 
-    # Generate n samples randomly drawn from the tensor entries # Q: definition of "n samples"?
-    X = np.zeros(n, dtype=int) # indices of known entries
+    # Generate n samples randomly drawn from the tensor entries # "n samples" is "n known entries (might be repetitive)"
+    X = np.zeros(n, dtype=int) # stores the flatten indices of known entries
     Xs = np.zeros(np.prod(r), dtype=int)
     Y = np.zeros(n) # values of known entries
     Yo = -1*np.ones(np.prod(r)) # Q: -1 represent unknown entries?

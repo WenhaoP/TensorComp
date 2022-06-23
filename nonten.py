@@ -181,9 +181,13 @@ def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
     return(psi_q)
 
 def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
-    '''
+    """
+    X: (n, ) the indices of known entries in the flatten version of the true tensor
+    Y: (n, ) values of known entries corresponding to the indices in X
+    r: (r_1, ..., r_p) dimension of the truth tensor
     lpar: lambda parameter in eqn (8)
-    '''
+    """
+    
     # Setup timer
     elapsed_time = 0
     last_time = time.process_time()
@@ -204,9 +208,9 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
         Xo = X.copy()
         X = np.ravel_multi_index((Xo.T-1).tolist(), r)
 
-    # Variables for projected polytope
-    [uinds, ucnt] = np.unique(X, return_counts=True)
-    un = len(uinds)
+    # Variables for projected polytope # see last two sentences in the secend paragraph of the section 4.3
+    [uinds, ucnt] = np.unique(X, return_counts=True) # uinds: unique indices of known entries
+    un = len(uinds) # number of known entries
     Un = np.zeros((un, p), dtype=int)
     Xn = np.zeros(n, dtype=int)
     imup = un/(2*lpar*np.max(ucnt)/n)
@@ -241,14 +245,14 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     #     (p+1)*un rows
     #     un + np.sum(r) cols
 
-    # Constraints for linearized optimization problem
+    # Constraints for linearized optimization problem # doing projection of C_1 onto U at the same time
     data = np.zeros((2*p+(p+1))*un)
     row_ind = np.zeros((3*p+1)*un) 
     col_ind = np.zeros((3*p+1)*un) 
 
     ind_vec = np.zeros(p, dtype=int)
     for cnt in range(un):
-        Xn[X == uinds[cnt]] = cnt        
+        Xn[X == uinds[cnt]] = cnt  # assign      
         ind_vec = np.unravel_index(uinds[cnt], r)
         Un[cnt,:] = ind_vec
         
@@ -273,7 +277,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     b = np.zeros((p+1)*un)
     b[p*un+0:p*un+un] = p-1
 
-    m.addConstr(A @ var <= b)
+    m.addConstr(A @ var <= b) # the matrix form of the constraints in eqn (13)
 
     # m.write('nonten.lp')
 
@@ -295,6 +299,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     the_q = np.ones(np.sum(r))
     lamb = np.array([[1]]) # convex comb coefficients of vertices in C1
 
+    ### BCG ###
     is_true = True
     while is_true:
         iter_count += 1
