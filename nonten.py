@@ -209,10 +209,10 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
         X = np.ravel_multi_index((Xo.T-1).tolist(), r)
 
     # Variables for projected polytope # see last two sentences in the secend paragraph of the section 4.3
-    [uinds, ucnt] = np.unique(X, return_counts=True) # uinds: unique indices of known entries
-    un = len(uinds) # number of known entries
-    Un = np.zeros((un, p), dtype=int)
-    Xn = np.zeros(n, dtype=int)
+    [uinds, ucnt] = np.unique(X, return_counts=True) # uinds: (sorted) unique indices of known entries
+    un = len(uinds) # unique number of known entries
+    Un = np.zeros((un, p), dtype=int) # 
+    Xn = np.zeros(n, dtype=int) # sample index
     imup = un/(2*lpar*np.max(ucnt)/n)
     
     # Variables for the linearized optimization problem
@@ -252,7 +252,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
 
     ind_vec = np.zeros(p, dtype=int)
     for cnt in range(un):
-        Xn[X == uinds[cnt]] = cnt  # assign      
+        Xn[X == uinds[cnt]] = cnt  # assign the sample index to the entry index
         ind_vec = np.unravel_index(uinds[cnt], r)
         Un[cnt,:] = ind_vec
         
@@ -289,13 +289,13 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     ip_count = 0 # integer program count 
     bestbd = 0 # best lower bound for obj func in eqn 8
     as_drops = 0 # active set drop (in BCG paper)
-    m._gap = float('inf') # gap for BCG
+    m._gap = float('inf') # Phi_0
     last_gap = float('inf')
 
     # Best point to date
     Pts = np.ones((un,1)) # points in the polytope of known entries (projected)
     Vts = np.ones((np.sum(r),1)) # points in the polytope of all entries #
-    psi_q = np.ones(un) # 
+    psi_q = np.ones(un) # value for the entry of candidate tensor (has corresponding true value)
     the_q = np.ones(np.sum(r))
     lamb = np.array([[1]]) # convex comb coefficients of vertices in C1
 
@@ -308,11 +308,12 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
         for ind in range(n):
             c[Xn[ind]] += -2/n*(Y[ind] - lpar*psi_q[Xn[ind]])
             
-        pro = np.dot(lpar*c,Pts) # in BCG paper
-        psi_a = Pts[:,np.argmax(pro)]
-        psi_f = Pts[:,np.argmin(pro)]
+        pro = np.dot(lpar*c,Pts) # grad(f(x_t))•v
+        psi_a = Pts[:,np.argmax(pro)] # v_t_A (Line 4)
+        psi_f = Pts[:,np.argmin(pro)] # v_t_FW-S (Line 5)
         
-        if (np.dot(lpar*c, np.subtract(psi_a,psi_f)) >= m._gap):
+        if (np.dot(lpar*c, np.subtract(psi_a,psi_f)) >= m._gap): # Line 6
+            ### Simplex Gradient Descent ###
             sigd_count += 1
             d = pro - np.sum(pro)/Pts.shape[1]
             
@@ -352,10 +353,11 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
                     lamb = lamb - gam*d[:,None]
                     
         else:
+            ### Weak Separation ###
             orcl_count += 1
             m._cmin = np.dot(lpar*c,psi_q)
             if (iter_count == 1):
-                # solve linearized optimization problem
+                # solve linearized (integer) optimization problem
                 ip_count += 1
                 m.setObjective(lpar*c @ psi)
                 m._oracle = "FullIP"
@@ -368,6 +370,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
 
                 altmin_count = 0
                 best_cmin = float('inf')
+                ### Heuristic: Alternating Minimization ###
                 while (oflg and altmin_count < 100):
                     altmin_count += 1
                     if (altmin_count == 1):
@@ -412,7 +415,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
             Vts = np.hstack((Vts,the_n[:,None]))
             lamb_q = np.vstack((lamb,0))
             lamb_n = np.vstack((np.zeros(lamb.shape),1))
-            (psi_q, lamb, gam) = golden(Xn, Y, psi_q, psi_n, lamb_q, lamb_n, lpar)
+            (psi_q, lamb, gam) = golden(Xn, Y, psi_q, psi_n, lamb_q, lamb_n, lpar) # ??
 
         res = Y - lpar*psi_q[Xn]
         objVal = np.dot(res,res)/n
