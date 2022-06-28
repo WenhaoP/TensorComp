@@ -208,18 +208,19 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
         Xo = X.copy()
         X = np.ravel_multi_index((Xo.T-1).tolist(), r)
 
-    # Variables for projected polytope # see last two sentences in the secend paragraph of the section 4.3
+    # Variables for projected polytope 
+    # see last two sentences in the secend paragraph of the section 4.3
     [uinds, ucnt] = np.unique(X, return_counts=True) # uinds: (sorted) unique indices of known entries
     un = len(uinds) # unique number of known entries
     Un = np.zeros((un, p), dtype=int) # 
-    Xn = np.zeros(n, dtype=int) # sample index
+    Xn = np.zeros(n, dtype=int) # new indices of samples after the projection
     imup = un/(2*lpar*np.max(ucnt)/n)
     
     # Variables for the linearized optimization problem
     m = Model()
     #E3m.Params.OutputFlag = 0
     var = m.addMVar(int(un + np.sum(r)), vtype = GRB.BINARY)
-    psi = var[0:un]
+    psi = var[0:un] # variable in FW, the direction to move along with
     psi.setAttr('VType', 'c')
     psi.setAttr('UB', 1)
     psi.setAttr('LB', 0)
@@ -228,12 +229,12 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     m.Params.Method = 2
 
     # Constraints are:
-    #     un elements each with 
-    #     p upper bound constraints
-    #     1 lowerbound constraint
+    #     un elements each with (phi_x)
+    #     p upper bound constraints (RHS of the 2nd row in the eqn (13))
+    #     1 lowerbound constraint (LHS of the 2nd in the eqn (13))
     #
     # Upper bound constraint has:
-    #     2 variables each
+    #     2 variables each (phi_x and the_x_k)
     #
     # Lower bound constraint has:
     #     (p+1) variables each
@@ -245,7 +246,8 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     #     (p+1)*un rows
     #     un + np.sum(r) cols
 
-    # Constraints for linearized optimization problem # doing projection of C_1 onto U at the same time
+    # Constraints for linearized optimization problem 
+    # Here we project C_1 onto U at the same time
     data = np.zeros((2*p+(p+1))*un)
     row_ind = np.zeros((3*p+1)*un) 
     col_ind = np.zeros((3*p+1)*un) 
@@ -289,15 +291,16 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     ip_count = 0 # integer program count 
     bestbd = 0 # best lower bound for obj func in eqn 8
     as_drops = 0 # active set drop (in BCG paper)
-    m._gap = float('inf') # Phi_0
+    m._gap = float('inf') # Phi_0 in Line 1. Set it to inf so that we always do Integer LP at the first iteration to get the gap estimate
     last_gap = float('inf')
 
     # Best point to date
-    Pts = np.ones((un,1)) # points in the polytope of known entries (projected)
+    # Initialization
+    Pts = np.ones((un,1)) # (S_0 in Line 2) points in the polytope of known entries (projected)
     Vts = np.ones((np.sum(r),1)) # points in the polytope of all entries #
-    psi_q = np.ones(un) # value for the entry of candidate tensor (has corresponding true value)
+    psi_q = np.ones(un) # the current iterate which has the true value observered
     the_q = np.ones(np.sum(r))
-    lamb = np.array([[1]]) # convex comb coefficients of vertices in C1
+    lamb = np.array([[1]]) # convex comb coefficients to get the optimal solution
 
     ### BCG ###
     is_true = True
@@ -308,7 +311,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
         for ind in range(n):
             c[Xn[ind]] += -2/n*(Y[ind] - lpar*psi_q[Xn[ind]])
             
-        pro = np.dot(lpar*c,Pts) # grad(f(x_t))•v
+        pro = np.dot(lpar*c,Pts) # grad(f(x_t))v
         psi_a = Pts[:,np.argmax(pro)] # v_t_A (Line 4)
         psi_f = Pts[:,np.argmin(pro)] # v_t_FW-S (Line 5)
         
@@ -355,13 +358,13 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
         else:
             ### Weak Separation ###
             orcl_count += 1
-            m._cmin = np.dot(lpar*c,psi_q)
+            m._cmin = np.dot(lpar*c,psi_q) # DotProd(grad(f(psi_q)), psi_q)
             if (iter_count == 1):
                 # solve linearized (integer) optimization problem
                 ip_count += 1
                 m.setObjective(lpar*c @ psi)
                 m._oracle = "FullIP"
-                m.optimize()
+                m.optimize() # maximization or min?
                 psi_n = psi.X
                 the_n = the.X
                 m._gap = (m._cmin - m.objVal)/2
