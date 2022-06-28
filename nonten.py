@@ -60,10 +60,14 @@ def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un):
     while (True):
         cnt += 1
         for ind in range(p):
+            # fpro is the c_k when converting <theta_1 x theta_2 x ... x theta_p, grad(f(psi_q))> to <theta_ind, c_k>
+            # fpro is the pro transformed to have the same shape as theta_ind
+            # pro has the same shape as grad(f(psi_q)). 
+            # pro has the same information as fpro
             pro = lpar*c.copy()
-            for k in range(p):
+            for k in range(p): # get the c_k
                 if (ind != k):
-                    pro = np.multiply(pro, the[cum_r[k] + Un[:,k]])
+                    pro = np.multiply(pro, the[cum_r[k] + Un[:,k]]) 
 
             fpro = np.zeros(r[ind])
             for k in range(un):
@@ -212,7 +216,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     # see last two sentences in the secend paragraph of the section 4.3
     [uinds, ucnt] = np.unique(X, return_counts=True) # uinds: (sorted) unique indices of known entries
     un = len(uinds) # unique number of known entries
-    Un = np.zeros((un, p), dtype=int) # 
+    Un = np.zeros((un, p), dtype=int) # coordinate indices of known entries
     Xn = np.zeros(n, dtype=int) # new indices of samples after the projection
     imup = un/(2*lpar*np.max(ucnt)/n)
     
@@ -362,9 +366,9 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
             if (iter_count == 1):
                 # solve linearized (integer) optimization problem
                 ip_count += 1
-                m.setObjective(lpar*c @ psi)
+                m.setObjective(lpar*c @ psi) # minimization
                 m._oracle = "FullIP"
-                m.optimize() # maximization or min?
+                m.optimize() 
                 psi_n = psi.X
                 the_n = the.X
                 m._gap = (m._cmin - m.objVal)/2
