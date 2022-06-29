@@ -322,9 +322,9 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
         if (np.dot(lpar*c, np.subtract(psi_a,psi_f)) >= m._gap): # Line 6
             ### Simplex Gradient Descent ###
             sigd_count += 1
-            d = pro - np.sum(pro)/Pts.shape[1]
+            d = pro - np.sum(pro)/Pts.shape[1] # line 3, Projection onto the hyperplane of the probability simplex}
             
-            if (np.equal(d,0).all()):
+            if (np.equal(d,0).all()): # line 4
                 as_size = Pts.shape[1]
                 psi_q = Pts[:,0]
                 Pts = Pts[:,0]
@@ -333,16 +333,16 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
                 #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
                 as_drops += as_size - Pts.shape[1]
             else:
-                eta = np.divide(lamb,d[:,None])
-                eta = np.min(eta[d > 0])
+                eta = np.divide(lamb,d[:,None]) # line 7
+                eta = np.min(eta[d > 0]) # line 7
 
                 # Equivalent to psi_n = Pts @ (lamb - eta*d)
-                psi_n = psi_q - eta*(Pts @ d)
+                psi_n = psi_q - eta*(Pts @ d) # line 8, psi_n is y
                 #psi_n = Pts @ (lamb.flatten() - eta*d)
                 res = Y - lpar*psi_n[Xn]
-                fn = np.dot(res,res)/n
+                fn = np.dot(res,res)/n # fn is f(y)
 
-                if (objVal >= fn):
+                if (objVal >= fn): # line 9
                     psi_q = psi_n
                     objVal = fn
                     as_size = Pts.shape[1]
@@ -389,7 +389,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
 
                     (psi_n, the_n, last_cmin) = altmin(r, lpar, p, tol, m._cmin, m._gap, c, the_n, Un)
                     
-                    if (m._cmin - last_cmin > m._gap):
+                    if (m._cmin - last_cmin > m._gap): # first case in the output of Weak Separation Oracle
                         m._oracle = "AltMin"
                         oflg = False
                     elif (last_cmin < best_cmin):
