@@ -343,7 +343,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
                 fn = np.dot(res,res)/n # fn is f(y)
 
                 if (objVal >= fn): # line 9
-                    psi_q = psi_n
+                    psi_q = psi_n # line 10
                     objVal = fn
                     as_size = Pts.shape[1]
                     lamb = lamb - eta*d[:,None]
