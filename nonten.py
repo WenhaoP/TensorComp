@@ -218,7 +218,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     [uinds, ucnt] = np.unique(X, return_counts=True) # uinds: (sorted) unique indices of known entries
     un = len(uinds) # unique number of known entries
     Un = np.zeros((un, p), dtype=int) # unique coordinate indices of known entries
-    Xn = np.zeros(n, dtype=int) # new indices of samples after the projection
+    Xn = np.zeros(n, dtype=int) # i-th element is the index of the i-th sample
     imup = un/(2*lpar*np.max(ucnt)/n)
     
     # Variables for the linearized optimization problem
@@ -304,20 +304,20 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
 
     # Best point to date
     # Initialization
-    Pts = np.ones((un,1)) # active vertex set (S_t in Line 2). Elements (psi) are the vertices of Proj_U(C_1)
-    Vts = np.ones((np.sum(r),1)) # points in the polytope of all entries #
-    psi_q = np.ones(un) # the current iterate (in Proj_U(C_1)) which is a cvx combination of elements in Pts using lamb as the coefficients
+    Pts = np.ones((un,1)) # (projected) active vertex set (Proj_U(S_t) in Line 2). Elements (psi) are the vertices of Proj_U(C_1)
+    Vts = np.ones((np.sum(r),1)) # (non-projected) active vertex set (S_t in Line 2). Elements (theta which can be used to recover psi) are the vertices of C_1
+    psi_q = np.ones(un) # the current iterate x_t (in Proj_U(C_1)) which is a cvx combination of elements in Pts using lamb as the coefficients
     the_q = np.ones(np.sum(r))
-    lamb = np.array([[1]]) # convex comb coefficients to get the optimal solution
+    lamb = np.array([[1]]) # convex comb coefficients to get the current iterate
 
     ### BCG ###
     is_true = True
     while is_true:
         iter_count += 1
         # calculate linearized cost
-        c = np.zeros(un) # gradient of the obj function
+        c = np.zeros(un) # partial derivatives of the obj function w.r.t. each known entry. 
         for ind in range(n):
-            c[Xn[ind]] += -2/n*(Y[ind] - lpar*psi_q[Xn[ind]])
+            c[Xn[ind]] += -2/n*(Y[ind] - lpar*psi_q[Xn[ind]]) # assign the derivative w.r.t. the known entry with the i-th flatten index of the tensor to the i-th element
             
         pro = np.dot(lpar*c,Pts) # grad(f(x_t))v
         psi_a = Pts[:,np.argmax(pro)] # v_t_A (Line 4)
@@ -366,7 +366,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
         else:
             ### Weak Separation ###
             orcl_count += 1
-            m._cmin = np.dot(lpar*c,psi_q) # DotProd(grad(f(psi_q)), psi_q)
+            m._cmin = np.dot(lpar*c,psi_q) # <grad(f(x_0)), x_0>
             if (iter_count == 1):
                 # solve linearized (integer) optimization problem
                 ip_count += 1
@@ -427,7 +427,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
             Vts = np.hstack((Vts,the_n[:,None]))
             lamb_q = np.vstack((lamb,0))
             lamb_n = np.vstack((np.zeros(lamb.shape),1))
-            (psi_q, lamb, gam) = golden(Xn, Y, psi_q, psi_n, lamb_q, lamb_n, lpar) # ??
+            (psi_q, lamb, gam) = golden(Xn, Y, psi_q, psi_n, lamb_q, lamb_n, lpar) # find the optimal cvx combination of the current iterate and the new vertex
 
         res = Y - lpar*psi_q[Xn]
         objVal = np.dot(res,res)/n
