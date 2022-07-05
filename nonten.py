@@ -60,12 +60,13 @@ def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un):
     while (True):
         cnt += 1
         for ind in range(p):
-            # fpro is the c_k when converting <theta_1 x theta_2 x ... x theta_p, grad(f(psi_q))> to <theta_ind, c_k>
+            # fpro is the c_k when converting <theta_1 x theta_2 x ... x theta_p, grad(f(psi_q))>
+            # to <theta_ind, c_k>. Conversion is done between lines 69 to 75
             # fpro is the pro transformed to have the same shape as theta_ind
             # pro has the same shape as grad(f(psi_q)). 
             # pro has the same information as fpro
             pro = lpar*c.copy()
-            for k in range(p): # get the c_k
+            for k in range(p):
                 if (ind != k):
                     pro = np.multiply(pro, the[cum_r[k] + Un[:,k]]) 
 
@@ -235,13 +236,13 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     # Constraints are:
     #     un elements each with (phi_x)
     #     p upper bound constraints (RHS of the 2nd row in the eqn (13))
-    #     1 lowerbound constraint (LHS of the 2nd in the eqn (13))
+    #     1 lowerbound constraint (LHS of the 2nd and the 1st row in the eqn (13))
     #
     # Upper bound constraint has:
-    #     2 variables each (phi_x and the_x_k)
+    #     2 variables each (one phi_x and one theta_x_k)
     #
     # Lower bound constraint has:
-    #     (p+1) variables each
+    #     (p+1) variables each (one phi_x and p theta_x_k)
     #
     # Data matrix for constructing sparse matrix has:
     #     (2*p+(p+1))*un rows
@@ -258,7 +259,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
 
     ind_vec = np.zeros(p, dtype=int)
     for cnt in range(un):
-        Xn[X == uinds[cnt]] = cnt  # assign the sample index to the entry index
+        Xn[X == uinds[cnt]] = cnt 
         ind_vec = np.unravel_index(uinds[cnt], r)
         Un[cnt,:] = ind_vec
         
@@ -373,7 +374,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
                 the_n = the.X
                 m._gap = (m._cmin - m.objVal)/2
             else:
-                oflg = True
+                oflg = True # True if we do not find an "improving point"
 
                 altmin_count = 0
                 best_cmin = float('inf')
@@ -397,6 +398,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
                         psi_b = psi_n
                         the_b = the_n                        
 
+                # improve the gap estimate when certain conditions hold
                 if oflg and m._cmin - best_cmin > (objVal - bestbd)/2:
                     m._gap = (objVal - bestbd)/2
                     psi_n = psi_b
@@ -414,8 +416,8 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
                     m.optimize(callback)
                     psi_n = psi.X
                     the_n = the.X
-                    if (m._cmin - m.objVal < m._gap):
-                        m._gap = m._gap/2
+                    if (m._cmin - m.objVal < m._gap): # second case in the output of the weak separation oracle
+                        m._gap = m._gap/2 # line 13
                         # MAYBE UPDATE GAP USING FULLIP SOLUTION?!?!?!
 
             Pts = np.hstack((Pts,psi_n[:,None]))
@@ -456,6 +458,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
         print("Best objective %10.6e, best bound %10.6e, additive gap %10.6e" % 
               (objVal, bestbd, objVal - bestbd))
     
+    # recover the solution which is a cvx comb of 
     psi_q = np.zeros(np.prod(r))
     for ind in range(as_size):
         the_n = Vts[cum_r[0]:cum_r[1],ind]
