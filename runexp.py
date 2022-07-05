@@ -51,7 +51,7 @@ for rep in range(reps):
     X = np.zeros(n, dtype=int) # stores the flatten indices of known entries
     Xs = np.zeros(np.prod(r), dtype=int)
     Y = np.zeros(n) # values of known entries
-    Yo = -1*np.ones(np.prod(r)) # Q: -1 represent unknown entries?
+    Yo = -1*np.ones(np.prod(r)) # -1 means that the true entry value is unknown
     for ind in range(n):
         ind_s2i = np.ravel_multi_index([randint(0,r[k]-1) for k in range(p)], r) # index of known entry
         X[ind] = ind_s2i

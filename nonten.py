@@ -217,7 +217,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     # see last two sentences in the secend paragraph of the section 4.3
     [uinds, ucnt] = np.unique(X, return_counts=True) # uinds: (sorted) unique indices of known entries
     un = len(uinds) # unique number of known entries
-    Un = np.zeros((un, p), dtype=int) # coordinate indices of known entries
+    Un = np.zeros((un, p), dtype=int) # unique coordinate indices of known entries
     Xn = np.zeros(n, dtype=int) # new indices of samples after the projection
     imup = un/(2*lpar*np.max(ucnt)/n)
     
@@ -236,7 +236,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     # Constraints are:
     #     un elements each with (phi_x)
     #     p upper bound constraints (RHS of the 2nd row in the eqn (13))
-    #     1 lowerbound constraint (LHS of the 2nd and the 1st row in the eqn (13))
+    #     1 lower bound constraint (LHS of the 2nd and the 1st row in the eqn (13))
     #
     # Upper bound constraint has:
     #     2 variables each (one phi_x and one theta_x_k)
@@ -254,8 +254,8 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     # Constraints for linearized optimization problem 
     # Here we project C_1 onto U at the same time
     data = np.zeros((2*p+(p+1))*un)
-    row_ind = np.zeros((3*p+1)*un) 
-    col_ind = np.zeros((3*p+1)*un) 
+    row_ind = np.zeros((3*p+1)*un)  # row indices of non-zero entries
+    col_ind = np.zeros((3*p+1)*un)  # col indices of non-zero entries
 
     ind_vec = np.zeros(p, dtype=int)
     for cnt in range(un):
@@ -263,6 +263,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
         ind_vec = np.unravel_index(uinds[cnt], r)
         Un[cnt,:] = ind_vec
         
+        # build the "p upper bound constraints"
         for k in range(p):
             data[2*p*cnt+2*k] = 1
             row_ind[2*p*cnt+2*k] = p*cnt + k
@@ -272,10 +273,12 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
             row_ind[2*p*cnt+2*k+1] = p*cnt + k
             col_ind[2*p*cnt+2*k+1] = un + cum_r[k] + ind_vec[k]
 
+        # build the "1 lower bound constraint" - LHS of the second row in eqn 13
         data[2*p*un+(p+1)*cnt] = -1
         row_ind[2*p*un+(p+1)*cnt] = p*un + cnt
         col_ind[2*p*un+(p+1)*cnt] = cnt
 
+        # build the "1 lower bound constraint" - the first row in eqn 13
         data[2*p*un+(p+1)*cnt+1:2*p*un+(p+1)*cnt+p+1] = 1
         row_ind[2*p*un+(p+1)*cnt+1:2*p*un+(p+1)*cnt+p+1] = p*un + cnt
         col_ind[2*p*un+(p+1)*cnt+1:2*p*un+(p+1)*cnt+p+1] = un + cum_r[0:p] + ind_vec[0:p] 
@@ -296,14 +299,14 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     ip_count = 0 # integer program count 
     bestbd = 0 # best lower bound for obj func in eqn 8
     as_drops = 0 # active set drop (in BCG paper)
-    m._gap = float('inf') # Phi_0 in Line 1. Set it to inf so that we always do Integer LP at the first iteration to get the gap estimate
+    m._gap = float('inf') # Phi_0 in Line 1, but we haven't really initialized the gap estimate until the Integer LP at the first iteration
     last_gap = float('inf')
 
     # Best point to date
     # Initialization
-    Pts = np.ones((un,1)) # (S_0 in Line 2) points in the polytope of known entries (projected)
+    Pts = np.ones((un,1)) # active vertex set (S_t in Line 2). Elements (psi) are the vertices of Proj_U(C_1)
     Vts = np.ones((np.sum(r),1)) # points in the polytope of all entries #
-    psi_q = np.ones(un) # the current iterate which has the true value observered
+    psi_q = np.ones(un) # the current iterate (in Proj_U(C_1)) which is a cvx combination of elements in Pts using lamb as the coefficients
     the_q = np.ones(np.sum(r))
     lamb = np.array([[1]]) # convex comb coefficients to get the optimal solution
 
