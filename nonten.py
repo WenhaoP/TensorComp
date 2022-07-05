@@ -273,7 +273,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
             row_ind[2*p*cnt+2*k+1] = p*cnt + k
             col_ind[2*p*cnt+2*k+1] = un + cum_r[k] + ind_vec[k]
 
-        # build the "1 lower bound constraint" - LHS of the second row in eqn 13
+        # build the "1 lower bound constraint" - the first row in eqn 13
         data[2*p*un+(p+1)*cnt] = -1
         row_ind[2*p*un+(p+1)*cnt] = p*un + cnt
         col_ind[2*p*un+(p+1)*cnt] = cnt
