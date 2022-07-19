@@ -5,7 +5,7 @@ from colour_demosaicing import masks_CFA_Bayer
 
 
 # alternating maximization oracle
-@profile
+# @profile
 def altmax(r, p, gamma, tol, cmax, c, the_q, Un):
     the = the_q.copy()
     cum_r = np.insert(np.cumsum(r), 0, 0)
@@ -15,28 +15,16 @@ def altmax(r, p, gamma, tol, cmax, c, the_q, Un):
     cnt = 0
     while (True):
         cnt += 1
-        for ind in range(p):
+        the[cum_r[2]:cum_r[3]] = 0
+        the[cum_r[2]+np.random.randint(0, 3)] = 1
+        for ind in range(p-1):
             pro = c.copy()
             for k in range(p):
                 if (ind != k):
-                    #pro = np.multiply(pro, the[cum_r[k] + Un[:,k]])
                     mask = (the[cum_r[k] + Un[:,k]] == 0)
                     pro[mask] = 0 
 
             fpro = np.zeros(r[ind])
-            # # Original
-            # for k in range(un):
-            #     fpro[Un[k,ind]] += pro[k]
-
-            # # Speed up 1
-            # for k in np.argwhere(pro != 0):
-            #     fpro[Un[k,ind]] += pro[k]
-            
-            # # Speed up 2
-            # for i in range(r[ind]):
-            #     fpro[i] += pro[np.argwhere(Un[:, ind] == i)].sum()
-
-            # Speed up 3
             for i in range(r[ind]):
                 if ind == 0:
                     idx = np.arange(i*600, (i+1)*600)
@@ -49,10 +37,6 @@ def altmax(r, p, gamma, tol, cmax, c, the_q, Un):
                     fpro[i] += pro[idx].sum()
 
             mask = (fpro >= np.sort(fpro)[r[ind] - gamma[ind]])
-            #if ind < 2:
-            #    mask = (fpro >= np.sort(fpro)[r[ind] - mu[ind]])
-            #else:
-            #    mask = np.full(r[ind], True)
             the[cum_r[ind]:cum_r[ind+1]] = (mask).astype(int)
             curr_cmax = np.sum(fpro[mask])
 
@@ -68,7 +52,7 @@ def altmax(r, p, gamma, tol, cmax, c, the_q, Un):
     return(psi, the, curr_cmax)
 
 # @profile    
-def heuristic(p_0, filter, gamma, proj=False, lpar=1, tol=1e-4):
+def heuristic_1(p_0, filter, gamma, proj=False, lpar=1, tol=1e-4):
     """
     Deflate/decompose the tensor p_0 of the mosaic image
     ---
@@ -128,6 +112,7 @@ def heuristic(p_0, filter, gamma, proj=False, lpar=1, tol=1e-4):
         Psi_t = psi_t.reshape(r)
 
     return psi_t, Psi_t, mu, q
+        
 
 
 if __name__ == '__main__':
@@ -139,7 +124,7 @@ if __name__ == '__main__':
     bayer_filter = np.stack(masks_CFA_Bayer(shape), axis=-1).astype(float)
     mosaic_image = image * bayer_filter
 
-    psi_t_unproj, Psi_t_unproj, mu_unproj, q_unproj = heuristic(mosaic_image, bayer_filter, [3, 2, 1], proj=False, lpar=10000)
+    psi_t_unproj, Psi_t_unproj, mu_unproj, q_unproj = heuristic_1(mosaic_image, bayer_filter, [3, 2, 1], proj=False, lpar=10000)
 
     fig, ax = plt.subplots()
     ax.imshow(Psi_t_unproj)
