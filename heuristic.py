@@ -112,7 +112,32 @@ def heuristic_1(p_0, filter, gamma, proj=False, lpar=1, tol=1e-4):
         Psi_t = psi_t.reshape(r)
 
     return psi_t, Psi_t, mu, q
-        
+
+def heuristic_2(p_0, filter, gamma, proj=False, lpar=1, tol=1e-4):
+    r = mosaic_image.shape
+    cum_r = np.insert(np.cumsum(r), 0, 0)
+    p = len(r)
+    p_t = mosaic_image
+    N_t = 0
+    psi_t = np.zeros(r)
+    mu = []
+    q = []
+    gamma = np.array([3, 2]) # block size 
+
+    c = 0 # channel index
+    p_t_c = p_t[..., c]
+    mu_t = np.min(p_t_c[p_t_c > 0])
+    mu_t_idx = np.unravel_index(np.argmin(p_t_c[p_t_c > 0]), r[:2])
+
+    ### Place the block ###
+    left = gamma // 2
+    right = gamma - left
+    q_t = np.zeros(r)
+    q_t[mu_t_idx[0] - left[0]: mu_t_idx[0] + right[0], mu_t_idx[1] - left[1]: mu_t_idx[1] + right[1], c] = 1
+
+    psi_t = psi_t + mu_t * q_t
+    p_t = p_t - mu_t * q_t
+    N_t = N_t + mu_t
 
 
 if __name__ == '__main__':
