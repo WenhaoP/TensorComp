@@ -4,7 +4,7 @@ import time
 
 ### Helper functions for heuristic 3 ###
 
-def place_block_2(rows, cols, c, p_t, region_shape):
+def place_block_2(rows, cols, c, p_t):
     """
     Put a "block" of 1's in a zero tensor at the same position of the minimal positive entry in the region of p_t defined by rows and cols
     ---
@@ -13,21 +13,19 @@ def place_block_2(rows, cols, c, p_t, region_shape):
     cols (sequence[int]): column indices of the left and right boundaries of the region
     c (int): the channel index
     p_t (int): the tensor
-    block_shape: the shape of the block
 
     Returns:
     q_t: the zero tensor that contains a block of 1's
     mu_t (scalar): the value of the minimal positive entry
     mu_t_idx (tuple(int)): the index of the minimal positive entry
     """
-    if not isinstance(region_shape, np.ndarray):
-        region_shape = np.array(region_shape)
-
     # find the region    
     region = p_t[..., c].copy() # c-th channel
     region = region[rows[0]:rows[1], cols[0]:cols[1]]
 
-    mu_t = np.mean(region[region != 0])
+    mask = (region != 0)
+
+    mu_t = np.mean(region[mask]) if mask.sum() != 0 else 0
     q_t = np.zeros(p_t.shape)
     q_t[rows[0]:rows[1], cols[0]:cols[1], c] = 1
 
@@ -81,7 +79,7 @@ def recover_channel_2(p_0, region_shape, c, lpar, verbose=False):
                 time.sleep(0.5)
                 plt.close(fig)
 
-            q_t, mu_t = place_block_2((row_boundary[i], row_boundary[i+1]), (col_boundary[j], col_boundary[j+1]), c, P_t, region_shape)
+            q_t, mu_t = place_block_2((row_boundary[i], row_boundary[i+1]), (col_boundary[j], col_boundary[j+1]), c, P_t)
 
             # guarantee the gauge norm constraint
             if N_t + mu_t > lpar:
