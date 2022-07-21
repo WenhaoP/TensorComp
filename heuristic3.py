@@ -25,10 +25,9 @@ def place_block_2(rows, cols, c, p_t, region_shape):
 
     # find the region    
     region = p_t[..., c].copy() # c-th channel
-    region[region <= 0] = np.inf # for finding the minimal positive entry easily
     region = region[rows[0]:rows[1], cols[0]:cols[1]]
 
-    mu_t = np.mean(p_t[p_t != 0])
+    mu_t = np.mean(region[region != 0])
     q_t = np.zeros(p_t.shape)
     q_t[rows[0]:rows[1], cols[0]:cols[1], c] = 1
 
@@ -57,8 +56,8 @@ def recover_channel_2(p_0, region_shape, c, lpar, verbose=False):
     mu = []
     q = []
 
-    row_boundary = np.arange(0, r[0], region_shape[0])
-    col_boundary = np.arange(0, r[1], region_shape[1])
+    row_boundary = np.arange(0, r[0]+0.01, region_shape[0]).astype(int)
+    col_boundary = np.arange(0, r[1]+0.01, region_shape[1]).astype(int)
     num_boundary = len(row_boundary)
 
     # place a "block" in each region
