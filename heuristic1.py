@@ -66,7 +66,7 @@ def heuristic_1(p_0, gamma, lpar=1, tol=1e-4, verbose=False):
     psi_t (np.array): the flatten version
     Psi_t (np.array): the original version
     mu (list[scalar]): a list of mu_t
-    q (list[np.array]): a list of q_t
+    the (list[np.array]): a list of the_t
     """
 
     # initializing parameters
@@ -81,14 +81,14 @@ def heuristic_1(p_0, gamma, lpar=1, tol=1e-4, verbose=False):
     N_t = 0
     psi_t = np.zeros(un)
     mu = []
-    q = []
+    the = []
 
     # the deflation algorithm
     while True:
         if verbose:
             print(f'N_t is {N_t}')
         the = np.round(np.random.uniform(0,1,np.sum(r)))
-        q_t, _, _ = altmax(r, p, gamma, tol, cmax, p_t, the, Un)
+        q_t, the_t, _ = altmax(r, p, gamma, tol, cmax, p_t, the, Un)
         mu_t = np.min((p_t / q_t)[(p_t > 0) & (q_t > 0)])
 
         if (N_t + mu_t > lpar):
@@ -98,7 +98,7 @@ def heuristic_1(p_0, gamma, lpar=1, tol=1e-4, verbose=False):
         N_t = N_t + mu_t
         psi_t = psi_t + mu_t * q_t
         p_t = p_t - mu_t * q_t
-        q.append(q_t)
+        the.append(the_t)
         mu.append(mu_t)
 
         if p_t.sum() == 0:
@@ -107,4 +107,4 @@ def heuristic_1(p_0, gamma, lpar=1, tol=1e-4, verbose=False):
     # recover the original shape
     Psi_t = psi_t.reshape(r)
 
-    return psi_t, Psi_t, mu, q
+    return psi_t, Psi_t, mu, the
