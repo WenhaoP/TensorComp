@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
+from utils import q_to_the
+
 ### Helper functions for heuristic 3 ###
 
 def place_block_2(rows, cols, c, p_t):
@@ -45,14 +47,14 @@ def recover_channel_2(p_0, region_shape, c, lpar, verbose=False):
     Returns:
     Psi_t (np.array): the recovered channel
     mu (list[scalar]): a list of mu_t
-    q (list[np.array]): a list of q_t
+    the (list[np.array]): a list of q_t
     """
     r = p_0.shape
     P_t = p_0
     N_t = 0
     Psi_t = np.zeros(r)
     mu = []
-    q = []
+    the = []
 
     row_boundary = np.arange(0, r[0]+0.01, region_shape[0]).astype(int)
     col_boundary = np.arange(0, r[1]+0.01, region_shape[1]).astype(int)
@@ -80,18 +82,19 @@ def recover_channel_2(p_0, region_shape, c, lpar, verbose=False):
                 plt.close(fig)
 
             q_t, mu_t = place_block_2((row_boundary[i], row_boundary[i+1]), (col_boundary[j], col_boundary[j+1]), c, P_t)
+            the_t = q_to_the(q_t)
 
             # guarantee the gauge norm constraint
             if N_t + mu_t > lpar:
                 print(f'Heuristic 3: N_t + mu_t {N_t + mu_t} is larger than lpar {lpar} in channel {c}')
-                return Psi_t, mu, q
+                return Psi_t, mu, the
             else:
                 N_t = N_t + mu_t
                 Psi_t = Psi_t + mu_t * q_t
                 mu.append(mu_t)
-                q.append(q_t)      
+                the.append(the_t)      
 
-    return Psi_t, mu, q
+    return Psi_t, mu, the
 
 ### Main bodies of the huristic 3 ###
 
@@ -108,17 +111,17 @@ def heuristic_3(p_0, region_shape, lpars, verbose=False):
     Returns:
     Psi (np.array): the recovered image
     mu (list[scalar]): a list of mu_t
-    q (list[np.array]): a list of q_t
+    the (list[np.array]): a list of the_t
     """
     Psi = np.zeros(p_0.shape)
     mu = []
-    q = []
+    the = []
 
     # recover each color channel separately
     for c in range(3):
-        Psi_c, mu_c, q_c = recover_channel_2(p_0, region_shape, c, lpars[c], verbose)
+        Psi_c, mu_c, the_c = recover_channel_2(p_0, region_shape, c, lpars[c], verbose)
         Psi = Psi + Psi_c
         mu.extend(mu_c)
-        q.extend(q_c)
+        the.extend(the_c)
     
-    return Psi, mu, q
+    return Psi, mu, the

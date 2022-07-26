@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
+from utils import q_to_the
+
 ### Helper functions for heuristic 4 ###
 
 def place_block_3(rows, cols, c, p_t):
@@ -51,14 +53,14 @@ def recover_channel_3(p_0, c, min_n_pix, lpar, verbose=False):
     Returns:
     Psi_t (np.array): the recovered channel
     mu (list[scalar]): a list of mu_t
-    q (list[np.array]): a list of q_t
+    the (list[np.array]): a list of the_t
     """
     r = p_0.shape
     P_t = p_0
     N_t = 0
     Psi_t = np.zeros(r)
     mu = []
-    q = []
+    the = []
 
     row_boundary = [0, r[0]]
     col_boundary = [0, r[1]]
@@ -108,21 +110,22 @@ def recover_channel_3(p_0, c, min_n_pix, lpar, verbose=False):
                 # stop when a region is too small
                 if (row_boundary[i+1] - row_boundary[i]) * (col_boundary[j+1] - col_boundary[j]) <= min_n_pix:
                     print(f"Heuristic 4: The region in channel {c} is too small: {(row_boundary[i+1] - row_boundary[i]) * (col_boundary[j+1] - col_boundary[j])} pixels.")
-                    return Psi_t, mu, q
+                    return Psi_t, mu, the
                 
                 # place a block in the region 
                 q_t, mu_t, mu_t_idx = place_block_3((row_boundary[i], row_boundary[i+1]), (col_boundary[j], col_boundary[j+1]), c, P_t)
+                the_t = q_to_the(q_t)
 
                 # guarantee the gauge norm constraint
                 if N_t + mu_t > lpar:
                     print(f'Heuristic 4: N_t + mu_t {N_t + mu_t} is larger than lpar {lpar} in channel {c}')
-                    return Psi_t, mu, q
+                    return Psi_t, mu, the
                 else:
                     N_t = N_t + mu_t
                     Psi_t = Psi_t + mu_t * q_t
                     P_t = P_t - mu_t * q_t
                     mu.append(mu_t)
-                    q.append(q_t)      
+                    the.append(the_t)      
             
         # bisect each region
         for k in range(1, num_boundary):
@@ -147,17 +150,17 @@ def heuristic_4(p_0, min_n_pix, lpars, verbose=False):
     Returns:
     Psi (np.array): the recovered image
     mu (list[scalar]): a list of mu_t
-    q (list[np.array]): a list of q_t
+    the (list[np.array]): a list of the_t
     """
     Psi = np.zeros(p_0.shape)
     mu = []
-    q = []
+    the = []
 
     # recover each color channel separately
     for c in range(3):
-        Psi_c, mu_c, q_c = recover_channel_3(p_0, c, min_n_pix, lpars[c], verbose)
+        Psi_c, mu_c, the_c = recover_channel_3(p_0, c, min_n_pix, lpars[c], verbose)
         Psi = Psi + Psi_c
         mu.extend(mu_c)
-        q.extend(q_c)
+        the.extend(the_c)
     
-    return Psi, mu, q
+    return Psi, mu, the
