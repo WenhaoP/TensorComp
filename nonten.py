@@ -765,6 +765,7 @@ def nonten_initial(X, Y, r, Pts_init, Vts_init, psi_q_init, lamb_init, lpar = 1,
         
     return (lpar*psi_q)
 
+@profile
 def nonten_initial_alt(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, lamb_init, lpar = 1, tol = 1e-6, verbose = True):
     """
     X: (n, ) the indices of known entries in the flatten version of the true tensor
@@ -896,10 +897,10 @@ def nonten_initial_alt(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, lamb
     res = Y - lpar*psi_q[Xn]
     objVal = np.dot(res,res)/n
     while is_true:
+        if iter_count == 1:
+            break
         iter_count += 1
         print(iter_count)
-        if iter_count >= 100:
-            break
         # calculate linearized cost
         c = np.zeros(un) # partial derivatives of the obj function w.r.t. each known entry. 
         for ind in range(n):
