@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.image import imread
 from colour_demosaicing import masks_CFA_Bayer
 from timeit import default_timer as timer
-from nonten import nonten_initial, nonten_initial_alt
+from nonten import nonten_initial, nonten_initial_alter
 
 from utils import plot_channel, the_to_q, q_to_the
 
@@ -26,4 +26,6 @@ if __name__ == '__main__':
     lamb_init = np.load('result/lamb_init.npy')
     psi_q_init = np.load('result/psi_q_init.npy')
 
-    out = nonten_initial_alt(X, Y, r, Pts_init, Vts_init, None, psi_q_init, lamb_init, lpar = 15000, tol = 1e-6, verbose = True)
+    out = nonten_initial_alter(X, Y, r, Pts_init, Vts_init, None, psi_q_init, lamb_init, lpar = 15000, tol = 1e-6, stop_iter=100, verbose = True)
+
+    np.save('result/out', out)

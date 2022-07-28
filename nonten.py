@@ -87,6 +87,47 @@ def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un):
 
     return(psi, the, curr_cmin)
 
+# Alternating minimization oracle
+def altmin_alter(pattern, r, lpar, p, tol, cmin, gap, c, the_q, Un):
+    the = the_q.copy()
+    cum_r = np.insert(np.cumsum(r), 0, 0)
+    un = Un.shape[0]
+
+    last_cmin = cmin + 1e6
+    cnt = 0
+    while (True):
+        cnt += 1
+        for ind in range(p):
+            # fpro is the c_k when converting <theta_1 x theta_2 x ... x theta_p, grad(f(psi_q))>
+            # to <theta_ind, c_k>. Conversion is done between lines 69 to 75
+            # fpro is the pro transformed to have the same shape as theta_ind
+            # pro has the same shape as grad(f(psi_q)). 
+            # pro has the same information as fpro
+            pro = lpar*c.copy()
+            for k in range(p):
+                if (ind != k):
+                    pro = np.multiply(pro, the[cum_r[k] + Un[:,k]]) 
+
+            fpro = np.zeros(r[ind])
+            for i in range(r[ind]):
+                fpro[i] += pro[pattern[ind, i]].sum()
+
+            the[cum_r[ind]:cum_r[ind+1]] = (fpro < 0).astype(int)
+            curr_cmin = np.sum(fpro[fpro < 0])
+
+        if (curr_cmin > last_cmin - tol):
+            break
+        else:
+            last_cmin = curr_cmin
+
+    psi = np.ones(un)
+    for k in range(p):
+        psi = np.multiply(psi, the[cum_r[k] + Un[:,k]])
+
+    return(psi, the, curr_cmin)
+
+
+
 # (Khatri-Rao) Alternating minimization completion
 def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
 
@@ -766,7 +807,7 @@ def nonten_initial(X, Y, r, Pts_init, Vts_init, psi_q_init, lamb_init, lpar = 1,
     return (lpar*psi_q)
 
 @profile
-def nonten_initial_alt(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, lamb_init, lpar = 1, tol = 1e-6, verbose = True):
+def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, lamb_init, lpar = 1, tol = 1e-6, stop_iter = 1e9, verbose = True):
     """
     X: (n, ) the indices of known entries in the flatten version of the true tensor
     Y: (n, ) values of known entries corresponding to the indices in X
@@ -892,12 +933,18 @@ def nonten_initial_alt(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, lamb
     the_q = np.ones(np.sum(r))
     lamb = lamb_init # convex comb coefficients to get the current iterate
 
+    # pattern for altmin
+    altmin_pattern = np.zeros((p, max(r)), dtype=np.object)
+    for ind in range(p):
+        for i in range(r[ind]):
+            altmin_pattern[ind, i] = np.argwhere(Un[:, ind] == i)
+
     ### BCG ###
     is_true = True
     res = Y - lpar*psi_q[Xn]
     objVal = np.dot(res,res)/n
     while is_true:
-        if iter_count == 1:
+        if iter_count == stop_iter:
             break
         iter_count += 1
         print(iter_count)
@@ -978,7 +1025,7 @@ def nonten_initial_alt(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, lamb
                     # else:
                     the_n = np.round(np.random.uniform(0,1,np.sum(r)))
 
-                    (psi_n, the_n, last_cmin) = altmin(r, lpar, p, tol, m._cmin, m._gap, c, the_n, Un)
+                    (psi_n, the_n, last_cmin) = altmin_alter(altmin_pattern, r, lpar, p, tol, m._cmin, m._gap, c, the_n, Un)
                     
                     if (m._cmin - last_cmin > m._gap): # first case in the output of Weak Separation Oracle
                         m._oracle = "AltMin"
