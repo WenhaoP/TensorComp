@@ -949,18 +949,22 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, la
         iter_count += 1
         print(iter_count)
         # calculate linearized cost
-        c = np.zeros(un) # partial derivatives of the obj function w.r.t. each known entry. 
+        c = np.zeros(un, dtype=np.float32) # partial derivatives of the obj function w.r.t. each known entry. 
         for ind in range(n):
             c[Xn[ind]] += -2/n*(Y[ind] - lpar*psi_q[Xn[ind]]) # assign the derivative w.r.t. the known entry with the i-th flatten index of the tensor to the i-th element
-            
-        pro = np.dot(lpar*c,Pts) # grad(f(x_t))v
+        
+        lpar_c = lpar*c
+        print(lpar_c.dtype, Pts.dtype)
+        pro = np.dot(lpar_c,Pts) # grad(f(x_t))v
         psi_a = Pts[:,np.argmax(pro)] # v_t_A (Line 4)
         psi_f = Pts[:,np.argmin(pro)] # v_t_FW-S (Line 5)
         
-        if (np.dot(lpar*c, np.subtract(psi_a,psi_f)) >= m._gap): # Line 6
+        if (np.dot(lpar_c, np.subtract(psi_a,psi_f)) >= m._gap): # Line 6
             ### Simplex Gradient Descent ###
             sigd_count += 1
             d = pro - np.sum(pro)/Pts.shape[1] # line 3, Projection onto the hyperplane of the probability simplex}
+            print(Pts.shape, d.shape)
+            Pts_mul_d = Pts @ d
             
             if (np.equal(d,0).all()): # line 4
                 as_size = Pts.shape[1]
@@ -975,7 +979,7 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, la
                 eta = np.min(eta[d > 0]) # line 7
 
                 # Equivalent to psi_n = Pts @ (lamb - eta*d)
-                psi_n = psi_q - eta*(Pts @ d) # line 8, psi_n is y
+                psi_n = psi_q - eta*(Pts_mul_d) # line 8, psi_n is y
                 #psi_n = Pts @ (lamb.flatten() - eta*d)
                 res = Y - lpar*psi_n[Xn]
                 fn = np.dot(res,res)/n # fn is f(y)
@@ -992,19 +996,19 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, la
                     #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
                     as_drops += as_size - Pts.shape[1]
                 else:
-                    grap = Pts @ d
+                    grap = Pts_mul_d
                     gam = -np.dot(Y/lpar-psi_q[Xn], grap[Xn])/np.dot(grap[Xn], grap[Xn])
-                    psi_q = psi_q - gam*(Pts @ d)
+                    psi_q = psi_q - gam * grap
                     lamb = lamb - gam*d[:,None]
                     
         else:
             ### Weak Separation ###
             orcl_count += 1
-            m._cmin = np.dot(lpar*c,psi_q) # <grad(f(x_0)), x_0>
+            m._cmin = np.dot(lpar_c,psi_q) # <grad(f(x_0)), x_0>
             if (iter_count == -1):
                 # solve linearized (integer) optimization problem
                 ip_count += 1
-                m.setObjective(lpar*c @ psi) # minimization
+                m.setObjective(lpar_c @ psi) # minimization
                 m._oracle = "FullIP"
                 m.optimize() 
                 psi_n = psi.X
@@ -1049,7 +1053,7 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, la
                     ip_count += 1
                     psi.Start = psi_b
                     the.Start = the_b
-                    m.setObjective(lpar*c @ psi)
+                    m.setObjective(lpar_c @ psi)
                     m._oracle = "FullIP"
                     m.optimize(callback)
                     psi_n = psi.X
