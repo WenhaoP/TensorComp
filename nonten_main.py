@@ -26,7 +26,7 @@ def main():
     lamb_init = np.load('result/lamb_init.npy').astype(np.float32)
     psi_q_init = np.load('result/psi_q_init.npy').astype(np.float32)
 
-    out = nonten_initial_alter(X, Y, r, Pts_init, Vts_init, None, psi_q_init, lamb_init, lpar = 15000, tol = 1e-6, stop_iter=1000, verbose = True)
+    out = nonten_initial_alter(X, Y, r, Pts_init, Vts_init, None, psi_q_init, lamb_init, lpar = 15000, tol = 1e-6, stop_iter=10000, verbose = True)
 
     np.save('result/out', out)
 
