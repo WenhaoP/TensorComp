@@ -7,8 +7,8 @@ from nonten import nonten_initial, nonten_initial_alter
 
 from utils import plot_channel, the_to_q, q_to_the
 
-if __name__ == '__main__':
-    
+@profile
+def main():
     shape = (300, 200)
     start = (50, 50)
     image = imread('image/oski.png', 'png')   
@@ -26,6 +26,10 @@ if __name__ == '__main__':
     lamb_init = np.load('result/lamb_init.npy').astype(np.float32)
     psi_q_init = np.load('result/psi_q_init.npy').astype(np.float32)
 
-    out = nonten_initial_alter(X, Y, r, Pts_init, Vts_init, None, psi_q_init, lamb_init, lpar = 15000, tol = 1e-6, stop_iter=10, verbose = True)
+    out = nonten_initial_alter(X, Y, r, Pts_init, Vts_init, None, psi_q_init, lamb_init, lpar = 15000, tol = 1e-6, stop_iter=1000, verbose = True)
 
     np.save('result/out', out)
+
+if __name__ == '__main__':
+    main()
+    

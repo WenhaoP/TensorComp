@@ -947,14 +947,14 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, la
         if iter_count == stop_iter:
             break
         iter_count += 1
-        print(iter_count)
+        # print(iter_count)
         # calculate linearized cost
-        c = np.zeros(un, dtype=np.float32) # partial derivatives of the obj function w.r.t. each known entry. 
-        for ind in range(n):
-            c[Xn[ind]] += -2/n*(Y[ind] - lpar*psi_q[Xn[ind]]) # assign the derivative w.r.t. the known entry with the i-th flatten index of the tensor to the i-th element
-        
-        lpar_c = lpar*c
-        print(lpar_c.dtype, Pts.dtype)
+        # c = np.zeros(un, dtype=np.float32) # partial derivatives of the obj function w.r.t. each known entry. 
+        # for ind in range(n):
+        #     c[Xn[ind]] += -2/n*(Y[ind] - lpar*psi_q[Xn[ind]]) # assign the derivative w.r.t. the known entry with the i-th flatten index of the tensor to the i-th element
+        c = -2 / n * (Y - lpar * psi_q) # partial derivatives of the obj function w.r.t. each known entry. 
+        lpar_c = (lpar*c).astype(np.float32)
+
         pro = np.dot(lpar_c,Pts) # grad(f(x_t))v
         psi_a = Pts[:,np.argmax(pro)] # v_t_A (Line 4)
         psi_f = Pts[:,np.argmin(pro)] # v_t_FW-S (Line 5)
@@ -963,7 +963,7 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, la
             ### Simplex Gradient Descent ###
             sigd_count += 1
             d = pro - np.sum(pro)/Pts.shape[1] # line 3, Projection onto the hyperplane of the probability simplex}
-            print(Pts.shape, d.shape)
+            d = d.astype(np.float32)
             Pts_mul_d = Pts @ d
             
             if (np.equal(d,0).all()): # line 4
@@ -1062,6 +1062,7 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, la
                         m._gap = m._gap/2 # line 13
                         # MAYBE UPDATE GAP USING FULLIP SOLUTION?!?!?!
 
+            psi_n = psi_n.astype(np.float32)
             Pts = np.hstack((Pts,psi_n[:,None]))
             Vts = np.hstack((Vts,the_n[:,None]))
             lamb_q = np.vstack((lamb,0))
