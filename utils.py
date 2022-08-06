@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.image import imread
+import scipy.sparse as sp
+from itertools import product
 
 def plot_channel(Psi, image):
     Psi_zeros = np.zeros(image.shape)
@@ -70,4 +72,33 @@ def the_to_q(the, r):
     for i in range(1, len(r)):
         q = np.tensordot(q, the[cum_r[i]:cum_r[i+1]], axes=0)
 
-    return  q
+    return q
+
+def Vts_to_Pts(Vts, X, r, cum_r):
+    """
+    Convert Vts to Pts which is a scipy sparse matrix
+    """
+    def find_idx(c, c_idx):
+        """
+        Find the row index of nonzero entries in each column of Pts_sparse 
+        """
+        vts_one_idx = np.argwhere(c == 1)
+        idx = list(
+            product(
+                (vts_one_idx[vts_one_idx < cum_r[1]]),
+                (vts_one_idx[(vts_one_idx >= cum_r[1]) & (vts_one_idx < cum_r[2])] - cum_r[1]),
+                (vts_one_idx[(vts_one_idx >= cum_r[2]) & (vts_one_idx < cum_r[3])] - cum_r[2])
+            )
+        )
+        flat_idx = np.ravel_multi_index(np.array(idx).T, r)
+        out = np.argwhere(np.isin(X, flat_idx))
+        out = np.hstack([out, np.ones(len(out), dtype=int).reshape(-1, 1) * c_idx])
+        return out
+    
+    if Vts.sum() == 0:
+        Pts_sparse = sp.csc_matrix((len(X), Vts.shape[1]))
+    else:
+        ones_idx = np.vstack(list(map(find_idx, Vts.T, np.arange(Vts.shape[1]))))
+        Pts_sparse = sp.csc_matrix((np.ones(len(ones_idx)), (ones_idx[:, 0], ones_idx[:, 1])), shape=(len(X), Vts.shape[1]))
+
+    return Pts_sparse

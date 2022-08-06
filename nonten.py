@@ -3,6 +3,10 @@ import scipy.sparse as sp
 import time
 from gurobipy import *
 
+from utils import Vts_to_Pts
+
+np.random.seed(10)
+
 # Prune active set 
 def prune(Pts, Vts, psi_q):
     o = Model()
@@ -807,7 +811,7 @@ def nonten_initial(X, Y, r, Pts_init, Vts_init, psi_q_init, lamb_init, lpar = 1,
     return (lpar*psi_q)
 
 @profile
-def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, lamb_init, lpar = 1, tol = 1e-6, stop_iter = 1e9, verbose = True):
+def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, psi_q_init, lamb_init, lpar = 1, tol = 1e-6, stop_iter = 1e9, verbose = True):
     """
     X: (n, ) the indices of known entries in the flatten version of the true tensor
     Y: (n, ) values of known entries corresponding to the indices in X
@@ -926,12 +930,13 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, la
 
     # Best point to date
     # Initialization
-    Pts = Pts_init # (projected) active vertex set (Proj_U(S_t) in Line 2). Elements (psi) are the vertices of Proj_U(C_1)
+    # Pts = Pts_init # (projected) active vertex set (Proj_U(S_t) in Line 2). Elements (psi) are the vertices of Proj_U(C_1)
     Vts = Vts_init # (non-projected) active vertex set (S_t in Line 2). Elements (theta which can be used to recover psi) are the vertices of C_1
     psi_q = psi_q_init # the current iterate x_t (in Proj_U(C_1)) which is a cvx combination of elements in Pts using lamb as the coefficients
-    # Psi_q = Psi_q_init
     the_q = np.ones(np.sum(r))
     lamb = lamb_init # convex comb coefficients to get the current iterate
+
+    Pts_sparse = Vts_to_Pts(Vts, X, r, cum_r)
 
     # pattern for altmin
     altmin_pattern = np.zeros((p, max(r)), dtype=np.object)
@@ -949,37 +954,34 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, la
         iter_count += 1
         # print(iter_count)
         # calculate linearized cost
-        # c = np.zeros(un, dtype=np.float32) # partial derivatives of the obj function w.r.t. each known entry. 
-        # for ind in range(n):
-        #     c[Xn[ind]] += -2/n*(Y[ind] - lpar*psi_q[Xn[ind]]) # assign the derivative w.r.t. the known entry with the i-th flatten index of the tensor to the i-th element
         c = -2 / n * (Y - lpar * psi_q) # partial derivatives of the obj function w.r.t. each known entry. 
-        lpar_c = (lpar*c).astype(np.float32)
+        lpar_c = lpar*c
 
-        pro = np.dot(lpar_c,Pts) # grad(f(x_t))v
-        psi_a = Pts[:,np.argmax(pro)] # v_t_A (Line 4)
-        psi_f = Pts[:,np.argmin(pro)] # v_t_FW-S (Line 5)
+        # pro = np.dot(lpar_c,Pts) # grad(f(x_t))v
+        pro = Pts_sparse.T.dot(lpar_c)
+        psi_a = Pts_sparse[:,np.argmax(pro)] # v_t_A (Line 4)
+        psi_f = Pts_sparse[:,np.argmin(pro)] # v_t_FW-S (Line 5)
         
-        if (np.dot(lpar_c, np.subtract(psi_a,psi_f)) >= m._gap): # Line 6
+        if ((psi_a - psi_f).T.dot(lpar_c) >= m._gap): # Line 6
             ### Simplex Gradient Descent ###
             sigd_count += 1
-            d = pro - np.sum(pro)/Pts.shape[1] # line 3, Projection onto the hyperplane of the probability simplex}
-            d = d.astype(np.float32)
-            Pts_mul_d = Pts @ d
+            d = pro - np.sum(pro)/Pts_sparse.shape[1] # line 3, Projection onto the hyperplane of the probability simplex}
+            Pts_dot_d = Pts_sparse.dot(d)
             
             if (np.equal(d,0).all()): # line 4
-                as_size = Pts.shape[1]
-                psi_q = Pts[:,0]
-                Pts = Pts[:,0]
+                as_size = Pts_sparse.shape[1]
+                psi_q = Pts_sparse[:,0]
+                Pts_sparse = Pts_sparse[:,0]
                 Vts = Vts[:,0]
                 lamb = np.array([[1]])
                 #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
-                as_drops += as_size - Pts.shape[1]
+                as_drops += as_size - Pts_sparse.shape[1]
             else:
                 eta = np.divide(lamb,d[:,None]) # line 7
                 eta = np.min(eta[d > 0]) # line 7
 
                 # Equivalent to psi_n = Pts @ (lamb - eta*d)
-                psi_n = psi_q - eta*(Pts_mul_d) # line 8, psi_n is y
+                psi_n = psi_q - eta*(Pts_dot_d) # line 8, psi_n is y
                 #psi_n = Pts @ (lamb.flatten() - eta*d)
                 res = Y - lpar*psi_n[Xn]
                 fn = np.dot(res,res)/n # fn is f(y)
@@ -987,16 +989,16 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, la
                 if (objVal >= fn): # line 9
                     psi_q = psi_n # line 10
                     objVal = fn
-                    as_size = Pts.shape[1]
+                    as_size = Pts_sparse.shape[1]
                     lamb = lamb - eta*d[:,None]
                     inds = lamb.flatten() > 0
-                    Pts = Pts[:, inds]
+                    Pts_sparse = Pts_sparse[:, inds]
                     Vts = Vts[:, inds]
                     lamb = lamb[inds]/np.sum(lamb[inds])
                     #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
-                    as_drops += as_size - Pts.shape[1]
+                    as_drops += as_size - Pts_sparse.shape[1]
                 else:
-                    grap = Pts_mul_d
+                    grap = Pts_dot_d
                     gam = -np.dot(Y/lpar-psi_q[Xn], grap[Xn])/np.dot(grap[Xn], grap[Xn])
                     psi_q = psi_q - gam * grap
                     lamb = lamb - gam*d[:,None]
@@ -1062,9 +1064,9 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, la
                         m._gap = m._gap/2 # line 13
                         # MAYBE UPDATE GAP USING FULLIP SOLUTION?!?!?!
 
-            psi_n = psi_n.astype(np.float32)
-            Pts = np.hstack((Pts,psi_n[:,None]))
             Vts = np.hstack((Vts,the_n[:,None]))
+            psi_n_sparse = Vts_to_Pts(the_n.reshape(-1, 1), X, r, cum_r)
+            Pts_sparse = sp.hstack([Pts_sparse, psi_n_sparse])
             lamb_q = np.vstack((lamb,0))
             lamb_n = np.vstack((np.zeros(lamb.shape),1))
             (psi_q, lamb, gam) = golden(Xn, Y, psi_q, psi_n, lamb_q, lamb_n, lpar) # find the optimal cvx combination of the current iterate and the new vertex
@@ -1073,7 +1075,7 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, Psi_q_init, psi_q_init, la
         objVal = np.dot(res,res)/n
         bestbd = np.max([bestbd, objVal - 2*m._gap])
         #bestbd = np.max([bestbd, objVal - 2*m._gap, objVal - 8*imup*m._gap**2])
-        as_size = Pts.shape[1]
+        as_size = Pts_sparse.shape[1]
         
         if (2*m._gap < tol or (objVal - bestbd) < tol):
         #if (2*m._gap < tol or (objVal - bestbd) < tol or 8*imup*m._gap**2 < tol):
