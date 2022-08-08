@@ -21,7 +21,7 @@ def plot_channel(Psi, image):
     image_g[..., 1] = image[..., 1]
     image_b[..., 2] = image[..., 2]
 
-    fig, axes = plt.subplots(1, 6, figsize=(25, 6))
+    fig, axes = plt.subplots(1, 6, figsize=(25, 20), constrained_layout=True)
     axes[0].imshow(Psi_r)
     axes[1].imshow(image_r)
     axes[2].imshow(Psi_g)

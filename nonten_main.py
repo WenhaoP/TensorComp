@@ -26,10 +26,15 @@ def main():
     lamb_init = np.load('result/lamb_init.npy').astype(np.float32)
     psi_q_init = np.load('result/psi_q_init.npy').astype(np.float32)
 
-    out = nonten_initial_alter(X, Y, r, None, Vts_init, psi_q_init, lamb_init, lpar = 15000, tol = 1e-6, stop_iter=10000, verbose = True)
+    out = nonten_initial_alter(X, Y, r, None, Vts_init, psi_q_init, lamb_init, lpar = LPAR, tol = 1e-6, stop_iter=STOP_ITER, max_altmin_cnt = MAX_ALTMIN_CNT, verbose = True)
 
-    np.save('result/out', out)
+    np.save(f'result/lpar_{LPAR}_stop_iter_{STOP_ITER}_max_altmin_cnt_{MAX_ALTMIN_CNT}', out)
 
 if __name__ == '__main__':
+    
+    LPAR = 20000
+    STOP_ITER = 5000000
+    MAX_ALTMIN_CNT = 10000
+
     main()
     
