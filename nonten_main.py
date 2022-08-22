@@ -33,8 +33,8 @@ def main():
 if __name__ == '__main__':
     
     LPAR = 20000
-    STOP_ITER = 5000000
-    MAX_ALTMIN_CNT = 10000
+    STOP_ITER = 10000
+    MAX_ALTMIN_CNT = 100
 
     main()
     
