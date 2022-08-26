@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.image import imread
 from colour_demosaicing import masks_CFA_Bayer
 from timeit import default_timer as timer
-from nonten import nonten_initial, nonten_initial_alter
+from nonten import nonten_initial_alter
 
 from utils import plot_channel, the_to_q, q_to_the
 
@@ -21,20 +21,26 @@ def main():
     Y = mosaic_image.flatten()[X]
     r = mosaic_image.shape
 
-    # Pts_init = np.load('result/Pts_init.npy').astype(np.float32)
-    Vts_init = np.load('result/Vts_init.npy').astype(np.float32)
-    lamb_init = np.load('result/lamb_init.npy').astype(np.float32)
-    psi_q_init = np.load('result/psi_q_init.npy').astype(np.float32)
+    if INITIALIZE:
+        # Pts_init = np.load('result/Pts_init.npy').astype(np.float32)
+        Vts_init = np.load('result/Vts_init.npy').astype(np.float32)
+        lamb_init = np.load('result/lamb_init.npy').astype(np.float32)
+        psi_q_init = np.load('result/psi_q_init.npy').astype(np.float32)
+    else:
+        Vts_init = np.ones(sum(r)).reshape(-1, 1)
+        lamb_init = np.array([1])
+        psi_q_init = np.ones_like(X)
 
     out = nonten_initial_alter(X, Y, r, None, Vts_init, psi_q_init, lamb_init, lpar = LPAR, tol = 1e-6, stop_iter=STOP_ITER, max_altmin_cnt = MAX_ALTMIN_CNT, verbose = True)
 
-    np.save(f'result/lpar_{LPAR}_stop_iter_{STOP_ITER}_max_altmin_cnt_{MAX_ALTMIN_CNT}', out)
+    np.save(f'result/initialize_{INITIALIZE}_lpar_{LPAR}_stop_iter_{STOP_ITER}_max_altmin_cnt_{MAX_ALTMIN_CNT}', out)
 
 if __name__ == '__main__':
     
-    LPAR = 20000
-    STOP_ITER = 10000
-    MAX_ALTMIN_CNT = 100
+    INITIALIZE = False
+    LPAR = 5000
+    STOP_ITER = 1000000
+    MAX_ALTMIN_CNT = 10000
 
     main()
     
