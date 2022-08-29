@@ -54,7 +54,7 @@ def callback(model, where):
         model._gap = np.minimum(model._gap, (model._cmin - model.cbGet(GRB.Callback.MIPNODE_OBJBND))/2)
 
 # Alternating minimization oracle
-# @profile
+@profile
 def altmin_alter(pattern, r, lpar, p, tol, cmin, gap, c, the_q, Un):
     the = the_q.copy()
     cum_r = np.insert(np.cumsum(r), 0, 0)
@@ -193,7 +193,7 @@ def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
         
     return(psi_q)
 
-# @profile
+@profile
 def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, psi_q_init, lamb_init, lpar = 1, tol = 1e-6, stop_iter = 1e9, max_altmin_cnt = 1e2, verbose = True):
     """
     X: (n, ) the indices of known entries in the flatten version of the true tensor
@@ -201,7 +201,7 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, psi_q_init, lamb_init, lpa
     r: (r_1, ..., r_p) dimension of the truth tensor
     lpar: lambda parameter in eqn (8)
     """
-    
+
     # Setup timer
     elapsed_time = 0
     last_time = time.process_time()
