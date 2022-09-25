@@ -52,7 +52,7 @@ def callback(model, where):
         model._gap = np.minimum(model._gap, (model._cmin - model.cbGet(GRB.Callback.MIPNODE_OBJBND))/2)
             
 # Alternating minimization oracle
-def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un):
+def altmin(pattern, r, lpar, p, tol, cmin, gap, c, the_q, Un):
     the = the_q.copy()
     cum_r = np.insert(np.cumsum(r), 0, 0)
     un = Un.shape[0]
@@ -74,7 +74,7 @@ def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un):
 
             fpro = np.zeros(r[ind])
             for i in range(r[ind]):
-                fpro[i] += pro[np.argwhere(Un[:, ind] == i)].sum()
+                fpro[i] += pro[pattern[ind, i]].sum()
             the[cum_r[ind]:cum_r[ind+1]] = (fpro < 0).astype(int)
             curr_cmin = np.sum(fpro[fpro < 0])
 
@@ -313,6 +313,12 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     the_q = np.ones(np.sum(r))
     lamb = np.array([[1]]) # convex comb coefficients to get the current iterate
 
+    # pattern for altmin
+    altmin_pattern = np.zeros((p, max(r)), dtype=np.object)
+    for ind in range(p):
+        for i in range(r[ind]):
+            altmin_pattern[ind, i] = np.argwhere(Un[:, ind] == i)
+
     ### BCG ###
     is_true = True
     while is_true:
@@ -397,7 +403,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
                     else:
                         the_n = np.round(np.random.uniform(0,1,np.sum(r)))
 
-                    (psi_n, the_n, last_cmin) = altmin(r, lpar, p, tol, m._cmin, m._gap, c, the_n, Un)
+                    (psi_n, the_n, last_cmin) = altmin(altmin_pattern, r, lpar, p, tol, m._cmin, m._gap, c, the_n, Un)
                     
                     if (m._cmin - last_cmin > m._gap): # first case in the output of Weak Separation Oracle
                         m._oracle = "AltMin"
