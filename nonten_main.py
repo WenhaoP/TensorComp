@@ -50,13 +50,13 @@ def main():
 
 if __name__ == '__main__':
     
-    INITIALIZE = False
+    INITIALIZE = True
     HEURISTIC = 3
-    SIZE = [6, 4]
-    GREEN_SCAL_COEF = 0.5
-    LPAR = 1000
-    STOP_ITER = 100000
-    MAX_ALTMIN_CNT = 1000
+    SIZE = [3, 2]
+    GREEN_SCAL_COEF = 1
+    LPAR = 30000
+    STOP_ITER = 1000000
+    MAX_ALTMIN_CNT = 100
 
     main()
     

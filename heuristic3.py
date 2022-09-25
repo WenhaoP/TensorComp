@@ -58,11 +58,12 @@ def recover_channel_2(p_0, region_shape, c, lpar, verbose=False):
 
     row_boundary = np.arange(0, r[0]+0.01, region_shape[0]).astype(int)
     col_boundary = np.arange(0, r[1]+0.01, region_shape[1]).astype(int)
-    num_boundary = len(row_boundary)
+    n_row_boundary = len(row_boundary)
+    n_col_boundary = len(col_boundary)
 
     # place a "block" in each region
-    for i in range(num_boundary-1):
-        for j in range(num_boundary-1):
+    for i in range(n_row_boundary-1):
+        for j in range(n_col_boundary-1):
 
             if verbose:
                 print(f'N_t is {N_t}')
