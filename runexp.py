@@ -17,7 +17,8 @@ r = (10,10,10)
 n = 500
 corners = 10
 reps = 100
-rng = np.random.default_rng(40)
+np.random.seed(10)
+seed(10)
 ##################################################################
 
 # Compute derived parameters
@@ -35,10 +36,10 @@ for rep in range(reps):
     # Generate random tensor within rank-1 tensor ball
     phi = np.zeros(np.prod(r))
     pho = np.zeros(r)
-    lam = rng.uniform(0,1,corners)
+    lam = np.random.uniform(0,1,corners)
     lam = lam/np.sum(lam)
     for ind in range(corners):
-        the = rng.uniform(0,1,np.sum(r))
+        the = np.random.uniform(0,1,np.sum(r))
         the = 1.0*(the < 0.5)
 
         the_t = the[cum_r[0]:cum_r[1]]
@@ -54,7 +55,7 @@ for rep in range(reps):
     Y = np.zeros(n) # values of known entries
     Yo = -1*np.ones(np.prod(r)) # -1 means that the true entry value is unknown
     for ind in range(n):
-        ind_s2i = np.ravel_multi_index([rng.integers(0,r[k]-1,dtype=int) for k in range(p)], r) # index of known entry
+        ind_s2i = np.ravel_multi_index([randint(0,r[k]-1) for k in range(p)], r) # index of known entry
         X[ind] = ind_s2i
         Y[ind] = phi[ind_s2i]
         Yo[ind_s2i] = phi[ind_s2i]
@@ -63,7 +64,7 @@ for rep in range(reps):
     print("")
     print("Running BCG...")
     last_time = time.time()
-    psi_n = nonten(X, Y, r, rng, tol=1e-4)
+    psi_n = nonten(X, Y, r, tol=1e-4)
     curr_time = time.time()
     elapsed_time = curr_time - last_time
     nonten_results[rep, 0] = np.dot(phi-psi_n,phi-psi_n)/np.dot(phi,phi)
@@ -72,7 +73,7 @@ for rep in range(reps):
     print("")
     print("Running ALS...")
     last_time = time.time()
-    psi_q = krcomp(X, Y, r, corners, rng, 0.1, tol=1e-4)
+    psi_q = krcomp(X, Y, r, corners, 0.1, tol=1e-4)
     #[Tpsi, psi_q] = cp_als(Tensor(Yo), corners, Yo > -0.5, maxiter=1000, printitn=100)
     curr_time = time.time()
     elapsed_time = curr_time - last_time
