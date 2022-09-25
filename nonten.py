@@ -3,6 +3,8 @@ import scipy.sparse as sp
 import time
 from gurobipy import *
 
+from utils import Vts_to_Pts_sparse
+
 # Prune active set 
 def prune(Pts, Vts, psi_q):
     o = Model()
@@ -219,6 +221,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     un = len(uinds) # unique number of known entries
     Un = np.zeros((un, p), dtype=int) # unique coordinate indices of known entries
     Xn = np.zeros(n, dtype=int) # i-th element is the index of the i-th sample
+    X_uni = np.unique(X)
     imup = un/(2*lpar*np.max(ucnt)/n)
     
     # Variables for the linearized optimization problem
@@ -304,8 +307,8 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
 
     # Best point to date
     # Initialization
-    Pts = np.ones((un,1)) # (projected) active vertex set (Proj_U(S_t) in Line 2). Elements (psi) are the vertices of Proj_U(C_1)
     Vts = np.ones((np.sum(r),1)) # (non-projected) active vertex set (S_t in Line 2). Elements (theta which can be used to recover psi) are the vertices of C_1
+    Pts_sparse = Vts_to_Pts_sparse(Vts, X_uni, r, cum_r) # (projected) active vertex set (Proj_U(S_t) in Line 2). Elements (psi) are the vertices of Proj_U(C_1)
     psi_q = np.ones(un) # the current iterate x_t (in Proj_U(C_1)) which is a cvx combination of elements in Pts using lamb as the coefficients
     the_q = np.ones(np.sum(r))
     lamb = np.array([[1]]) # convex comb coefficients to get the current iterate
@@ -318,31 +321,32 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
         c = np.zeros(un) # partial derivatives of the obj function w.r.t. each known entry. 
         for ind in range(n):
             c[Xn[ind]] += -2/n*(Y[ind] - lpar*psi_q[Xn[ind]]) # assign the derivative w.r.t. the known entry with the i-th flatten index of the tensor to the i-th element
-            
-        pro = np.dot(lpar*c,Pts) # grad(f(x_t))v
-        psi_a = Pts[:,np.argmax(pro)] # v_t_A (Line 4)
-        psi_f = Pts[:,np.argmin(pro)] # v_t_FW-S (Line 5)
+        lpar_c = lpar*c
+
+        pro = Pts_sparse.T.dot(lpar_c) # grad(f(x_t))v
+        psi_a = Pts_sparse[:,np.argmax(pro)] # v_t_A (Line 4)
+        psi_f = Pts_sparse[:,np.argmin(pro)] # v_t_FW-S (Line 5)
         
-        if (np.dot(lpar*c, np.subtract(psi_a,psi_f)) >= m._gap): # Line 6
+        if ((psi_a - psi_f).T.dot(lpar_c) >= m._gap): # Line 6
             ### Simplex Gradient Descent ###
             sigd_count += 1
-            d = pro - np.sum(pro)/Pts.shape[1] # line 3, Projection onto the hyperplane of the probability simplex}
-            Pts_dot_d = Pts @ d
+            d = pro - np.sum(pro)/Pts_sparse.shape[1] # line 3, Projection onto the hyperplane of the probability simplex}
+            Pts_sparse_dot_d = Pts_sparse.dot(d)
 
             if (np.equal(d,0).all()): # line 4
-                as_size = Pts.shape[1]
-                psi_q = Pts[:,0]
-                Pts = Pts[:,0]
+                as_size = Pts_sparse.shape[1]
+                psi_q = Pts_sparse[:,0]
+                Pts_sparse = Pts_sparse[:,0]
                 Vts = Vts[:,0]
                 lamb = np.array([[1]])
                 #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
-                as_drops += as_size - Pts.shape[1]
+                as_drops += as_size - Pts_sparse.shape[1]
             else:
                 eta = np.divide(lamb,d[:,None]) # line 7
                 eta = np.min(eta[d > 0]) # line 7
 
                 # Equivalent to psi_n = Pts @ (lamb - eta*d)
-                psi_n = psi_q - eta*(Pts_dot_d) # line 8, psi_n is y
+                psi_n = psi_q - eta*(Pts_sparse_dot_d) # line 8, psi_n is y
                 #psi_n = Pts @ (lamb.flatten() - eta*d)
                 res = Y - lpar*psi_n[Xn]
                 fn = np.dot(res,res)/n # fn is f(y)
@@ -350,29 +354,29 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
                 if (objVal >= fn): # line 9
                     psi_q = psi_n # line 10
                     objVal = fn
-                    as_size = Pts.shape[1]
+                    as_size = Pts_sparse.shape[1]
                     lamb = lamb - eta*d[:,None]
                     inds = lamb.flatten() > 0
-                    Pts = Pts[:, inds]
+                    Pts_sparse = Pts_sparse[:, inds]
                     Vts = Vts[:, inds]
                     lamb = lamb[inds]/np.sum(lamb[inds])
                     #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
-                    as_drops += as_size - Pts.shape[1]
+                    as_drops += as_size - Pts_sparse.shape[1]
                 else:
-                    grap = Pts_dot_d
+                    grap = Pts_sparse_dot_d
                     grap_Xn = grap[Xn]
-                    gam = -np.dot(Y/lpar-psi_q[Xn], grap_Xn) / np.linalg.norm(grap_Xn)**2
+                    gam = -np.dot(Y/lpar-psi_q[Xn], grap_Xn) / np.dot(grap_Xn, grap_Xn)
                     psi_q = psi_q - gam*grap
                     lamb = lamb - gam*d[:,None]
                     
         else:
             ### Weak Separation ###
             orcl_count += 1
-            m._cmin = np.dot(lpar*c,psi_q) # <grad(f(x_0)), x_0>
+            m._cmin = np.dot(lpar_c,psi_q) # <grad(f(x_0)), x_0>
             if (iter_count == 1):
                 # solve linearized (integer) optimization problem
                 ip_count += 1
-                m.setObjective(lpar*c @ psi) # minimization
+                m.setObjective(lpar_c @ psi) # minimization
                 m._oracle = "FullIP"
                 m.optimize() 
                 psi_n = psi.X
@@ -416,7 +420,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
                     ip_count += 1
                     psi.Start = psi_b
                     the.Start = the_b
-                    m.setObjective(lpar*c @ psi)
+                    m.setObjective(lpar_c @ psi)
                     m._oracle = "FullIP"
                     m.optimize(callback)
                     psi_n = psi.X
@@ -425,8 +429,9 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
                         m._gap = m._gap/2 # line 13
                         # MAYBE UPDATE GAP USING FULLIP SOLUTION?!?!?!
 
-            Pts = np.hstack((Pts,psi_n[:,None]))
             Vts = np.hstack((Vts,the_n[:,None]))
+            psi_n_sparse = Vts_to_Pts_sparse(the_n.reshape(-1, 1), X_uni, r, cum_r)
+            Pts_sparse = sp.hstack([Pts_sparse, psi_n_sparse])
             lamb_q = np.vstack((lamb,0))
             lamb_n = np.vstack((np.zeros(lamb.shape),1))
             (psi_q, lamb, gam) = golden(Xn, Y, psi_q, psi_n, lamb_q, lamb_n, lpar) # find the optimal cvx combination of the current iterate and the new vertex
@@ -435,7 +440,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
         objVal = np.dot(res,res)/n
         bestbd = np.max([bestbd, objVal - 2*m._gap])
         #bestbd = np.max([bestbd, objVal - 2*m._gap, objVal - 8*imup*m._gap**2])
-        as_size = Pts.shape[1]
+        as_size = Pts_sparse.shape[1]
         
         if (2*m._gap < tol or (objVal - bestbd) < tol):
         #if (2*m._gap < tol or (objVal - bestbd) < tol or 8*imup*m._gap**2 < tol):
