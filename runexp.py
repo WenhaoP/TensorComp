@@ -17,6 +17,7 @@ r = (10,10,10)
 n = 500
 corners = 10
 reps = 100
+np.random.seed(10)
 ##################################################################
 
 # Compute derived parameters
