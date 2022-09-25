@@ -88,7 +88,7 @@ def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un):
     return(psi, the, curr_cmin)
 
 # (Khatri-Rao) Alternating minimization completion
-def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
+def krcomp(X, Y, r, rank, rng, lpar = 1, tol = 1e-6, verbose = True):
 
     # Compute derived parameters
     n = X.shape[0]
@@ -110,7 +110,7 @@ def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
     cnt = 0
     
     # Best point to date
-    the_q = np.random.uniform(0,np.max(Y)**(1/p),((np.sum(r), rank)))
+    the_q = rng.uniform(0,np.max(Y)**(1/p),((np.sum(r), rank)))
 
     # Setup timer
     elapsed_time = 0
@@ -185,7 +185,7 @@ def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
         
     return(psi_q)
 
-def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
+def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True):
     """
     X: (n, ) the indices of known entries in the flatten version of the true tensor
     Y: (n, ) values of known entries corresponding to the indices in X
@@ -389,7 +389,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
                     elif (altmin_count == 2):
                         the_n = 1-the.X
                     else:
-                        the_n = np.round(np.random.uniform(0,1,np.sum(r)))
+                        the_n = np.round(rng.uniform(0,1,np.sum(r)))
 
                     (psi_n, the_n, last_cmin) = altmin(r, lpar, p, tol, m._cmin, m._gap, c, the_n, Un)
                     
