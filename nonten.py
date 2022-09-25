@@ -71,8 +71,8 @@ def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un):
                     pro = np.multiply(pro, the[cum_r[k] + Un[:,k]]) 
 
             fpro = np.zeros(r[ind])
-            for k in range(un):
-                fpro[Un[k,ind]] += pro[k]
+            for i in range(r[ind]):
+                fpro[i] += pro[np.argwhere(Un[:, ind] == i)].sum()
             the[cum_r[ind]:cum_r[ind+1]] = (fpro < 0).astype(int)
             curr_cmin = np.sum(fpro[fpro < 0])
 
