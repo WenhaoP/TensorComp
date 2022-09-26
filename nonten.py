@@ -367,7 +367,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
                 else:
                     grap = Pts_dot_d
                     grap_Xn = grap[Xn]
-                    gam = -np.dot(Y/lpar-psi_q[Xn], grap_Xn) / np.linalg.norm(grap_Xn)**2
+                    gam = -np.dot(Y/lpar-psi_q[Xn], grap_Xn) / np.dot(grap_Xn, grap_Xn)
                     psi_q = psi_q - gam*grap
                     lamb = lamb - gam*d[:,None]
                     
