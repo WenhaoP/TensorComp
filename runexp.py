@@ -13,13 +13,13 @@ from pyten.tools import tenerror
 ##################################################################
 # EDIT THESE TO CHANGE PROBLEM SETUP
 # Problem parameters
-r = (10,10,10)
-n = 500
+r = (10,10,10,10,10,10,10,10)
+n = 10000
 corners = 10
-reps = 100
+reps = 1
 indices = True
-pattern = False 
-sparse = True
+pattern = True
+sparse = False
 np.random.seed(10)
 seed(10)
 ##################################################################
@@ -108,12 +108,14 @@ print("")
 print("Experiment Results: ")
 print("")
 
-print("BCG:")
+print(f"BCG with {indices} indices, {pattern} pattern, {sparse} sparse speed ups:")
 print("Mean (NMSE, Time)")
 print(np.mean(nonten_results,0))
 
 print("Standard Error (NMSE, Time)")
 print(np.std(nonten_results,0)/np.sqrt(reps))
+
+np.save(f'r_{r}_n_{n}_corners_{corners}_reps_{reps}_indices_{indices}_pattern_{pattern}_sparse_{sparse}', nonten_results)
 
 # print("")
 # print("ALS:")

@@ -25,7 +25,6 @@ def prune(Pts, Vts, psi_q):
 # Golden section search
 def golden(X, Y, psi_q, psi_n, lamb_q, lamb_n, lpar):
     n = X.shape[0]
-    psi_n = psi_n.toarray().squeeze()
     dpsi = psi_q[X] - psi_n[X]
     gam = np.dot(Y/lpar-psi_n[X],dpsi)/np.dot(dpsi,dpsi)
     
@@ -50,8 +49,9 @@ def callback(model, where):
             model.terminate()
     elif where == GRB.Callback.MIPNODE:
         model._gap = np.minimum(model._gap, (model._cmin - model.cbGet(GRB.Callback.MIPNODE_OBJBND))/2)
-            
+          
 # Alternating minimization oracle
+@profile 
 def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un, indices=False, pattern=False, altmin_pattern=None):
     """
     indices (bool): implement the fpro computation speed up if True
@@ -202,6 +202,7 @@ def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
         
     return(psi_q)
 
+@profile
 def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern=False, sparse=False):
     """
     X: (n, ) the indices of known entries in the flatten version of the true tensor
@@ -472,6 +473,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
             if sparse:
                 psi_n = Vts_to_Pts_sparse(the_n.reshape(-1, 1), X_uni, r, cum_r)
                 Pts = sp.hstack([Pts, psi_n])
+                psi_n = psi_n.toarray().squeeze()
             else:
                 Pts = np.hstack((Pts,psi_n[:,None]))
             lamb_q = np.vstack((lamb,0))
