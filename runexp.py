@@ -17,6 +17,9 @@ r = (10,10,10)
 n = 500
 corners = 10
 reps = 100
+indices = True
+pattern = False 
+sparse = True
 np.random.seed(10)
 seed(10)
 ##################################################################
@@ -64,42 +67,42 @@ for rep in range(reps):
     print("")
     print("Running BCG...")
     last_time = time.time()
-    psi_n = nonten(X, Y, r, tol=1e-4)
+    psi_n = nonten(X, Y, r, tol=1e-4, indices=indices, pattern=pattern, sparse=sparse)
     curr_time = time.time()
     elapsed_time = curr_time - last_time
     nonten_results[rep, 0] = np.dot(phi-psi_n,phi-psi_n)/np.dot(phi,phi)
     nonten_results[rep, 1] = elapsed_time
     
-    print("")
-    print("Running ALS...")
-    last_time = time.time()
-    psi_q = krcomp(X, Y, r, corners, 0.1, tol=1e-4)
-    #[Tpsi, psi_q] = cp_als(Tensor(Yo), corners, Yo > -0.5, maxiter=1000, printitn=100)
-    curr_time = time.time()
-    elapsed_time = curr_time - last_time
-    amcomp_results[rep, 0] = np.dot(phi-psi_q,phi-psi_q)/np.dot(phi,phi)
-    #amcomp_results[rep, 0] = np.dot(phi-psi_q.data.flatten(),phi-psi_q.data.flatten())/np.dot(phi,phi)
-    amcomp_results[rep, 1] = elapsed_time
+    # print("")
+    # print("Running ALS...")
+    # last_time = time.time()
+    # psi_q = krcomp(X, Y, r, corners, 0.1, tol=1e-4)
+    # #[Tpsi, psi_q] = cp_als(Tensor(Yo), corners, Yo > -0.5, maxiter=1000, printitn=100)
+    # curr_time = time.time()
+    # elapsed_time = curr_time - last_time
+    # amcomp_results[rep, 0] = np.dot(phi-psi_q,phi-psi_q)/np.dot(phi,phi)
+    # #amcomp_results[rep, 0] = np.dot(phi-psi_q.data.flatten(),phi-psi_q.data.flatten())/np.dot(phi,phi)
+    # amcomp_results[rep, 1] = elapsed_time
 
-    print("")
-    print("Running SiLRTC...")
-    last_time = time.time()
-    psi_q = silrtc(Tensor(Yo), Yo > -0.5)
-    curr_time = time.time()
-    elapsed_time = curr_time - last_time
-    silrtc_results[rep, 0] = np.dot(phi-psi_q.data.flatten(),phi-psi_q.data.flatten())/np.dot(phi,phi)
-    silrtc_results[rep, 1] = elapsed_time
-    last_time = time.time()
+    # print("")
+    # print("Running SiLRTC...")
+    # last_time = time.time()
+    # psi_q = silrtc(Tensor(Yo), Yo > -0.5)
+    # curr_time = time.time()
+    # elapsed_time = curr_time - last_time
+    # silrtc_results[rep, 0] = np.dot(phi-psi_q.data.flatten(),phi-psi_q.data.flatten())/np.dot(phi,phi)
+    # silrtc_results[rep, 1] = elapsed_time
+    # last_time = time.time()
 
-    print("Running TNCP...")
-    last_time = time.time()
-    selft = TNCP(Tensor(Yo), Yo > -0.5, corners)
-    selft.run()
-    curr_time = time.time()
-    elapsed_time = curr_time - last_time
-    tncomp_results[rep, 0] = np.dot(phi-selft.X.data.flatten(),phi-selft.X.data.flatten())/np.dot(phi,phi)
-    tncomp_results[rep, 1] = elapsed_time
-    print("")
+    # print("Running TNCP...")
+    # last_time = time.time()
+    # selft = TNCP(Tensor(Yo), Yo > -0.5, corners)
+    # selft.run()
+    # curr_time = time.time()
+    # elapsed_time = curr_time - last_time
+    # tncomp_results[rep, 0] = np.dot(phi-selft.X.data.flatten(),phi-selft.X.data.flatten())/np.dot(phi,phi)
+    # tncomp_results[rep, 1] = elapsed_time
+    # print("")
 
 print("")
 print("Experiment Results: ")
@@ -112,26 +115,26 @@ print(np.mean(nonten_results,0))
 print("Standard Error (NMSE, Time)")
 print(np.std(nonten_results,0)/np.sqrt(reps))
 
-print("")
-print("ALS:")
-print("Mean (NMSE, Time)")
-print(np.mean(amcomp_results,0))
+# print("")
+# print("ALS:")
+# print("Mean (NMSE, Time)")
+# print(np.mean(amcomp_results,0))
 
-print("Standard Error (NMSE, Time)")
-print(np.std(amcomp_results,0)/np.sqrt(reps))
+# print("Standard Error (NMSE, Time)")
+# print(np.std(amcomp_results,0)/np.sqrt(reps))
 
-print("")
-print("SiLRTC:")
-print("Mean (NMSE, Time)")
-print(np.mean(silrtc_results,0))
+# print("")
+# print("SiLRTC:")
+# print("Mean (NMSE, Time)")
+# print(np.mean(silrtc_results,0))
 
-print("Standard Error (NMSE, Time)")
-print(np.std(silrtc_results,0)/np.sqrt(reps))
+# print("Standard Error (NMSE, Time)")
+# print(np.std(silrtc_results,0)/np.sqrt(reps))
 
-print("")
-print("TNCP:")
-print("Mean (NMSE, Time)")
-print(np.mean(tncomp_results,0))
+# print("")
+# print("TNCP:")
+# print("Mean (NMSE, Time)")
+# print(np.mean(tncomp_results,0))
 
-print("Standard Error (NMSE, Time)")
-print(np.std(tncomp_results,0)/np.sqrt(reps))
+# print("Standard Error (NMSE, Time)")
+# print(np.std(tncomp_results,0)/np.sqrt(reps))
