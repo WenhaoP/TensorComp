@@ -393,7 +393,7 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, psi_q_init, lamb_init, lpa
             ### Weak Separation ###
             orcl_count += 1
             m._cmin = np.dot(lpar_c,psi_q) # <grad(f(x_0)), x_0>
-            if (iter_count == -1):
+            if (iter_count == 1):
                 # solve linearized (integer) optimization problem
                 ip_count += 1
                 m.setObjective(lpar_c @ psi) # minimization
@@ -436,19 +436,18 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, psi_q_init, lamb_init, lpa
                     oflg = False
                 
                 if oflg:
-                    is_true = False
-                    # #PASS BEST SOLUTION SO FAR TO MIP SOLVER WHEN NEEDED
-                    # ip_count += 1
-                    # psi.Start = psi_b
-                    # the.Start = the_b
-                    # m.setObjective(lpar_c @ psi)
-                    # m._oracle = "FullIP"
-                    # m.optimize(callback)
-                    # psi_n = psi.X
-                    # the_n = the.X
-                    # if (m._cmin - m.objVal < m._gap): # second case in the output of the weak separation oracle
-                    #     m._gap = m._gap/2 # line 13
-                    #     # MAYBE UPDATE GAP USING FULLIP SOLUTION?!?!?!
+                    #PASS BEST SOLUTION SO FAR TO MIP SOLVER WHEN NEEDED
+                    ip_count += 1
+                    psi.Start = psi_b
+                    the.Start = the_b
+                    m.setObjective(lpar_c @ psi)
+                    m._oracle = "FullIP"
+                    m.optimize(callback)
+                    psi_n = psi.X
+                    the_n = the.X
+                    if (m._cmin - m.objVal < m._gap): # second case in the output of the weak separation oracle
+                        m._gap = m._gap/2 # line 13
+                        # MAYBE UPDATE GAP USING FULLIP SOLUTION?!?!?!
 
             Vts = np.hstack((Vts,the_n[:,None]))
             psi_n_sparse = Vts_to_Pts(the_n.reshape(-1, 1), X, r, cum_r)
