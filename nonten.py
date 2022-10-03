@@ -324,47 +324,8 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
         psi_f = Pts[:,np.argmin(pro)] # v_t_FW-S (Line 5)
         
         if (np.dot(lpar*c, np.subtract(psi_a,psi_f)) >= m._gap): # Line 6
-            ### Simplex Gradient Descent ###
-            sigd_count += 1
-            d = pro - np.sum(pro)/Pts.shape[1] # line 3, Projection onto the hyperplane of the probability simplex}
-            
-            if (np.equal(d,0).all()): # line 4
-                as_size = Pts.shape[1]
-                psi_q = Pts[:,0]
-                Pts = Pts[:,0]
-                Vts = Vts[:,0]
-                lamb = np.array([[1]])
-                #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
-                as_drops += as_size - Pts.shape[1]
-            else:
-                eta = np.divide(lamb,d[:,None]) # line 7
-                eta = np.min(eta[d > 0]) # line 7
-
-                # Equivalent to psi_n = Pts @ (lamb - eta*d)
-                psi_n = psi_q - eta*(Pts @ d) # line 8, psi_n is y
-                #psi_n = Pts @ (lamb.flatten() - eta*d)
-                res = Y - lpar*psi_n[Xn]
-                fn = np.dot(res,res)/n # fn is f(y)
-
-                if (objVal >= fn): # line 9
-                    psi_q = psi_n # line 10
-                    objVal = fn
-                    as_size = Pts.shape[1]
-                    lamb = lamb - eta*d[:,None]
-                    inds = lamb.flatten() > 0
-                    Pts = Pts[:, inds]
-                    Vts = Vts[:, inds]
-                    lamb = lamb[inds]/np.sum(lamb[inds])
-                    #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
-                    as_drops += as_size - Pts.shape[1]
-                else:
-                    grap = Pts @ d
-                    gam = -np.dot(Y/lpar-psi_q[Xn], grap[Xn])/np.dot(grap[Xn], grap[Xn])
-                    psi_q = psi_q - gam*(Pts @ d)
-                    lamb = lamb - gam*d[:,None]
-                    
+            psi_d = psi_a - psi_f            
         else:
-            ### Weak Separation ###
             orcl_count += 1
             m._cmin = np.dot(lpar*c,psi_q) # <grad(f(x_0)), x_0>
             if (iter_count == 1):
