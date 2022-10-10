@@ -310,7 +310,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     the_q = np.ones(np.sum(r))
     lamb = np.array([[1]]) # convex comb coefficients to get the current iterate
 
-    ### BCG ###
+    ### BPCG ###
     is_true = True
     while is_true:
         iter_count += 1
@@ -320,11 +320,29 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
             c[Xn[ind]] += -2/n*(Y[ind] - lpar*psi_q[Xn[ind]]) # assign the derivative w.r.t. the known entry with the i-th flatten index of the tensor to the i-th element
             
         pro = np.dot(lpar*c,Pts) # grad(f(x_t))v
-        psi_a = Pts[:,np.argmax(pro)] # v_t_A (Line 4)
-        psi_f = Pts[:,np.argmin(pro)] # v_t_FW-S (Line 5)
+        a_idx = np.argmax(pro)
+        f_idx = np.argmin(pro)
+        psi_a = Pts[:,a_idx] # v_t_A (Line 4)
+        psi_f = Pts[:,f_idx] # v_t_FW-S (Line 5)
         
         if (np.dot(lpar*c, np.subtract(psi_a,psi_f)) >= m._gap): # Line 6
-            psi_d = psi_a - psi_f            
+            sigd_count += 1
+            dpsi = psi_a[Xn] - psi_f[Xn] # Line 7 in Lazified BPCG (projected difference)
+            Lam = lamb[a_idx,0] # Line 8 in Lazified BPCG 
+            gam = np.dot(psi_q[Xn] - Y/lpar,dpsi)/np.dot(dpsi,dpsi) # Line 9 in Lazified BPCG 
+            gam = np.clip(gam, a_min=0, a_max=Lam)
+            
+            psi_q = psi_q - gam*(psi_a - psi_f) # Line 10 in Lazified BPCG 
+            lamb[a_idx] = lamb[a_idx] - gam
+            lamb[f_idx] = lamb[f_idx] + gam
+            lamb = lamb / np.sum(lamb)
+
+            if np.isclose(gam, Lam): # Line 15 in Lazified BPCG 
+                Pts = np.delete(Pts, a_idx, axis=1)
+                Vts = np.delete(Vts, a_idx, axis=1)
+                lamb = np.delete(lamb, a_idx, axis=0)
+                lamb = lamb / np.sum(lamb)    
+
         else:
             orcl_count += 1
             m._cmin = np.dot(lpar*c,psi_q) # <grad(f(x_0)), x_0>
