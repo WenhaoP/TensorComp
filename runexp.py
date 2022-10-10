@@ -17,7 +17,7 @@ r = (10,10,10,10,10,10,10,10)
 n = 10000
 corners = 10
 reps = 100
-indices = True
+indices = False
 pattern = False 
 sparse = True
 np.random.seed(10)
