@@ -16,10 +16,10 @@ from pyten.tools import tenerror
 r = (10,10,10,10,10,10,10,10)
 n = 10000
 corners = 10
-reps = 1
-indices = True
-pattern = True
-sparse = False
+reps = 100
+indices = False
+pattern = False 
+sparse = True
 np.random.seed(10)
 seed(10)
 ##################################################################
