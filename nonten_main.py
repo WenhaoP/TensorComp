@@ -8,7 +8,7 @@ from nonten import nonten_initial_alter
 
 from utils import plot_channel, the_to_q, q_to_the
 
-@profile
+# @profile
 def main():
     shape = (300, 200)
     start = (50, 50)
@@ -50,12 +50,12 @@ def main():
 
 if __name__ == '__main__':
     
-    INITIALIZE = True
+    INITIALIZE = False
     HEURISTIC = 3
     SIZE = [3, 2]
     GREEN_SCAL_COEF = 1
-    LPAR = 30000
-    STOP_ITER = 1000000
+    LPAR = 1
+    STOP_ITER = 100000
     MAX_ALTMIN_CNT = 100
 
     main()

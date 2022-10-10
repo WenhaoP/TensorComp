@@ -38,6 +38,31 @@ def golden(X, Y, psi_q, psi_n, lamb_q, lamb_n, lpar):
         
     return(gam*psi_q + (1-gam)*psi_n, gam*lamb_q + (1-gam)*lamb_n, gam)
 
+# # Callback function to make Gurobi "lazy"
+# def callback(model, where):
+#     if where == GRB.Callback.MIP:
+#         print('1')
+#         model._gap = np.minimum(model._gap, (model._cmin - model.cbGet(GRB.Callback.MIP_OBJBND))/2)
+#         print('2')
+#         if (model._cmin - model.cbGet(GRB.Callback.MIP_OBJBST) > model._gap):
+#             print('3')
+#             model._oracle = "LazyIP"
+#             print('4')
+#             model.terminate()
+#     elif where == GRB.Callback.MIPSOL:
+#         print('5')
+#         model._gap = np.minimum(model._gap, (model._cmin - model.cbGet(GRB.Callback.MIPSOL_OBJBND))/2)
+#         print('6')
+#         if (model._cmin - model.cbGet(GRB.Callback.MIPSOL_OBJ) > model._gap):
+#             print('7')
+#             model._oracle = "LazyIP"
+#             print('8')
+#             model.terminate()
+#     elif where == GRB.Callback.MIPNODE:
+#         print('9')
+#         model._gap = np.minimum(model._gap, (model._cmin - model.cbGet(GRB.Callback.MIPNODE_OBJBND))/2)
+#         print('10')
+
 # Callback function to make Gurobi "lazy"
 def callback(model, where):
     if where == GRB.Callback.MIP:
@@ -54,7 +79,7 @@ def callback(model, where):
         model._gap = np.minimum(model._gap, (model._cmin - model.cbGet(GRB.Callback.MIPNODE_OBJBND))/2)
 
 # Alternating minimization oracle
-@profile
+# @profile
 def altmin_alter(pattern, r, lpar, p, tol, cmin, gap, c, the_q, Un):
     the = the_q.copy()
     cum_r = np.insert(np.cumsum(r), 0, 0)
@@ -193,7 +218,7 @@ def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
         
     return(psi_q)
 
-@profile
+# @profile
 def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, psi_q_init, lamb_init, lpar = 1, tol = 1e-6, stop_iter = 1e9, max_altmin_cnt = 1e2, verbose = True):
     """
     X: (n, ) the indices of known entries in the flatten version of the true tensor
@@ -442,7 +467,9 @@ def nonten_initial_alter(X, Y, r, Pts_init, Vts_init, psi_q_init, lamb_init, lpa
                     the.Start = the_b
                     m.setObjective(lpar_c @ psi)
                     m._oracle = "FullIP"
+                    print('start ip')
                     m.optimize(callback)
+                    print('end ip')
                     psi_n = psi.X
                     the_n = the.X
                     if (m._cmin - m.objVal < m._gap): # second case in the output of the weak separation oracle
