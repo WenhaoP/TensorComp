@@ -15,7 +15,7 @@ def Vts_to_Pts_sparse(Vts, X, r, cum_r):
         """
         vts_one_idx = np.argwhere(c == 1)
         coordinates = []
-        for i in range(1, len(r)+1): # find the coordinates of one entries
+        for i in range(1, len(r)+1): # find the coordinates of nonzero entries
             coordinates.append((vts_one_idx[vts_one_idx < cum_r[i]] - cum_r[i-1]).tolist())
             vts_one_idx = np.delete(vts_one_idx, np.argwhere(vts_one_idx < cum_r[i]))
         
