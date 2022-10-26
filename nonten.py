@@ -391,6 +391,12 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
                 lamb = np.array([[1]])
                 #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
                 as_drops += as_size - Pts.shape[1]
+
+                # restart Nesterov accelerated SiGD
+                psi_last = psi_q.copy() # y_1 in NAG
+                lam_s = (1 + sqrt(1 + 4 * (lam_0 ** 2))) / 2
+                lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
+                gam_s = (1 - lam_s) / lam_s_plus_1
             else:
                 eta = np.divide(lamb,d[:,None]) # line 7
                 eta = np.min(eta[d > 0]) # line 7
