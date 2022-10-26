@@ -13,13 +13,14 @@ from pyten.tools import tenerror
 ##################################################################
 # EDIT THESE TO CHANGE PROBLEM SETUP
 # Problem parameters
-r = (10,10,10,10,10,10,10,10)
-n = 10000
+r = (10,10,10)
+n = 500
 corners = 10
 reps = 100
 indices = False
 pattern = False 
-sparse = True
+sparse = False
+nag = True
 np.random.seed(10)
 seed(10)
 ##################################################################
@@ -67,7 +68,7 @@ for rep in range(reps):
     print("")
     print("Running BCG...")
     last_time = time.time()
-    psi_n = nonten(X, Y, r, tol=1e-4, indices=indices, pattern=pattern, sparse=sparse)
+    psi_n = nonten(X, Y, r, tol=1e-4, indices=indices, pattern=pattern, sparse=sparse, nag=nag)
     curr_time = time.time()
     elapsed_time = curr_time - last_time
     nonten_results[rep, 0] = np.dot(phi-psi_n,phi-psi_n)/np.dot(phi,phi)

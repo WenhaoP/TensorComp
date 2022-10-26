@@ -1,3 +1,4 @@
+from math import sqrt
 import numpy as np
 import scipy.sparse as sp
 import time
@@ -51,7 +52,7 @@ def callback(model, where):
         model._gap = np.minimum(model._gap, (model._cmin - model.cbGet(GRB.Callback.MIPNODE_OBJBND))/2)
           
 # Alternating minimization oracle
-@profile 
+# @profile 
 def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un, indices=False, pattern=False, altmin_pattern=None):
     """
     indices (bool): implement the fpro computation speed up if True
@@ -202,8 +203,8 @@ def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
         
     return(psi_q)
 
-@profile
-def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern=False, sparse=False):
+# @profile
+def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern=False, sparse=False, nag=False):
     """
     X: (n, ) the indices of known entries in the flatten version of the true tensor
     Y: (n, ) values of known entries corresponding to the indices in X
@@ -212,6 +213,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
     indices (bool): implement the fpro computation speed up in altmin if True
     pattern (bool): implement the pattern speed up based on the fpro computation speed up in altmin if True
     sparse (bool): implement the scipy sparse matrix speed up if True
+    nag (bool): implement the Nesterov's accelerated gradient descent
     """
     if pattern:
         assert indices, 'the pattern speed up must be used with the fpro computation speed up'
@@ -337,6 +339,14 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
     the_q = np.ones(np.sum(r))
     lamb = np.array([[1]]) # convex comb coefficients to get the current iterate
 
+    # Initialization for Nesterov’s Accelerated Gradient Descent (NAG) (https://blogs.princeton.edu/imabandit/2013/04/01/acceleratedgradientdescent/)
+    if nag:
+        psi_last = psi_q.copy() # y_1 in NAG
+        lam_0 = 0
+        lam_s = (1 + sqrt(1 + 4 * (lam_0 ** 2))) / 2
+        lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
+        gam_s = (1 - lam_s) / lam_s_plus_1
+
     # pattern for altmin
     altmin_pattern = None
     if pattern:
@@ -392,10 +402,20 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
                 fn = np.dot(res,res)/n # fn is f(y)
 
                 if (objVal >= fn): # line 9
-                    psi_q = psi_n # line 10
-                    objVal = fn
-                    as_size = Pts.shape[1]
-                    lamb = lamb - eta*d[:,None]
+                    if nag: # NAG update
+                        psi_q = (1 - gam_s) * psi_n + gam_s * psi_last
+                        psi_last = psi_n
+                        res = Y - lpar*psi_q[Xn]
+                        objVal = np.dot(res,res)/n # fn is f(y)
+
+                        as_size = Pts.shape[1]
+                        lamb = (1 - gam_s) * (lamb - eta*d[:,None]) + gam_s * lamb         
+                    else:
+                        psi_q = psi_n # line 10
+                        objVal = fn
+                        as_size = Pts.shape[1]
+                        lamb = lamb - eta*d[:,None]
+                        
                     inds = lamb.flatten() > 0
                     Pts = Pts[:, inds]
                     Vts = Vts[:, inds]
@@ -406,10 +426,22 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
                     grap = Pts_dot_d
                     grap_Xn = grap[Xn]
                     gam = -np.dot(Y/lpar-psi_q[Xn], grap_Xn) / np.dot(grap_Xn, grap_Xn)
-                    psi_q = psi_q - gam*grap
-                    lamb = lamb - gam*d[:,None]
+                    psi_n = psi_q - gam*grap
+                    if nag: # NAG update
+                        psi_q = (1 - gam_s) * psi_n + gam_s * psi_last
+                        psi_last = psi_n
+                        lamb = (1 - gam_s) * (lamb - gam*d[:,None]) + gam_s * lamb
+                    else:
+                        psi_q = psi_q - gam*grap
+                        lamb = lamb - gam*d[:,None]
+                    lamb = lamb/np.sum(lamb)
+                
+            if nag:# Update NAG parameters
+                lam_s = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
+                lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
+                gam_s = (1 - lam_s) / lam_s_plus_1
                     
-        else:
+        else:        
             ### Weak Separation ###
             orcl_count += 1
             m._cmin = np.dot(lpar_c,psi_q) # <grad(f(x_0)), x_0>
@@ -480,6 +512,13 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
             lamb_n = np.vstack((np.zeros(lamb.shape),1))
             (psi_q, lamb, gam) = golden(Xn, Y, psi_q, psi_n, lamb_q, lamb_n, lpar) # find the optimal cvx combination of the current iterate and the new vertex
 
+            # restart Nesterov accelerated SiGD
+            if nag:
+                psi_last = psi_q.copy() # y_1 in NAG
+                lam_s = (1 + sqrt(1 + 4 * (lam_0 ** 2))) / 2
+                lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
+                gam_s = (1 - lam_s) / lam_s_plus_1
+        
         res = Y - lpar*psi_q[Xn]
         objVal = np.dot(res,res)/n
         bestbd = np.max([bestbd, objVal - 2*m._gap])
