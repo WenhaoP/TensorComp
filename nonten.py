@@ -65,6 +65,7 @@ def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un, indices=False, pattern=Fals
 
     last_cmin = cmin + 1e6
     cnt = 0
+    lpar_c = lpar*c
     while (True):
         cnt += 1
         for ind in range(p):
@@ -73,7 +74,7 @@ def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un, indices=False, pattern=Fals
             # fpro is the pro transformed to have the same shape as theta_ind
             # pro has the same shape as grad(f(psi_q)). 
             # pro has the same information as fpro
-            pro = lpar*c.copy()
+            pro = lpar_c.copy()
             for k in range(p):
                 if (ind != k):
                     pro = np.multiply(pro, the[cum_r[k] + Un[:,k]]) 
@@ -358,14 +359,14 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
         if sparse:
             pro = Pts.T.dot(lpar_c) # grad(f(x_t))v
         else:
-            pro = np.dot(lpar*c,Pts)
+            pro = np.dot(lpar_c,Pts)
         psi_a = Pts[:,np.argmax(pro)] # v_t_A (Line 4)
         psi_f = Pts[:,np.argmin(pro)] # v_t_FW-S (Line 5)
         
         if sparse:
             diff = (psi_a - psi_f).T.dot(lpar_c) 
         else:
-            diff = np.dot(lpar*c, np.subtract(psi_a,psi_f))
+            diff = np.dot(lpar_c, np.subtract(psi_a,psi_f))
 
         if (diff >= m._gap): # Line 6
             ### Simplex Gradient Descent ###
