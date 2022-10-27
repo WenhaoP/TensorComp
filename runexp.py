@@ -13,14 +13,14 @@ from pyten.tools import tenerror
 ##################################################################
 # EDIT THESE TO CHANGE PROBLEM SETUP
 # Problem parameters
-r = (10,10,10)
-n = 500
+r = (10,10,10,10,10,10,10,10)
+n = 10000
 corners = 10
-reps = 100
+reps = 10
 indices = False
 pattern = False 
 sparse = False
-nag = True
+nag = False
 np.random.seed(10)
 seed(10)
 ##################################################################

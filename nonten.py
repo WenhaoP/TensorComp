@@ -342,7 +342,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
 
     # Initialization for Nesterov’s Accelerated Gradient Descent (NAG) (https://blogs.princeton.edu/imabandit/2013/04/01/acceleratedgradientdescent/)
     if nag:
-        psi_last = psi_q.copy() # y_1 in NAG
+        psi_last = psi_q # y_1 in NAG
         lam_0 = 0
         lam_s = (1 + sqrt(1 + 4 * (lam_0 ** 2))) / 2
         lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
@@ -394,7 +394,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
                 as_drops += as_size - Pts.shape[1]
 
                 # restart Nesterov accelerated SiGD
-                psi_last = psi_q.copy() # y_1 in NAG
+                psi_last = psi_q # y_1 in NAG
                 lam_s = (1 + sqrt(1 + 4 * (lam_0 ** 2))) / 2
                 lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
                 gam_s = (1 - lam_s) / lam_s_plus_1
@@ -521,7 +521,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
 
             # restart Nesterov accelerated SiGD
             if nag:
-                psi_last = psi_q.copy() # y_1 in NAG
+                psi_last = psi_q # y_1 in NAG
                 lam_s = (1 + sqrt(1 + 4 * (lam_0 ** 2))) / 2
                 lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
                 gam_s = (1 - lam_s) / lam_s_plus_1
