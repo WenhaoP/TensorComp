@@ -15,14 +15,14 @@ import sys
 ##################################################################
 # EDIT THESE TO CHANGE PROBLEM SETUP
 # Problem parameters
-r = (10,10,10,10,10,10,10,10)
-n = 10000
+r = (10,10,10)
+n = 500
 corners = 10
 reps = 100
 indices = False
 pattern = False 
-sparse = False
-nag = True
+sparse = True
+nag = False
 np.random.seed(10)
 seed(10)
 ##################################################################

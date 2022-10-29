@@ -2,43 +2,29 @@ import numpy as np
 import scipy.sparse as sp
 from itertools import product
 
-def Vts_to_Pts_sparse(Vts, X, r, cum_r):
+def the_to_psi_sparse(the, X, r, cum_r):
     """
-    Convert Vts to Pts which is a scipy sparse matrix
+    Convert the (concatenated n theta's for constructing a tesnor of order of n) to the psi (projected flatten tensor) in a scipy sparse matrix
     ---
     Arguments:
-    X (np.array): the indices of known entries after projection
+    X (np.array): the indices of known entries in projected tensor (psi)
     """
-    def find_idx(c, c_idx):
-        """
-        Find the row index of nonzero entries in each column of Pts_sparse 
-        """
-        vts_one_idx = np.argwhere(c == 1)
-        coordinates = []
-        for i in range(1, len(r)+1): # find the coordinates of nonzero entries
-            coordinates.append((vts_one_idx[vts_one_idx < cum_r[i]] - cum_r[i-1]).tolist())
-            vts_one_idx = np.delete(vts_one_idx, np.argwhere(vts_one_idx < cum_r[i]))
-        
-        # idx = list(
-        #     product(
-        #         (vts_one_idx[vts_one_idx < cum_r[1]]),
-        #         (vts_one_idx[(vts_one_idx >= cum_r[1]) & (vts_one_idx < cum_r[2])] - cum_r[1]),
-        #         (vts_one_idx[(vts_one_idx >= cum_r[2]) & (vts_one_idx < cum_r[3])] - cum_r[2])
-        #     )
-        # )
-        idx = list(product(*coordinates))
-        flat_idx = np.ravel_multi_index(np.array(idx).T, r)
-        out = np.argwhere(np.isin(X, flat_idx))
-        out = np.hstack([out, np.ones(len(out), dtype=int).reshape(-1, 1) * c_idx])
-        return out
-    
-    if Vts.sum() == 0: # when Pts is a zero tensor
-        Pts_sparse = sp.csc_matrix((len(X), Vts.shape[1]))
-    elif Vts.sum() == np.sum(r): # when Pts is a one tensor
-        ones_idx = np.array(list(product(range(len(X)), range(Vts.shape[1]))))
-        Pts_sparse = sp.csc_matrix((np.ones(len(ones_idx)), (ones_idx[:, 0], ones_idx[:, 1])), shape=(len(X), Vts.shape[1]))
-    else:
-        ones_idx = np.vstack(list(map(find_idx, Vts.T, np.arange(Vts.shape[1]))))
-        Pts_sparse = sp.csc_matrix((np.ones(len(ones_idx)), (ones_idx[:, 0], ones_idx[:, 1])), shape=(len(X), Vts.shape[1]))
+    the = the.flatten()
 
-    return Pts_sparse
+    if the.sum() == 0: # when psi is a zero tensor
+        psi_sparse = sp.csc_matrix((len(X), 1))
+    elif the.sum() == np.sum(r): # when psi is a one tensor
+        psi_one_idx = np.arange(len(X))
+        psi_sparse = sp.csc_matrix((np.ones(len(psi_one_idx)), (np.arange(len(X)), np.zeros(len(X)))), shape=(len(X), 1))
+    else:
+        p = len(r)
+        psi_one_idx = np.argwhere(the[cum_r[0]:cum_r[1]])
+        for i in range(1, p):
+            one_idx = np.argwhere(the[cum_r[i]:cum_r[i+1]])
+            psi_one_idx = np.hstack((np.tile(psi_one_idx, (len(one_idx), 1)), np.repeat(one_idx, len(psi_one_idx))[:,None]))
+
+        psi_one_idx = np.ravel_multi_index(psi_one_idx.T, r)
+        psi_sparse = sp.csc_matrix((np.ones(len(psi_one_idx)), (psi_one_idx, np.zeros_like(psi_one_idx))), shape=(np.prod(r), 1))
+        psi_sparse = psi_sparse[X]
+
+    return psi_sparse

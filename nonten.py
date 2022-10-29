@@ -4,7 +4,7 @@ import scipy.sparse as sp
 import time
 from gurobipy import *
 
-from utils import Vts_to_Pts_sparse
+from utils import the_to_psi_sparse
 
 # Prune active set 
 def prune(Pts, Vts, psi_q):
@@ -333,7 +333,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
     # Initialization
     Vts = np.ones((np.sum(r),1)) # (non-projected) active vertex set (S_t in Line 2). Elements (theta which can be used to recover psi) are the vertices of C_1
     if sparse:
-        Pts = Vts_to_Pts_sparse(Vts, X_uni, r, cum_r) # (projected) active vertex set (Proj_U(S_t) in Line 2). Elements (psi) are the vertices of Proj_U(C_1)
+        Pts = the_to_psi_sparse(Vts[:,0], X_uni, r, cum_r) # (projected) active vertex set (Proj_U(S_t) in Line 2). Elements (psi) are the vertices of Proj_U(C_1)
     else:
         Pts = np.ones((un,1))
     psi_q = np.ones(un) # the current iterate x_t (in Proj_U(C_1)) which is a cvx combination of elements in Pts using lamb as the coefficients
@@ -510,7 +510,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
 
             Vts = np.hstack((Vts,the_n[:,None]))
             if sparse:
-                psi_n = Vts_to_Pts_sparse(the_n.reshape(-1, 1), X_uni, r, cum_r)
+                psi_n = the_to_psi_sparse(the_n, X_uni, r, cum_r)
                 Pts = sp.hstack([Pts, psi_n])
                 psi_n = psi_n.toarray().squeeze()
             else:
