@@ -438,10 +438,10 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern
                         psi_q = (1 - gam_s) * psi_n + gam_s * psi_last
                         psi_last = psi_n
                         lamb = (1 - gam_s) * (lamb - gam*d[:,None]) + gam_s * lamb
+                        print(lamb.sum())
                     else:
-                        psi_q = psi_q - gam*grap
+                        psi_q = psi_n
                         lamb = lamb - gam*d[:,None]
-                    lamb = lamb/np.sum(lamb)
                 
             if nag:# Update NAG parameters
                 lam_s = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
