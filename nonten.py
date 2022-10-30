@@ -52,7 +52,7 @@ def callback(model, where):
         model._gap = np.minimum(model._gap, (model._cmin - model.cbGet(GRB.Callback.MIPNODE_OBJBND))/2)
           
 # Alternating minimization oracle
-# @profile 
+@profile 
 def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un, indices=False, pattern=False, altmin_pattern=None):
     """
     indices (bool): implement the fpro computation speed up if True
@@ -204,7 +204,7 @@ def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
         
     return(psi_q)
 
-# @profile
+@profile
 def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern=False, sparse=False, nag=False):
     """
     X: (n, ) the indices of known entries in the flatten version of the true tensor
@@ -438,7 +438,6 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
                         psi_q = (1 - gam_s) * psi_n + gam_s * psi_last
                         psi_last = psi_n
                         lamb = (1 - gam_s) * (lamb - gam*d[:,None]) + gam_s * lamb
-                        print(lamb.sum())
                     else:
                         psi_q = psi_n
                         lamb = lamb - gam*d[:,None]

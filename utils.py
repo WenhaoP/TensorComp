@@ -2,6 +2,7 @@ import numpy as np
 import scipy.sparse as sp
 from itertools import product
 
+@profile
 def the_to_psi_sparse(the, X, r, cum_r):
     """
     Convert the (concatenated n theta's for constructing a tesnor of order of n) to the psi (projected flatten tensor) in a scipy sparse matrix
@@ -24,7 +25,11 @@ def the_to_psi_sparse(the, X, r, cum_r):
             psi_one_idx = np.hstack((np.tile(psi_one_idx, (len(one_idx), 1)), np.repeat(one_idx, len(psi_one_idx))[:,None]))
 
         psi_one_idx = np.ravel_multi_index(psi_one_idx.T, r)
+
         psi_sparse = sp.csc_matrix((np.ones(len(psi_one_idx)), (psi_one_idx, np.zeros_like(psi_one_idx))), shape=(np.prod(r), 1))
         psi_sparse = psi_sparse[X]
+
+        c = np.argwhere(np.isin(X, psi_one_idx)).flatten()
+        psi_sparse_1 = sp.csc_matrix((np.ones(len(c)), (c, np.zeros_like(c))), shape=(len(X), 1))
 
     return psi_sparse
