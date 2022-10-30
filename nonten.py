@@ -185,7 +185,7 @@ def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
         
     return(psi_q)
 
-def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
+def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True):
     """
     X: (n, ) the indices of known entries in the flatten version of the true tensor
     Y: (n, ) values of known entries corresponding to the indices in X
@@ -389,7 +389,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
                     elif (altmin_count == 2):
                         the_n = 1-the.X
                     else:
-                        the_n = np.round(np.random.uniform(0,1,np.sum(r)))
+                        the_n = np.round(rng.uniform(size=np.sum(r)))
 
                     (psi_n, the_n, last_cmin) = altmin(r, lpar, p, tol, m._cmin, m._gap, c, the_n, Un)
                     
@@ -473,7 +473,7 @@ def nonten(X, Y, r, lpar = 1, tol = 1e-6, verbose = True):
     if wideX:
         X = Xo
         
-    return (lpar*psi_q)
+    return (lpar*psi_q, iter_count, sigd_count, ip_count, as_size, as_drops)
 
 def predict(psi_q, X, r):
 
