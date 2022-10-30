@@ -2,7 +2,7 @@ import numpy as np
 import scipy.sparse as sp
 from itertools import product
 
-@profile
+# @profile
 def the_to_psi_sparse(the, X, r, cum_r):
     """
     Convert the (concatenated n theta's for constructing a tesnor of order of n) to the psi (projected flatten tensor) in a scipy sparse matrix
