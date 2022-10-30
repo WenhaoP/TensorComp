@@ -26,10 +26,7 @@ def the_to_psi_sparse(the, X, r, cum_r):
 
         psi_one_idx = np.ravel_multi_index(psi_one_idx.T, r)
 
-        psi_sparse = sp.csc_matrix((np.ones(len(psi_one_idx)), (psi_one_idx, np.zeros_like(psi_one_idx))), shape=(np.prod(r), 1))
-        psi_sparse = psi_sparse[X]
-
-        c = np.argwhere(np.isin(X, psi_one_idx)).flatten()
-        psi_sparse_1 = sp.csc_matrix((np.ones(len(c)), (c, np.zeros_like(c))), shape=(len(X), 1))
+        psi_one_idx = np.argwhere(np.isin(X, psi_one_idx)).flatten()
+        psi_sparse = sp.csc_matrix((np.ones(len(psi_one_idx)), (psi_one_idx, np.zeros_like(psi_one_idx))), shape=(len(X), 1))
 
     return psi_sparse
