@@ -49,7 +49,7 @@ for i in range(len(R)):
 
         for rep in range(reps):
             print("Starting Reptition No.", rep+1)
-
+            rng = np.random.default_rng(rep)
             # Generate random tensor within rank-1 tensor ball
             phi = np.zeros(np.prod(r))
             pho = np.zeros(r)
