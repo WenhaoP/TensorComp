@@ -25,8 +25,7 @@ for i in range(len(R)):
     n = N[i]
     corners = Corners[i]
     reps = Reps[i]
-    rng = np.random.default_rng(i)
-    with open(f'r_{r}_n_{n}_corners_{corners}_reps_{reps}.txt', 'w') as sys.stdout:
+    with open(f'experiments/printout/r_{r}_n_{n}_corners_{corners}_reps_{reps}.txt', 'w') as sys.stdout:
 
         # Compute derived parameters
         p = len(r) # order of the tenor
@@ -39,7 +38,7 @@ for i in range(len(R)):
 
         for rep in range(reps):
             print("Starting Reptition No.", rep+1)
-
+            rng = np.random.default_rng(rep)
             # Generate random tensor within rank-1 tensor ball
             phi = np.zeros(np.prod(r))
             pho = np.zeros(r)
@@ -68,7 +67,8 @@ for i in range(len(R)):
                 Yo[ind_s2i] = phi[ind_s2i]
             Yo = Yo.reshape(r)
 
-            print(X[:20], Y[:20])
+            print('First 20 entries in X', X[:20], '\n')
+            print('First 20 entries in Y', Y[:20], '\n')
             print("")
             print("Running BCG...")
             last_time = time.time()
@@ -118,7 +118,7 @@ for i in range(len(R)):
         print("Experiment Results: ")
         print("")
 
-        np.save(f'r_{r}_n_{n}_corners_{corners}_reps_{reps}', nonten_results)
+        np.save(f'experiments/record/r_{r}_n_{n}_corners_{corners}_reps_{reps}', nonten_results)
 
         print("BCG:")
         print("Mean (NMSE, Time, iter_count, sigd_count, ip_count, as_size, as_drops)")
