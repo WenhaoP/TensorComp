@@ -16,14 +16,18 @@ import sys
 ##################################################################
 # EDIT THESE TO CHANGE PROBLEM SETUP
 # Problem parameters
-R = [(10,10,10,10,10,10,10,10),(10,10,10,10,10,10,10,10),(10,10,10,10,10,10,10,10),(10,10,10,10,10,10,10,10),(10,10,10,10,10,10,10,10),(10,10,10,10,10,10,10,10),]
-N = [10000,10000,10000,10000,10000,10000]
+R = [(10,10,10,10,10,10,10,10),(10,10,10,10,10,10),(10,10,10,10,10,10),(10,10,10,10,10,10),(10,10,10,10,10,10),(10,10,10,10,10,10)]
+N = [10000,100000,100000,100000,100000,100000]
 Corners = [10,10,10,10,10,10]
 Reps = [100,100,100,100,100,100]
-Indices = [True,False,False,True,True,True]
-Pattern = [True,False,False,True,True,True]
-Sparse = [False,True,False,True,False,True]
-Nag = [False,False,True,False,True,True]
+# Indices = [True,False,False,True,True,True]
+# Pattern = [True,False,False,True,True,True]
+# Sparse = [False,True,False,True,False,True]
+# Nag = [False,False,True,False,True,True]
+Indices = [True]
+Pattern = [True]
+Sparse = [True]
+Nag = [True]
 ##################################################################
 
 for i in range(len(R)):
@@ -35,7 +39,6 @@ for i in range(len(R)):
     pattern = Pattern[i]
     sparse = Sparse[i]
     nag = Nag[i]
-    rng = np.random.default_rng(i)
     with open(f'experiments/printout/r_{r}_n_{n}_corners_{corners}_reps_{reps}_indices_{indices}_pattern_{pattern}_sparse_{sparse}_nag_{nag}.txt', 'w') as sys.stdout:
 
         # Compute derived parameters
