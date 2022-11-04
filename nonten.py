@@ -343,6 +343,7 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
     # Initialization for Nesterov’s Accelerated Gradient Descent (NAG) (https://blogs.princeton.edu/imabandit/2013/04/01/acceleratedgradientdescent/)
     if nag:
         psi_last = psi_q # y_1 in NAG
+        lamb_last = lamb
         lam_0 = 0
         lam_s = (1 + sqrt(1 + 4 * (lam_0 ** 2))) / 2
         lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
@@ -359,6 +360,7 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
     ### BCG ###
     is_true = True
     while is_true:
+        abs_diff = np.abs(psi_q.flatten()-Pts.dot(lamb).flatten()).sum()
         iter_count += 1
         # calculate linearized cost
         c = np.zeros(un) # partial derivatives of the obj function w.r.t. each known entry. 
@@ -395,6 +397,7 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
 
                 # restart Nesterov accelerated SiGD
                 psi_last = psi_q # y_1 in NAG
+                lamb_last = lamb
                 lam_s = (1 + sqrt(1 + 4 * (lam_0 ** 2))) / 2
                 lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
                 gam_s = (1 - lam_s) / lam_s_plus_1
@@ -404,6 +407,7 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
 
                 # Equivalent to psi_n = Pts @ (lamb - eta*d)
                 psi_n = psi_q - eta*(Pts_dot_d) # line 8, psi_n is y
+                lamb_n = lamb - eta*d[:,None]
                 #psi_n = Pts @ (lamb.flatten() - eta*d)
                 res = Y - lpar*psi_n[Xn]
                 fn = np.dot(res,res)/n # fn is f(y)
@@ -411,22 +415,27 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
                 if (objVal >= fn): # line 9
                     if nag: # NAG update
                         psi_q = (1 - gam_s) * psi_n + gam_s * psi_last
+                        lamb = (1 - gam_s) * (lamb_n) + gam_s * lamb_last       
                         psi_last = psi_n
+                        lamb_last = lamb_n
                         res = Y - lpar*psi_q[Xn]
                         objVal = np.dot(res,res)/n # fn is f(y)
 
-                        as_size = Pts.shape[1]
-                        lamb = (1 - gam_s) * (lamb - eta*d[:,None]) + gam_s * lamb         
+                        as_size = Pts.shape[1]      
                     else:
                         psi_q = psi_n # line 10
                         objVal = fn
                         as_size = Pts.shape[1]
-                        lamb = lamb - eta*d[:,None]
+                        lamb = lamb_n
                         
-                    inds = lamb.flatten() > 0
+                    inds = (lamb.flatten() > 1e-15) 
                     Pts = Pts[:, inds]
                     Vts = Vts[:, inds]
                     lamb = lamb[inds]/np.sum(lamb[inds])
+
+                    inds_last = (lamb_last.flatten() > 1e-15)
+                    lamb_last = lamb_last[inds_last]/np.sum(lamb_last[inds_last])
+
                     #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
                     as_drops += as_size - Pts.shape[1]
                 else:
@@ -434,10 +443,12 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
                     grap_Xn = grap[Xn]
                     gam = -np.dot(Y/lpar-psi_q[Xn], grap_Xn) / np.dot(grap_Xn, grap_Xn)
                     psi_n = psi_q - gam*grap
+                    lamb_n = lamb - gam*d[:,None]
                     if nag: # NAG update
                         psi_q = (1 - gam_s) * psi_n + gam_s * psi_last
+                        lamb = (1 - gam_s) * (lamb_n) + gam_s * lamb_last
                         psi_last = psi_n
-                        lamb = (1 - gam_s) * (lamb - gam*d[:,None]) + gam_s * lamb
+                        lamb_last = lamb_n
                     else:
                         psi_q = psi_n
                         lamb = lamb - gam*d[:,None]
@@ -521,6 +532,7 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
             # restart Nesterov accelerated SiGD
             if nag:
                 psi_last = psi_q # y_1 in NAG
+                lamb_last = lamb
                 lam_s = (1 + sqrt(1 + 4 * (lam_0 ** 2))) / 2
                 lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
                 gam_s = (1 - lam_s) / lam_s_plus_1
