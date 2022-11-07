@@ -16,16 +16,16 @@ import sys
 ##################################################################
 # EDIT THESE TO CHANGE PROBLEM SETUP
 # Problem parameters
-R = [(20,20,20)]
-N = [500]
-Corners = [10]
-Reps = [100]
-# Indices = [True,False,False,True,True,True]
-# Pattern = [True,False,False,True,True,True]
-# Sparse = [False,True,False,True,False,True]
-Indices = [True]
-Pattern = [True]
-Sparse = [True]
+R = [(10,10,10,10,10,10),(10,10,10,10,10,10),(10,10,10,10,10,10),(10,10,10,10,10,10)]
+N = [100000,100000,100000,100000]
+Corners = [10,10,10,10]
+Reps = [100,100,100,100]
+Indices = [False, True,False,True]
+Pattern = [False, True,False,True]
+Sparse = [False, False,True,True]
+# Indices = [True]
+# Pattern = [True]
+# Sparse = [True]
 ##################################################################
 
 for i in range(len(R)):

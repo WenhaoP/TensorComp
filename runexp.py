@@ -16,18 +16,18 @@ import sys
 ##################################################################
 # EDIT THESE TO CHANGE PROBLEM SETUP
 # Problem parameters
-R = [(10,10,10,10,10,10,10,10),(10,10,10,10,10,10),(10,10,10,10,10,10),(10,10,10,10,10,10),(10,10,10,10,10,10),(10,10,10,10,10,10)]
-N = [10000,100000,100000,100000,100000,100000]
+R = [(10,10,10,10,10,10,10),(10,10,10,10,10,10,10),(10,10,10,10,10,10,10),(10,10,10,10,10,10,10),(10,10,10,10,10,10,10),(10,10,10,10,10,10,10)]
+N = [1000000,1000000,1000000,1000000,1000000,1000000]
 Corners = [10,10,10,10,10,10]
 Reps = [100,100,100,100,100,100]
-# Indices = [True,False,False,True,True,True]
-# Pattern = [True,False,False,True,True,True]
-# Sparse = [False,True,False,True,False,True]
-# Nag = [False,False,True,False,True,True]
-Indices = [True]
-Pattern = [True]
-Sparse = [True]
-Nag = [True]
+Indices = [True,True,False]
+Pattern = [True,True,False]
+Sparse = [False,True,True]
+Nag = [False,False,False]
+# Indices = [True]
+# Pattern = [True]
+# Sparse = [True]
+# Nag = [True]
 ##################################################################
 
 for i in range(len(R)):

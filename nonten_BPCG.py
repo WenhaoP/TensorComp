@@ -374,7 +374,11 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
                 gam = np.dot(psi_q[Xn] - Y/lpar,dpsi)/np.dot(dpsi,dpsi) # Line 9 in Lazified BPCG 
             gam = np.clip(gam, a_min=0, a_max=Lam)
             
-            psi_q = psi_q - gam*(psi_a - psi_f).toarray().squeeze() # Line 10 in Lazified BPCG 
+            if sparse: 
+                psi_q = psi_q - gam*(psi_a - psi_f).toarray().squeeze() # Line 10 in Lazified BPCG 
+            else:
+                psi_q = psi_q - gam*(psi_a - psi_f) # Line 10 in Lazified BPCG 
+                
             lamb[a_idx] = lamb[a_idx] - gam
             lamb[f_idx] = lamb[f_idx] + gam
 

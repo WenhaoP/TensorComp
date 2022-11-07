@@ -360,7 +360,6 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
     ### BCG ###
     is_true = True
     while is_true:
-        abs_diff = np.abs(psi_q.flatten()-Pts.dot(lamb).flatten()).sum() # FIX ME
         iter_count += 1
         # calculate linearized cost
         c = np.zeros(un) # partial derivatives of the obj function w.r.t. each known entry. 
@@ -428,13 +427,10 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
                         as_size = Pts.shape[1]
                         lamb = lamb_n
                         
-                    inds = (lamb.flatten() > 1e-15) 
+                    inds = (lamb.flatten() > 0) 
                     Pts = Pts[:, inds]
                     Vts = Vts[:, inds]
                     lamb = lamb[inds]/np.sum(lamb[inds])
-
-                    inds_last = (lamb_last.flatten() > 1e-15)
-                    lamb_last = lamb_last[inds_last]/np.sum(lamb_last[inds_last])
 
                     #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
                     as_drops += as_size - Pts.shape[1]
