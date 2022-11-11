@@ -16,14 +16,14 @@ import sys
 ##################################################################
 # EDIT THESE TO CHANGE PROBLEM SETUP
 # Problem parameters
-R = [(10,10,10,10,10,10,10),(10,10,10,10,10,10,10),(10,10,10,10,10,10,10),(10,10,10,10,10,10,10),(10,10,10,10,10,10,10),(10,10,10,10,10,10,10)]
-N = [1000000,1000000,1000000,1000000,1000000,1000000]
-Corners = [10,10,10,10,10,10]
-Reps = [100,100,100,100,100,100]
-Indices = [True,True,False]
-Pattern = [True,True,False]
-Sparse = [False,True,True]
-Nag = [False,False,False]
+R = [(10,10,10,10,10,10,10)]*3
+N = [10000]*3
+Corners = [10] * 3
+Reps = [100] * 3
+Indices = [True,False,True] * 1
+Pattern = [True,False,True] * 1
+Sparse = [False,True,True]*1
+Nag = [False,False,False]*1
 # Indices = [True]
 # Pattern = [True]
 # Sparse = [True]
