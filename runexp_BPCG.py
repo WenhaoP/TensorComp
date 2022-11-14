@@ -5,7 +5,7 @@ import time
 from random import seed
 from random import randint
 from gurobipy import *
-from nonten_BPCG import nonten,krcomp,predict
+from nonten_BPCG import nonten_BPCG,krcomp,predict
 import pyten
 from pyten.method import *
 from pyten.tenclass import Tensor  # Use it to construct Tensor object
@@ -83,7 +83,7 @@ for i in range(len(R)):
             print("")
             print("Running BCG...")
             last_time = time.time()
-            psi_n, iter_count, sigd_count, ip_count, as_size, as_drops = nonten(X, Y, r, rng, tol=1e-4, indices=indices, pattern=pattern, sparse=sparse)
+            psi_n, iter_count, sigd_count, ip_count, as_size, as_drops = nonten_BPCG(X, Y, r, rng, tol=1e-4, indices=indices, pattern=pattern, sparse=sparse)
             curr_time = time.time()
             elapsed_time = curr_time - last_time
             nonten_results[rep, 0] = np.dot(phi-psi_n,phi-psi_n)/np.dot(phi,phi)

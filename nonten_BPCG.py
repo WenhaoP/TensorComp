@@ -203,7 +203,7 @@ def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
         
     return(psi_q)
 
-def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern=False, sparse=False):
+def nonten_BPCG(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern=False, sparse=False):
     """
     X: (n, ) the indices of known entries in the flatten version of the true tensor
     Y: (n, ) values of known entries corresponding to the indices in X
