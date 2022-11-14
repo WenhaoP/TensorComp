@@ -1,9 +1,11 @@
 from math import sqrt
 import numpy as np
+import scipy
 import scipy.sparse as sp
 import time
 from gurobipy import *
 
+from SiGD import *
 from utils import the_to_psi_sparse
 
 # Prune active set 
@@ -340,14 +342,27 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
     the_q = np.ones(np.sum(r))
     lamb = np.array([[1]]) # convex comb coefficients to get the current iterate
 
-    # Initialization for Nesterov’s Accelerated Gradient Descent (NAG) (https://blogs.princeton.edu/imabandit/2013/04/01/acceleratedgradientdescent/)
+    # Initialization for Nesterov’s Accelerated Gradient Descent (NAG)
     if nag:
-        psi_last = psi_q # y_1 in NAG
-        lamb_last = lamb
-        lam_0 = 0
-        lam_s = (1 + sqrt(1 + 4 * (lam_0 ** 2))) / 2
-        lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
-        gam_s = (1 - lam_s) / lam_s_plus_1
+        hessian = np.zeros(un)
+        for ind in range(n):
+            hessian[Xn[ind]] += 1 
+        hessian *= (2 * (lpar ** 2)) / n
+
+        if sparse:
+            hessian = sp.diags(hessian)
+        else:
+            hessian = np.diag(hessian)
+
+        y = lamb.copy()
+        alpha_old = 1
+        alpha = 0.5 * (1 + sqrt(1 + 4 * (alpha_old ** 2)))
+        gamma = (alpha_old - 1.0) / alpha
+
+        reduced_hessian = None
+        mu_reduced = None
+        L_reduced = None
+        strong_cvx = None
 
     # pattern for altmin
     altmin_pattern = None
@@ -380,81 +395,73 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
             diff = np.dot(lpar_c, np.subtract(psi_a,psi_f))
 
         if (diff >= m._gap): # Line 6
-            ### Simplex Gradient Descent ###
+            ### Simplex Gradient Descent ###                
             sigd_count += 1
-            d = pro - np.sum(pro)/Pts.shape[1] # line 3, Projection onto the hyperplane of the probability simplex}
-            Pts_dot_d = Pts.dot(d)
-
-            if (np.equal(d,0).all()): # line 4
-                as_size = Pts.shape[1]
-                psi_q = Pts[:,0]
-                Pts = Pts[:,0]
-                Vts = Vts[:,0]
-                lamb = np.array([[1]])
-                #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
-                as_drops += as_size - Pts.shape[1]
-
-                # restart Nesterov accelerated SiGD
-                psi_last = psi_q # y_1 in NAG
-                lamb_last = lamb
-                lam_s = (1 + sqrt(1 + 4 * (lam_0 ** 2))) / 2
-                lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
-                gam_s = (1 - lam_s) / lam_s_plus_1
-            else:
-                eta = np.divide(lamb,d[:,None]) # line 7
-                eta = np.min(eta[d > 0]) # line 7
-
-                # Equivalent to psi_n = Pts @ (lamb - eta*d)
-                psi_n = psi_q - eta*(Pts_dot_d) # line 8, psi_n is y
-                lamb_n = lamb - eta*d[:,None]
-                #psi_n = Pts @ (lamb.flatten() - eta*d)
-                res = Y - lpar*psi_n[Xn]
-                fn = np.dot(res,res)/n # fn is f(y)
-
-                if (objVal >= fn): # line 9
-                    if nag: # NAG update
-                        psi_q = (1 - gam_s) * psi_n + gam_s * psi_last
-                        lamb = (1 - gam_s) * (lamb_n) + gam_s * lamb_last       
-                        psi_last = psi_n
-                        lamb_last = lamb_n
-                        res = Y - lpar*psi_q[Xn]
-                        objVal = np.dot(res,res)/n # fn is f(y)
-
-                        as_size = Pts.shape[1]      
-                    else:
-                        psi_q = psi_n # line 10
-                        objVal = fn
-                        as_size = Pts.shape[1]
-                        lamb = lamb_n
-                        
-                    inds = (lamb.flatten() > 0) 
+            if nag:
+                reduced_hessian, reduced_linear, mu_reduced, L_reduced = build_reduced_problem(Pts, hessian, lamb, pro, reduced_hessian, mu_reduced, L_reduced, sparse)
+                if (mu_reduced >= 1e-3) & (strong_cvx is None): # strongly convex
+                    strong_cvx = True
+                    sqrt_q = sqrt(mu_reduced / L_reduced)
+                    gamma = (1 - sqrt_q) / (1 + sqrt_q)
+                lamb, y = accelerated_simplex_gradient_descent_over_probability_simplex(lamb, y, gamma, L_reduced, reduced_hessian, reduced_linear)
+                inds = (lamb.flatten() > 0) 
+                if not inds.all():
                     Pts = Pts[:, inds]
                     Vts = Vts[:, inds]
-                    lamb = lamb[inds]/np.sum(lamb[inds])
-
+                    lamb = lamb[inds]/np.sum(lamb[inds])    
+                    y = lamb.copy()
+                    alpha_old = 1
+                    alpha = 0.5 * (1 + sqrt(1 + 4 * (alpha_old ** 2)))
+                    gamma = (alpha_old - 1.0) / alpha
+                    reduced_hessian = None
+                    mu_reduced = None
+                    L_reduced = None
+                    strong_cvx = None
+                elif mu_reduced < 1e-3:
+                    alpha_old = alpha
+                    alpha = 0.5 * (1 + sqrt(1 + 4 * alpha ** 2))
+                    gamma = (alpha_old - 1.0) / alpha
+                psi_q = Pts.dot(lamb).flatten()
+            else:
+                d = pro - np.sum(pro)/Pts.shape[1] # line 3, Projection onto the hyperplane of the probability simplex}
+                Pts_dot_d = Pts.dot(d)
+                if (np.equal(d,0).all()): # line 4
+                    as_size = Pts.shape[1]
+                    psi_q = Pts[:,0]
+                    Pts = Pts[:,0]
+                    Vts = Vts[:,0]
+                    lamb = np.array([[1]])
                     #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
                     as_drops += as_size - Pts.shape[1]
                 else:
-                    grap = Pts_dot_d
-                    grap_Xn = grap[Xn]
-                    gam = -np.dot(Y/lpar-psi_q[Xn], grap_Xn) / np.dot(grap_Xn, grap_Xn)
-                    psi_n = psi_q - gam*grap
-                    lamb_n = lamb - gam*d[:,None]
-                    if nag: # NAG update
-                        psi_q = (1 - gam_s) * psi_n + gam_s * psi_last
-                        lamb = (1 - gam_s) * (lamb_n) + gam_s * lamb_last
-                        psi_last = psi_n
-                        lamb_last = lamb_n
+                    eta = np.divide(lamb,d[:,None]) # line 7
+                    eta = np.min(eta[d > 0]) # line 7
+
+                    # Equivalent to psi_n = Pts @ (lamb - eta*d)
+                    psi_n = psi_q - eta*(Pts_dot_d) # line 8, psi_n is y
+                    #psi_n = Pts @ (lamb.flatten() - eta*d)
+                    res = Y - lpar*psi_n[Xn]
+                    fn = np.dot(res,res)/n # fn is f(y)
+
+                    if (objVal >= fn): # line 9
+                        psi_q = psi_n # line 10
+                        objVal = fn
+                        as_size = Pts.shape[1]
+                        lamb = lamb - eta*d[:,None]
+                        inds = (lamb.flatten() > 0) 
+                        Pts = Pts[:, inds]
+                        Vts = Vts[:, inds]
+                        lamb = lamb[inds]/np.sum(lamb[inds])
+                        #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
+                        as_drops += as_size - Pts.shape[1]
                     else:
-                        psi_q = psi_n
+                        grap = Pts_dot_d
+                        grap_Xn = grap[Xn]
+                        gam = -np.dot(Y/lpar-psi_q[Xn], grap_Xn) / np.dot(grap_Xn, grap_Xn)
+                        psi_q = psi_q - gam*grap
                         lamb = lamb - gam*d[:,None]
-                
-            if nag:# Update NAG parameters
-                lam_s = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
-                lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
-                gam_s = (1 - lam_s) / lam_s_plus_1
                     
-        else:        
+        else: 
             ### Weak Separation ###
             orcl_count += 1
             m._cmin = np.dot(lpar_c,psi_q) # <grad(f(x_0)), x_0>
@@ -527,11 +534,14 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
 
             # restart Nesterov accelerated SiGD
             if nag:
-                psi_last = psi_q # y_1 in NAG
-                lamb_last = lamb
-                lam_s = (1 + sqrt(1 + 4 * (lam_0 ** 2))) / 2
-                lam_s_plus_1 = (1 + sqrt(1 + 4 * (lam_s ** 2))) / 2
-                gam_s = (1 - lam_s) / lam_s_plus_1
+                y = lamb.copy()
+                alpha_old = 1
+                alpha = 0.5 * (1 + sqrt(1 + 4 * (alpha_old ** 2)))
+                gamma = (alpha_old - 1.0) / alpha
+                reduced_hessian = None
+                mu_reduced = None
+                L_reduced = None
+                strong_cvx = None
         
         res = Y - lpar*psi_q[Xn]
         objVal = np.dot(res,res)/n
