@@ -2,15 +2,15 @@ import numpy as np
 import scipy
 
 # @profile
-def build_reduced_problem(Pts, hessian, weights, grad_dot_Pts, reduced_hessian_old, mu_reduced_old, L_reduced_old, sparse):
+def build_reduced_problem(Pts, hessian_diag, weights, grad_dot_Pts, reduced_hessian_old, mu_reduced_old, L_reduced_old, sparse):
     """
     Reduce the minimization over the convex hull of the
     active set to the minimization over the unit probability simplex.
     """
     if (reduced_hessian_old is None) & (L_reduced_old is None) & (mu_reduced_old is None): # no need to recompute if Pts was not change
-        reduced_hessian = Pts.T @ hessian @ Pts
         if sparse:
-            reduced_hessian = reduced_hessian.toarray()
+            Pts = Pts.toarray()
+        reduced_hessian = Pts.T * hessian_diag @ Pts
         mu_reduced, L_reduced = scipy.linalg.eigvalsh(reduced_hessian)[[0,-1]]
     else:
         reduced_hessian = reduced_hessian_old

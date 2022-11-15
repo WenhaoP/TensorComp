@@ -344,15 +344,10 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
 
     # Initialization for Nesterov’s Accelerated Gradient Descent (NAG)
     if nag:
-        hessian = np.zeros(un)
+        hessian_diag = np.zeros(un) # hessian is a diagonal matrix 
         for ind in range(n):
-            hessian[Xn[ind]] += 1 
-        hessian *= (2 * (lpar ** 2)) / n
-
-        if sparse:
-            hessian = sp.diags(hessian)
-        else:
-            hessian = np.diag(hessian)
+            hessian_diag[Xn[ind]] += 1 
+        hessian_diag *= (2 * (lpar ** 2)) / n
 
         y = lamb.copy()
         alpha_old = 1
@@ -398,7 +393,7 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
             ### Simplex Gradient Descent ###                
             sigd_count += 1
             if nag:
-                reduced_hessian, reduced_linear, mu_reduced, L_reduced = build_reduced_problem(Pts, hessian, lamb, pro, reduced_hessian, mu_reduced, L_reduced, sparse)
+                reduced_hessian, reduced_linear, mu_reduced, L_reduced = build_reduced_problem(Pts, hessian_diag, lamb, pro, reduced_hessian, mu_reduced, L_reduced, sparse)
                 if (mu_reduced >= 1e-3) & (strong_cvx is None): # strongly convex
                     strong_cvx = True
                     sqrt_q = sqrt(mu_reduced / L_reduced)
