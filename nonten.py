@@ -401,6 +401,7 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
                 lamb, y = accelerated_simplex_gradient_descent_over_probability_simplex(lamb, y, gamma, L_reduced, reduced_hessian, reduced_linear)
                 inds = (lamb.flatten() > 0) 
                 if not inds.all():
+                    as_size = Pts.shape[1]
                     Pts = Pts[:, inds]
                     Vts = Vts[:, inds]
                     lamb = lamb[inds]/np.sum(lamb[inds])    
@@ -412,6 +413,7 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
                     mu_reduced = None
                     L_reduced = None
                     strong_cvx = None
+                    as_drops += as_size - Pts.shape[1]
                 elif mu_reduced < 1e-3:
                     alpha_old = alpha
                     alpha = 0.5 * (1 + sqrt(1 + 4 * alpha ** 2))

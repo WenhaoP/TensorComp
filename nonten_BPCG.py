@@ -383,10 +383,12 @@ def nonten_BPCG(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=Fals
             lamb[f_idx] = lamb[f_idx] + gam
 
             if np.isclose(gam, Lam): # Line 15 in Lazified BPCG 
+                as_size = Pts.shape[1]
                 inds = (lamb.flatten() > 0) 
                 lamb = lamb[inds]
                 Pts = Pts[:, inds]
                 Vts = Vts[:, inds]
+                as_drops += as_size - Pts.shape[1]
 
         else:
             orcl_count += 1
