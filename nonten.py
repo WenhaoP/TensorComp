@@ -252,6 +252,7 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pa
     
     # Variables for the linearized optimization problem
     m = Model()
+    # m.setParam('TimeLimit', 100)
     #E3m.Params.OutputFlag = 0
     var = m.addMVar(int(un + np.sum(r)), vtype = GRB.BINARY)
     psi = var[0:un] # variable in FW, the direction to move along with
