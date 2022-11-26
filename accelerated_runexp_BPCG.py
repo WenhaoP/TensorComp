@@ -5,19 +5,27 @@ import time
 from random import seed
 from random import randint
 from gurobipy import *
-from nonten import nonten,krcomp,predict
+from accelerated_nonten_BPCG import nonten_BPCG,krcomp,predict
 import pyten
 from pyten.method import *
 from pyten.tenclass import Tensor  # Use it to construct Tensor object
 from pyten.tools import tenerror
 
+import sys
+
 ##################################################################
 # EDIT THESE TO CHANGE PROBLEM SETUP
 # Problem parameters
-R = [(10,10,10)]
-N = [500]
-Corners = [10]
-Reps = [100]
+R = [(10,10,10,10,10,10,10)]*2
+N = [1000000]*2
+Corners = [10] * 2
+Reps = [100] * 2
+Indices = [True,True] * 1
+Pattern = [True,True] * 1
+Sparse = [False,True]*1
+# Indices = [True]
+# Pattern = [True]
+# Sparse = [True]
 ##################################################################
 
 for i in range(len(R)):
@@ -25,7 +33,10 @@ for i in range(len(R)):
     n = N[i]
     corners = Corners[i]
     reps = Reps[i]
-    with open(f'experiments/printout/r_{r}_n_{n}_corners_{corners}_reps_{reps}.txt', 'w') as sys.stdout:
+    indices = Indices[i]
+    pattern = Pattern[i]
+    sparse = Sparse[i]
+    with open(f'experiments/printout/BPCG_r_{r}_n_{n}_corners_{corners}_reps_{reps}_indices_{indices}_pattern_{pattern}_sparse_{sparse}.txt', 'w') as sys.stdout:
 
         # Compute derived parameters
         p = len(r) # order of the tenor
@@ -72,7 +83,7 @@ for i in range(len(R)):
             print("")
             print("Running BCG...")
             last_time = time.time()
-            psi_n, iter_count, sigd_count, ip_count, as_size, as_drops = nonten(X, Y, r, rng, tol=1e-4)
+            psi_n, iter_count, sigd_count, ip_count, as_size, as_drops = nonten_BPCG(X, Y, r, rng, tol=1e-4, indices=indices, pattern=pattern, sparse=sparse)
             curr_time = time.time()
             elapsed_time = curr_time - last_time
             nonten_results[rep, 0] = np.dot(phi-psi_n,phi-psi_n)/np.dot(phi,phi)
@@ -118,9 +129,9 @@ for i in range(len(R)):
         print("Experiment Results: ")
         print("")
 
-        np.save(f'experiments/record/r_{r}_n_{n}_corners_{corners}_reps_{reps}', nonten_results)
+        np.save(f'experiments/record/BPCG_r_{r}_n_{n}_corners_{corners}_reps_{reps}_indices_{indices}_pattern_{pattern}_sparse_{sparse}', nonten_results)
 
-        print("BCG:")
+        print(f"BCG with {indices} indices, {pattern} pattern, {sparse} sparse speed ups:")
         print("Mean (NMSE, Time, iter_count, sigd_count, ip_count, as_size, as_drops)")
         print(np.mean(nonten_results,0))
         print("")

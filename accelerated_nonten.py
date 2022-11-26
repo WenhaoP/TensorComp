@@ -1,7 +1,12 @@
+from math import sqrt
 import numpy as np
+import scipy
 import scipy.sparse as sp
 import time
 from gurobipy import *
+
+from SiGD import *
+from utils import the_to_psi_sparse
 
 # Prune active set 
 def prune(Pts, Vts, psi_q):
@@ -23,7 +28,6 @@ def prune(Pts, Vts, psi_q):
 # Golden section search
 def golden(X, Y, psi_q, psi_n, lamb_q, lamb_n, lpar):
     n = X.shape[0]
-    
     dpsi = psi_q[X] - psi_n[X]
     gam = np.dot(Y/lpar-psi_n[X],dpsi)/np.dot(dpsi,dpsi)
     
@@ -48,15 +52,23 @@ def callback(model, where):
             model.terminate()
     elif where == GRB.Callback.MIPNODE:
         model._gap = np.minimum(model._gap, (model._cmin - model.cbGet(GRB.Callback.MIPNODE_OBJBND))/2)
-            
+          
 # Alternating minimization oracle
-def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un):
+# @profile 
+def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un, indices=False, pattern=False, altmin_pattern=None):
+    """
+    indices (bool): implement the fpro computation speed up if True
+    pattern (np.array): implement the pattern speed up based on the fpro computation speed up if not None
+    """
+    if altmin_pattern is not None:
+        assert indices, 'the pattern speed up must be used with the fpro computation speed up'
     the = the_q.copy()
     cum_r = np.insert(np.cumsum(r), 0, 0)
     un = Un.shape[0]
 
     last_cmin = cmin + 1e6
     cnt = 0
+    lpar_c = lpar*c
     while (True):
         cnt += 1
         for ind in range(p):
@@ -65,14 +77,23 @@ def altmin(r, lpar, p, tol, cmin, gap, c, the_q, Un):
             # fpro is the pro transformed to have the same shape as theta_ind
             # pro has the same shape as grad(f(psi_q)). 
             # pro has the same information as fpro
-            pro = lpar*c.copy()
+            pro = lpar_c.copy()
             for k in range(p):
                 if (ind != k):
                     pro = np.multiply(pro, the[cum_r[k] + Un[:,k]]) 
 
             fpro = np.zeros(r[ind])
-            for k in range(un):
-                fpro[Un[k,ind]] += pro[k]
+
+            if indices:
+                for i in range(r[ind]):
+                    if pattern:
+                        fpro[i] += pro[altmin_pattern[ind, i]].sum()
+                    else:
+                        fpro[i] += pro[np.argwhere(Un[:, ind] == i)].sum()
+            else:
+                for k in range(un):
+                    fpro[Un[k,ind]] += pro[k]
+
             the[cum_r[ind]:cum_r[ind+1]] = (fpro < 0).astype(int)
             curr_cmin = np.sum(fpro[fpro < 0])
 
@@ -185,14 +206,21 @@ def krcomp(X, Y, r, rank, lpar = 1, tol = 1e-6, verbose = True):
         
     return(psi_q)
 
-def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True):
+# @profile
+def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True, indices=False, pattern=False, sparse=False, nag=False):
     """
     X: (n, ) the indices of known entries in the flatten version of the true tensor
     Y: (n, ) values of known entries corresponding to the indices in X
     r: (r_1, ..., r_p) dimension of the truth tensor
     lpar: lambda parameter in eqn (8)
+    indices (bool): implement the fpro computation speed up in altmin if True
+    pattern (bool): implement the pattern speed up based on the fpro computation speed up in altmin if True
+    sparse (bool): implement the scipy sparse matrix speed up if True
+    nag (bool): implement the Nesterov's accelerated gradient descent
     """
-    
+    if pattern:
+        assert indices, 'the pattern speed up must be used with the fpro computation speed up'
+
     # Setup timer
     elapsed_time = 0
     last_time = time.process_time()
@@ -219,10 +247,12 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True):
     un = len(uinds) # unique number of known entries
     Un = np.zeros((un, p), dtype=int) # unique coordinate indices of known entries
     Xn = np.zeros(n, dtype=int) # i-th element is the index of the i-th sample
+    X_uni = np.unique(X)
     imup = un/(2*lpar*np.max(ucnt)/n)
     
     # Variables for the linearized optimization problem
     m = Model()
+    # m.setParam('TimeLimit', 100)
     #E3m.Params.OutputFlag = 0
     var = m.addMVar(int(un + np.sum(r)), vtype = GRB.BINARY)
     psi = var[0:un] # variable in FW, the direction to move along with
@@ -304,11 +334,39 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True):
 
     # Best point to date
     # Initialization
-    Pts = np.ones((un,1)) # (projected) active vertex set (Proj_U(S_t) in Line 2). Elements (psi) are the vertices of Proj_U(C_1)
     Vts = np.ones((np.sum(r),1)) # (non-projected) active vertex set (S_t in Line 2). Elements (theta which can be used to recover psi) are the vertices of C_1
+    if sparse:
+        Pts = the_to_psi_sparse(Vts[:,0], X_uni, r, cum_r) # (projected) active vertex set (Proj_U(S_t) in Line 2). Elements (psi) are the vertices of Proj_U(C_1)
+    else:
+        Pts = np.ones((un,1))
     psi_q = np.ones(un) # the current iterate x_t (in Proj_U(C_1)) which is a cvx combination of elements in Pts using lamb as the coefficients
     the_q = np.ones(np.sum(r))
     lamb = np.array([[1]]) # convex comb coefficients to get the current iterate
+
+    # Initialization for Nesterov’s Accelerated Gradient Descent (NAG)
+    if nag:
+        hessian_diag = np.zeros(un) # hessian is a diagonal matrix 
+        for ind in range(n):
+            hessian_diag[Xn[ind]] += 1 
+        hessian_diag *= (2 * (lpar ** 2)) / n
+
+        y = lamb.copy()
+        alpha_old = 1
+        alpha = 0.5 * (1 + sqrt(1 + 4 * (alpha_old ** 2)))
+        gamma = (alpha_old - 1.0) / alpha
+
+        reduced_hessian = None
+        mu_reduced = None
+        L_reduced = None
+        strong_cvx = None
+
+    # pattern for altmin
+    altmin_pattern = None
+    if pattern:
+        altmin_pattern = np.zeros((p, max(r)), dtype=np.object)
+        for ind in range(p):
+            for i in range(r[ind]):
+                altmin_pattern[ind, i] = np.argwhere(Un[:, ind] == i)
 
     ### BCG ###
     is_true = True
@@ -318,59 +376,97 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True):
         c = np.zeros(un) # partial derivatives of the obj function w.r.t. each known entry. 
         for ind in range(n):
             c[Xn[ind]] += -2/n*(Y[ind] - lpar*psi_q[Xn[ind]]) # assign the derivative w.r.t. the known entry with the i-th flatten index of the tensor to the i-th element
-            
-        pro = np.dot(lpar*c,Pts) # grad(f(x_t))v
+        lpar_c = lpar*c
+
+        if sparse:
+            pro = Pts.T.dot(lpar_c) # grad(f(x_t))v
+        else:
+            pro = np.dot(lpar_c,Pts)
         psi_a = Pts[:,np.argmax(pro)] # v_t_A (Line 4)
         psi_f = Pts[:,np.argmin(pro)] # v_t_FW-S (Line 5)
         
-        if (np.dot(lpar*c, np.subtract(psi_a,psi_f)) >= m._gap): # Line 6
-            ### Simplex Gradient Descent ###
+        if sparse:
+            diff = (psi_a - psi_f).T.dot(lpar_c) 
+        else:
+            diff = np.dot(lpar_c, np.subtract(psi_a,psi_f))
+
+        if (diff >= m._gap): # Line 6
+            ### Simplex Gradient Descent ###                
             sigd_count += 1
-            d = pro - np.sum(pro)/Pts.shape[1] # line 3, Projection onto the hyperplane of the probability simplex}
-            
-            if (np.equal(d,0).all()): # line 4
-                as_size = Pts.shape[1]
-                psi_q = Pts[:,0]
-                Pts = Pts[:,0]
-                Vts = Vts[:,0]
-                lamb = np.array([[1]])
-                #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
-                as_drops += as_size - Pts.shape[1]
-            else:
-                eta = np.divide(lamb,d[:,None]) # line 7
-                eta = np.min(eta[d > 0]) # line 7
-
-                # Equivalent to psi_n = Pts @ (lamb - eta*d)
-                psi_n = psi_q - eta*(Pts @ d) # line 8, psi_n is y
-                #psi_n = Pts @ (lamb.flatten() - eta*d)
-                res = Y - lpar*psi_n[Xn]
-                fn = np.dot(res,res)/n # fn is f(y)
-
-                if (objVal >= fn): # line 9
-                    psi_q = psi_n # line 10
-                    objVal = fn
+            if nag:
+                reduced_hessian, reduced_linear, mu_reduced, L_reduced = build_reduced_problem(Pts, hessian_diag, lamb, pro, reduced_hessian, mu_reduced, L_reduced, sparse)
+                if (mu_reduced >= 1e-3) & (strong_cvx is None): # strongly convex
+                    strong_cvx = True
+                    sqrt_q = sqrt(mu_reduced / L_reduced)
+                    gamma = (1 - sqrt_q) / (1 + sqrt_q)
+                lamb, y = accelerated_simplex_gradient_descent_over_probability_simplex(lamb, y, gamma, L_reduced, reduced_hessian, reduced_linear)
+                inds = (lamb.flatten() > 0) 
+                if not inds.all():
                     as_size = Pts.shape[1]
-                    lamb = lamb - eta*d[:,None]
-                    inds = lamb.flatten() > 0
                     Pts = Pts[:, inds]
                     Vts = Vts[:, inds]
-                    lamb = lamb[inds]/np.sum(lamb[inds])
+                    lamb = lamb[inds]/np.sum(lamb[inds])    
+                    y = lamb.copy()
+                    alpha_old = 1
+                    alpha = 0.5 * (1 + sqrt(1 + 4 * (alpha_old ** 2)))
+                    gamma = (alpha_old - 1.0) / alpha
+                    reduced_hessian = None
+                    mu_reduced = None
+                    L_reduced = None
+                    strong_cvx = None
+                    as_drops += as_size - Pts.shape[1]
+                elif mu_reduced < 1e-3:
+                    alpha_old = alpha
+                    alpha = 0.5 * (1 + sqrt(1 + 4 * alpha ** 2))
+                    gamma = (alpha_old - 1.0) / alpha
+                psi_q = Pts.dot(lamb).flatten()
+            else:
+                d = pro - np.sum(pro)/Pts.shape[1] # line 3, Projection onto the hyperplane of the probability simplex}
+                Pts_dot_d = Pts.dot(d)
+                if (np.equal(d,0).all()): # line 4
+                    as_size = Pts.shape[1]
+                    psi_q = Pts[:,0]
+                    Pts = Pts[:,0]
+                    Vts = Vts[:,0]
+                    lamb = np.array([[1]])
                     #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
                     as_drops += as_size - Pts.shape[1]
                 else:
-                    grap = Pts @ d
-                    gam = -np.dot(Y/lpar-psi_q[Xn], grap[Xn])/np.dot(grap[Xn], grap[Xn])
-                    psi_q = psi_q - gam*(Pts @ d)
-                    lamb = lamb - gam*d[:,None]
+                    eta = np.divide(lamb,d[:,None]) # line 7
+                    eta = np.min(eta[d > 0]) # line 7
+
+                    # Equivalent to psi_n = Pts @ (lamb - eta*d)
+                    psi_n = psi_q - eta*(Pts_dot_d) # line 8, psi_n is y
+                    #psi_n = Pts @ (lamb.flatten() - eta*d)
+                    res = Y - lpar*psi_n[Xn]
+                    fn = np.dot(res,res)/n # fn is f(y)
+
+                    if (objVal >= fn): # line 9
+                        psi_q = psi_n # line 10
+                        objVal = fn
+                        as_size = Pts.shape[1]
+                        lamb = lamb - eta*d[:,None]
+                        inds = (lamb.flatten() > 0) 
+                        Pts = Pts[:, inds]
+                        Vts = Vts[:, inds]
+                        lamb = lamb[inds]/np.sum(lamb[inds])
+                        #(Pts, Vts, lamb) = prune(Pts, Vts, psi_q)
+                        as_drops += as_size - Pts.shape[1]
+                    else:
+                        grap = Pts_dot_d
+                        grap_Xn = grap[Xn]
+                        gam = -np.dot(Y/lpar-psi_q[Xn], grap_Xn) / np.dot(grap_Xn, grap_Xn)
+                        psi_q = psi_q - gam*grap
+                        lamb = lamb - gam*d[:,None]
                     
-        else:
+        else: 
             ### Weak Separation ###
             orcl_count += 1
-            m._cmin = np.dot(lpar*c,psi_q) # <grad(f(x_0)), x_0>
+            m._cmin = np.dot(lpar_c,psi_q) # <grad(f(x_0)), x_0>
             if (iter_count == 1):
                 # solve linearized (integer) optimization problem
                 ip_count += 1
-                m.setObjective(lpar*c @ psi) # minimization
+                m.setObjective(lpar_c @ psi) # minimization
                 m._oracle = "FullIP"
                 m.optimize() 
                 psi_n = psi.X
@@ -391,7 +487,7 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True):
                     else:
                         the_n = np.round(rng.uniform(size=np.sum(r)))
 
-                    (psi_n, the_n, last_cmin) = altmin(r, lpar, p, tol, m._cmin, m._gap, c, the_n, Un)
+                    (psi_n, the_n, last_cmin) = altmin(r, lpar, p, tol, m._cmin, m._gap, c, the_n, Un, indices, pattern, altmin_pattern)
                     
                     if (m._cmin - last_cmin > m._gap): # first case in the output of Weak Separation Oracle
                         m._oracle = "AltMin"
@@ -414,7 +510,7 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True):
                     ip_count += 1
                     psi.Start = psi_b
                     the.Start = the_b
-                    m.setObjective(lpar*c @ psi)
+                    m.setObjective(lpar_c @ psi)
                     m._oracle = "FullIP"
                     m.optimize(callback)
                     psi_n = psi.X
@@ -423,12 +519,28 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True):
                         m._gap = m._gap/2 # line 13
                         # MAYBE UPDATE GAP USING FULLIP SOLUTION?!?!?!
 
-            Pts = np.hstack((Pts,psi_n[:,None]))
             Vts = np.hstack((Vts,the_n[:,None]))
+            if sparse:
+                psi_n = the_to_psi_sparse(the_n, X_uni, r, cum_r)
+                Pts = sp.hstack([Pts, psi_n])
+                psi_n = psi_n.toarray().squeeze()
+            else:
+                Pts = np.hstack((Pts,psi_n[:,None]))
             lamb_q = np.vstack((lamb,0))
             lamb_n = np.vstack((np.zeros(lamb.shape),1))
             (psi_q, lamb, gam) = golden(Xn, Y, psi_q, psi_n, lamb_q, lamb_n, lpar) # find the optimal cvx combination of the current iterate and the new vertex
 
+            # restart Nesterov accelerated SiGD
+            if nag:
+                y = lamb.copy()
+                alpha_old = 1
+                alpha = 0.5 * (1 + sqrt(1 + 4 * (alpha_old ** 2)))
+                gamma = (alpha_old - 1.0) / alpha
+                reduced_hessian = None
+                mu_reduced = None
+                L_reduced = None
+                strong_cvx = None
+        
         res = Y - lpar*psi_q[Xn]
         objVal = np.dot(res,res)/n
         bestbd = np.max([bestbd, objVal - 2*m._gap])
@@ -469,11 +581,12 @@ def nonten(X, Y, r, rng, lpar = 1, tol = 1e-6, verbose = True):
             the_n = np.tensordot(the_n, Vts[cum_r[k]:cum_r[k+1],ind], axes = 0)
 
         psi_q += lamb[ind]*the_n.flatten()
-        
+    sol = lpar*psi_q
+
     if wideX:
         X = Xo
         
-    return (lpar*psi_q, iter_count, sigd_count, ip_count, as_size, as_drops)
+    return (sol, iter_count, sigd_count, ip_count, as_size, as_drops)
 
 def predict(psi_q, X, r):
 
