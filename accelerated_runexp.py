@@ -20,9 +20,9 @@ R = [(10,10,10,10,10,10,10)]*1
 N = [1000000]*1
 Corners = [10] * 1
 Reps = [100] * 1
-Indices = [True] * 1
-Pattern = [True] * 1
-Sparse = [True]*1
+Indices = [False] * 1
+Pattern = [False] * 1
+Sparse = [False]*1
 Nag = [True]*1
 # Indices = [True]
 # Pattern = [True]
@@ -45,12 +45,17 @@ for i in range(len(R)):
         p = len(r) # order of the tenor
         cum_r = np.insert(np.cumsum(r), 0, 0)
 
-        nonten_results = np.zeros((reps, 7)) 
+        try:
+            nonten_results = np.load(f'experiments/record/r_{r}_n_{n}_corners_{corners}_reps_{reps}_indices_{indices}_pattern_{pattern}_sparse_{sparse}_nag_{nag}.npy')
+        except:
+            nonten_results = np.zeros((reps, 7)) 
+            np.save(f'experiments/record/r_{r}_n_{n}_corners_{corners}_reps_{reps}_indices_{indices}_pattern_{pattern}_sparse_{sparse}_nag_{nag}.npy', nonten_results)
         # amcomp_results = np.zeros((reps, 2)) 
         # silrtc_results = np.zeros((reps, 2)) 
         # tncomp_results = np.zeros((reps, 2)) 
+        start = int(np.sum(nonten_results[:,1] != 0))
 
-        for rep in range(reps):
+        for rep in range(start,reps):
             print("Starting Reptition No.", rep+1)
             rng = np.random.default_rng(rep)
             # Generate random tensor within rank-1 tensor ball
@@ -127,6 +132,8 @@ for i in range(len(R)):
             # tncomp_results[rep, 0] = np.dot(phi-selft.X.data.flatten(),phi-selft.X.data.flatten())/np.dot(phi,phi)
             # tncomp_results[rep, 1] = elapsed_time
             # print("")
+
+            np.save(f'experiments/record/r_{r}_n_{n}_corners_{corners}_reps_{reps}_indices_{indices}_pattern_{pattern}_sparse_{sparse}_nag_{nag}.npy', nonten_results)
 
         print("")
         print("Experiment Results: ")

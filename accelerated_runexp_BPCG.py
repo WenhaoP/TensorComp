@@ -20,14 +20,13 @@ R = [(10,10,10,10,10,10,10)]*2
 N = [1000000]*2
 Corners = [10] * 2
 Reps = [100] * 2
-Indices = [True,True] * 1
-Pattern = [True,True] * 1
+Indices = [False,False] * 1
+Pattern = [False,False] * 1
 Sparse = [False,True]*1
 # Indices = [True]
 # Pattern = [True]
 # Sparse = [True]
 ##################################################################
-
 for i in range(len(R)):
     r = R[i]
     n = N[i]
@@ -42,12 +41,17 @@ for i in range(len(R)):
         p = len(r) # order of the tenor
         cum_r = np.insert(np.cumsum(r), 0, 0)
 
-        nonten_results = np.zeros((reps, 7)) 
+        try:
+            nonten_results = np.load(f'experiments/record/BPCG_r_{r}_n_{n}_corners_{corners}_reps_{reps}_indices_{indices}_pattern_{pattern}_sparse_{sparse}.npy')
+        except:
+            nonten_results = np.zeros((reps, 7)) 
+            np.save(f'experiments/record/BPCG_r_{r}_n_{n}_corners_{corners}_reps_{reps}_indices_{indices}_pattern_{pattern}_sparse_{sparse}.npy', nonten_results)
         # amcomp_results = np.zeros((reps, 2)) 
         # silrtc_results = np.zeros((reps, 2)) 
         # tncomp_results = np.zeros((reps, 2)) 
+        start = int(np.sum(nonten_results[:,1] != 0))
 
-        for rep in range(reps):
+        for rep in range(start,reps):
             print("Starting Reptition No.", rep+1)
             rng = np.random.default_rng(rep)
             # Generate random tensor within rank-1 tensor ball
@@ -125,13 +129,15 @@ for i in range(len(R)):
             # tncomp_results[rep, 1] = elapsed_time
             # print("")
 
+            np.save(f'experiments/record/BPCG_r_{r}_n_{n}_corners_{corners}_reps_{reps}_indices_{indices}_pattern_{pattern}_sparse_{sparse}.npy', nonten_results)
+
         print("")
         print("Experiment Results: ")
         print("")
 
-        np.save(f'experiments/record/BPCG_r_{r}_n_{n}_corners_{corners}_reps_{reps}_indices_{indices}_pattern_{pattern}_sparse_{sparse}', nonten_results)
+        np.save(f'experiments/record/BPCG_r_{r}_n_{n}_corners_{corners}_reps_{reps}_indices_{indices}_pattern_{pattern}_sparse_{sparse}.npy', nonten_results)
 
-        print(f"BCG with {indices} indices, {pattern} pattern, {sparse} sparse speed ups:")
+        print(f"BPCG with {indices} indices, {pattern} pattern, {sparse} sparse speed ups:")
         print("Mean (NMSE, Time, iter_count, sigd_count, ip_count, as_size, as_drops)")
         print(np.mean(nonten_results,0))
         print("")

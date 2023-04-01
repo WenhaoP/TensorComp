@@ -14,8 +14,8 @@ from pyten.tools import tenerror
 ##################################################################
 # EDIT THESE TO CHANGE PROBLEM SETUP
 # Problem parameters
-R = [(10,10,10)]
-N = [500]
+R = [(10,10,10,10,10,10,10)]
+N = [1000000]
 Corners = [10]
 Reps = [100]
 ##################################################################
@@ -31,12 +31,17 @@ for i in range(len(R)):
         p = len(r) # order of the tenor
         cum_r = np.insert(np.cumsum(r), 0, 0)
 
-        nonten_results = np.zeros((reps, 7)) 
+        try:
+            nonten_results = np.load(f'experiments/record/r_{r}_n_{n}_corners_{corners}_reps_{reps}.npy')
+        except:
+            nonten_results = np.zeros((reps, 7)) 
+            np.save(f'experiments/record/r_{r}_n_{n}_corners_{corners}_reps_{reps}.npy', nonten_results)
         # amcomp_results = np.zeros((reps, 2)) 
         # silrtc_results = np.zeros((reps, 2)) 
         # tncomp_results = np.zeros((reps, 2)) 
+        start = int(np.sum(nonten_results[:,1] != 0))
 
-        for rep in range(reps):
+        for rep in range(start,reps):
             print("Starting Reptition No.", rep+1)
             rng = np.random.default_rng(rep)
             # Generate random tensor within rank-1 tensor ball
@@ -114,13 +119,15 @@ for i in range(len(R)):
             # tncomp_results[rep, 1] = elapsed_time
             # print("")
 
+            np.save(f'experiments/record/r_{r}_n_{n}_corners_{corners}_reps_{reps}.npy', nonten_results)
+
         print("")
         print("Experiment Results: ")
         print("")
 
-        np.save(f'experiments/record/r_{r}_n_{n}_corners_{corners}_reps_{reps}', nonten_results)
+        np.save(f'experiments/record/r_{r}_n_{n}_corners_{corners}_reps_{reps}.npy', nonten_results)
 
-        print("BCG:")
+        print(f"BCG:")
         print("Mean (NMSE, Time, iter_count, sigd_count, ip_count, as_size, as_drops)")
         print(np.mean(nonten_results,0))
         print("")
