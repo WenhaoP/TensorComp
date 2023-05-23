@@ -1,0 +1,2351 @@
+Starting Reptition No. 1
+First 20 entries in X [283475 153294 106427  25055 320446 212042 276953  77535 138703 338737
+   7670  61760 312943 172346 282931 154565 198323 155510  65859 208789] 
+
+First 20 entries in Y [0.15073243 0.01044506 0.00300224 0.16985551 0.23426423 0.0594517
+ 0.         0.09874925 0.00300224 0.16985551 0.16471046 0.09874925
+ 0.         0.         0.4122811  0.05644946 0.         0.00744282
+ 0.         0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.631e-02    0.000e+00    1.631e-02        0      1      0s
+     3        0     1.010e-02    0.000e+00    1.010e-02        0      1      0s
+    15        0     1.353e-03    0.000e+00    1.353e-03       17      1      0s
+    84        0     1.028e-04    0.000e+00    1.028e-04      594      1      2s
+    83        0     9.988e-05    0.000e+00    9.988e-05      599      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.987830e-05, best bound 0.000000e+00, additive gap 9.987830e-05
+Starting Reptition No. 2
+First 20 entries in X [113521   2677 300414  68475 233586  74843 275711 156113 168985 320447
+ 175182 318914 321210 238654 218241 314125  21633 227462 279759 128879] 
+
+First 20 entries in Y [0.         0.08556661 0.1002725  0.00539919 0.         0.
+ 0.12851524 0.19160737 0.21409549 0.44828294 0.00539919 0.34801044
+ 0.         0.06109183 0.18320765 0.18585275 0.         0.18620818
+ 0.21409549 0.08833434] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.635e-02    0.000e+00    1.635e-02        0      1      0s
+     3        0     1.039e-02    0.000e+00    1.039e-02        0      1      0s
+    13        0     1.319e-03    0.000e+00    1.319e-03       18      1      0s
+    81        0     1.000e-04    0.000e+00    1.000e-04      596      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.999938e-05, best bound 0.000000e+00, additive gap 9.999938e-05
+Starting Reptition No. 3
+First 20 entries in X [258697 113657 268802 187521 193607  20055 143985 118612 229603 268713
+  44969 252892  69719 326996  28754 170552 336439 263638  62226  42785] 
+
+First 20 entries in Y [0.         0.15114527 0.02315055 0.06589135 0.07517994 0.01388959
+ 0.21703662 0.15114527 0.         0.         0.         0.02315055
+ 0.29411816 0.37066165 0.01388959 0.         0.         0.03704015
+ 0.12250594 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.477e-02    0.000e+00    1.477e-02        0      1      0s
+     3        0     1.013e-02    0.000e+00    1.013e-02        0      1      0s
+    16        0     1.126e-03    0.000e+00    1.126e-03       14      1      1s
+    78        0     9.931e-05    0.000e+00    9.931e-05      553      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.930674e-05, best bound 0.000000e+00, additive gap 9.930674e-05
+Starting Reptition No. 4
+First 20 entries in X [151952  31944 307141 226418  46167 134542 155404 294699 246375 152967
+  62307 249562 250967 314411 167507 126730 194551 281246 211281  28535] 
+
+First 20 entries in Y [0.04293836 0.21538529 0.28362576 0.04293836 0.34925023 0.
+ 0.         0.19745683 0.11642599 0.         0.22047962 0.02302279
+ 0.12877061 0.09421089 0.25069802 0.04293836 0.0253021  0.56691484
+ 0.21538529 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.626e-02    0.000e+00    1.626e-02        0      1      0s
+     3        0     1.083e-02    0.000e+00    1.083e-02        0      1      0s
+    16        0     1.162e-03    0.000e+00    1.162e-03       16      1      1s
+    68        0     9.903e-05    0.000e+00    9.903e-05      598      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.902997e-05, best bound 0.000000e+00, additive gap 9.902997e-05
+Starting Reptition No. 5
+First 20 entries in X [280169 316103 117465 147297 238832 312570 285354  52830  60248 196591
+ 279771 128195 163655 321711 213931 313874 323127 264149 138046  60593] 
+
+First 20 entries in Y [0.16018451 0.         0.24044535 0.10316353 0.17924463 0.2001572
+ 0.16585313 0.         0.08685247 0.08685247 0.         0.
+ 0.2001572  0.08685247 0.         0.16018451 0.32216262 0.13620839
+ 0.14805319 0.13620839] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.419e-02    0.000e+00    1.419e-02        0      1      0s
+     3        0     9.944e-03    0.000e+00    9.944e-03        0      1      0s
+    17        0     1.097e-03    0.000e+00    1.097e-03       16      1      1s
+    73        0     9.974e-05    0.000e+00    9.974e-05      655      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.973626e-05, best bound 0.000000e+00, additive gap 9.973626e-05
+Starting Reptition No. 6
+First 20 entries in X [108976   6309 108233 171242 116482 199340 301192 182617 337741  14332
+   5730 222430 245809 229691 180129 300192 127702 254650 241614 256248] 
+
+First 20 entries in Y [0.18560327 0.09383604 0.01120081 0.         0.         0.08806898
+ 0.25125867 0.19532917 0.2407354  0.33865275 0.09383604 0.18560327
+ 0.19680408 0.0216016  0.18560327 0.         0.0656554  0.08806898
+ 0.30398585 0.15372437] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.837e-02    0.000e+00    1.837e-02        0      1      0s
+     3        0     1.142e-02    0.000e+00    1.142e-02        0      1      0s
+    12        0     1.569e-03    0.000e+00    1.569e-03       15      1      0s
+    73        0     1.221e-04    0.000e+00    1.221e-04      468      1      2s
+    72        0     9.914e-05    0.000e+00    9.914e-05      486      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.913845e-05, best bound 0.000000e+00, additive gap 9.913845e-05
+Starting Reptition No. 7
+First 20 entries in X [201800 114494 235595  11681 341030 213342 250375 240065 231187  69584
+  39246 187619 180629   4468 145572 188750 230832 213518 179079 144515] 
+
+First 20 entries in Y [0.07412287 0.06794244 0.07304823 0.24109084 0.20758952 0.13325098
+ 0.38862337 0.07304823 0.07412287 0.09846238 0.         0.0243395
+ 0.18063992 0.         0.26804044 0.         0.0243395  0.3607718
+ 0.0243395  0.37455748] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.170e-02    0.000e+00    1.170e-02        0      1      0s
+     3        0     8.237e-03    0.000e+00    8.237e-03        0      1      0s
+    17        0     8.930e-04    0.000e+00    8.930e-04       18      1      0s
+    68        0     9.864e-05    0.000e+00    9.864e-05      616      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.864009e-05, best bound 0.000000e+00, additive gap 9.864009e-05
+Starting Reptition No. 8
+First 20 entries in X [299206  41849 160391 285360 120418 182611  75111 166632 297256  77701
+  64144  59560 184836 258541 289655 157560 227868 219546  49755 211923] 
+
+First 20 entries in Y [0.00090963 0.         0.15591113 0.         0.34464468 0.42131084
+ 0.13400646 0.20277031 0.13400646 0.18586281 0.         0.
+ 0.         0.0389065  0.25890466 0.09076285 0.14187437 0.
+ 0.10799069 0.21854053] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.702e-02    0.000e+00    1.702e-02        0      1      0s
+     3        0     1.085e-02    0.000e+00    1.085e-02        0      1      0s
+    13        0     1.407e-03    0.000e+00    1.407e-03       16      1      0s
+    78        0     1.058e-04    0.000e+00    1.058e-04      538      1      2s
+    78        0     9.938e-05    0.000e+00    9.938e-05      544      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.937501e-05, best bound 0.000000e+00, additive gap 9.937501e-05
+Starting Reptition No. 9
+First 20 entries in X [ 32898 156458 179366 287167  85628 267660 300830  32653 133126 220421
+ 272488 232813  62740 214510  81001 267539 161528 119435 183641 196437] 
+
+First 20 entries in Y [0.         0.24466147 0.167692   0.39991698 0.15960315 0.08621351
+ 0.19438257 0.06437679 0.25713278 0.44394043 0.32150957 0.15038939
+ 0.06437679 0.22864514 0.06275021 0.08621351 0.167692   0.06275021
+ 0.15038939 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.369e-02    0.000e+00    1.369e-02        0      1      0s
+     3        0     8.718e-03    0.000e+00    8.718e-03        0      1      0s
+    16        0     8.358e-04    0.000e+00    8.358e-04       19      1      1s
+    53        0     9.979e-05    0.000e+00    9.979e-05      615      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.979487e-05, best bound 0.000000e+00, additive gap 9.979487e-05
+Starting Reptition No. 10
+First 20 entries in X [ 51182 196863 219693 214702 228124 338131 270795  40493 325983 316937
+ 307051   1910 179582 333321  24868 183549 315283 131404  38881 317812] 
+
+First 20 entries in Y [0.27740529 0.09407036 0.         0.13880398 0.30503381 0.13880398
+ 0.24741194 0.24741194 0.06819565 0.06819565 0.00414677 0.23295157
+ 0.06819565 0.         0.16600218 0.00414677 0.09407036 0.
+ 0.         0.17892543] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.416e-02    0.000e+00    1.416e-02        0      1      0s
+     3        0     9.262e-03    0.000e+00    9.262e-03        0      1      0s
+    15        0     1.046e-03    0.000e+00    1.046e-03       19      1      0s
+    67        0     9.885e-05    0.000e+00    9.885e-05      626      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.884950e-05, best bound 0.000000e+00, additive gap 9.884950e-05
+Starting Reptition No. 11
+First 20 entries in X [338120  29434 178030 312560 146403 294857 326576 141897 131865  90992
+  34680 240434 250648 163463 121704 157169 289698 246820 212410 301074] 
+
+First 20 entries in Y [0.29284393 0.31520916 0.         0.16451962 0.16778303 0.36157844
+ 0.08991282 0.69371752 0.26133253 0.4100108  0.19161455 0.0746068
+ 0.12081251 0.24602652 0.02617444 0.16762097 0.03641398 0.25753378
+ 0.23516855 0.335404  ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.943e-02    0.000e+00    1.943e-02        0      1      0s
+     3        0     1.197e-02    0.000e+00    1.197e-02        0      1      0s
+    14        0     1.367e-03    0.000e+00    1.367e-03       20      1      0s
+    81        0     9.983e-05    0.000e+00    9.983e-05      598      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.983410e-05, best bound 0.000000e+00, additive gap 9.983410e-05
+Starting Reptition No. 12
+First 20 entries in X [159911 188818  28004 159562 319219 283504 342538 317696 324177  76869
+ 184753 122638  11457 116737 317922 179488 123314 248273  97932 199414] 
+
+First 20 entries in Y [0.         0.28908084 0.0241461  0.03831311 0.         0.00698951
+ 0.41368936 0.51147944 0.         0.12163923 0.29805296 0.
+ 0.1686663  0.20028317 0.         0.06992999 0.         0.0313236
+ 0.04848019 0.0313236 ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.704e-02    0.000e+00    1.704e-02        0      1      0s
+     3        0     1.095e-02    0.000e+00    1.095e-02        0      1      0s
+    14        0     1.483e-03    0.000e+00    1.483e-03       15      1      1s
+    70        0     1.109e-04    0.000e+00    1.109e-04      428      1      2s
+    70        0     9.886e-05    0.000e+00    9.886e-05      437      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.885727e-05, best bound 0.000000e+00, additive gap 9.885727e-05
+Starting Reptition No. 13
+First 20 entries in X [  8495 106052 315993 140167 286141 276197 102907  66062 265130 197331
+ 239596 278865 276418 317490  90217 334671  14155 152858 223460  18028] 
+
+First 20 entries in Y [0.25120515 0.32615995 0.25553308 0.14310764 0.04039624 0.0382563
+ 0.         0.24591496 0.         0.         0.         0.08744804
+ 0.08744804 0.         0.31492733 0.14305636 0.05351967 0.14305636
+ 0.0382563  0.0382563 ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.729e-02    0.000e+00    1.729e-02        0      1      0s
+     3        0     1.024e-02    0.000e+00    1.024e-02        0      1      0s
+    14        0     1.254e-03    0.000e+00    1.254e-03       15      1      0s
+    71        0     9.991e-05    0.000e+00    9.991e-05      521      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.991442e-05, best bound 0.000000e+00, additive gap 9.991442e-05
+Starting Reptition No. 14
+First 20 entries in X [125299 104771 229767 230643 178874 187025  49577 208282 305203 266934
+ 131728 190047 138604  46024 290135  67674 217254 125996 314001 147204] 
+
+First 20 entries in Y [0.15607257 0.12816692 0.         0.16948358 0.         0.23736502
+ 0.26483184 0.13708066 0.27182932 0.13558014 0.1351644  0.2251651
+ 0.27224506 0.         0.01219992 0.01261566 0.14387265 0.
+ 0.12816692 0.15562958] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.425e-02    0.000e+00    1.425e-02        0      1      0s
+     3        0     9.706e-03    0.000e+00    9.706e-03        0      1      0s
+    14        0     9.899e-04    0.000e+00    9.899e-04       16      1      1s
+    68        0     9.915e-05    0.000e+00    9.915e-05      620      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.914609e-05, best bound 0.000000e+00, additive gap 9.914609e-05
+Starting Reptition No. 15
+First 20 entries in X [239110 337802 121964  99175 136906 210668  48075 257391 214165 116644
+  84409  95850 122977 297182 207629  11880 324619 164182 280604  64106] 
+
+First 20 entries in Y [0.         0.         0.07228666 0.21718873 0.1831245  0.26167016
+ 0.10873732 0.26797466 0.         0.20797062 0.19024209 0.
+ 0.07228666 0.18408347 0.20653401 0.10873732 0.08857858 0.08857858
+ 0.         0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.160e-02    0.000e+00    1.160e-02        0      1      0s
+     3        0     7.743e-03    0.000e+00    7.743e-03        0      1      0s
+    18        0     6.795e-04    0.000e+00    6.795e-04       23      1      0s
+    56        0     9.930e-05    0.000e+00    9.930e-05      693      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.930280e-05, best bound 0.000000e+00, additive gap 9.930280e-05
+Starting Reptition No. 16
+First 20 entries in X [257679 296248  58963 184117  92385  85933 123764 132676  92451 191907
+ 289140 258182 253458 129670 235994  84313 153095 330704   7362 217743] 
+
+First 20 entries in Y [0.3504502  0.00876992 0.14058483 0.         0.         0.27136503
+ 0.         0.06754844 0.15956605 0.09596689 0.17934742 0.
+ 0.15956605 0.25843259 0.00876992 0.19088415 0.22692873 0.14935475
+ 0.06736268 0.22997157] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.253e-02    0.000e+00    1.253e-02        0      1      0s
+     3        0     8.483e-03    0.000e+00    8.483e-03        0      1      0s
+    18        0     7.932e-04    0.000e+00    7.932e-04       19      1      1s
+    57        0     9.778e-05    0.000e+00    9.778e-05      672      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.777648e-05, best bound 0.000000e+00, additive gap 9.777648e-05
+Starting Reptition No. 17
+First 20 entries in X [ 61817 182376 218029 105192  53695 321342 111151 270853  27160 125428
+ 136604 231537 181213  75641  33295 255309  64470 256559  49547 295705] 
+
+First 20 entries in Y [0.00464861 0.         0.         0.56353788 0.02019451 0.13341726
+ 0.         0.02019451 0.38060099 0.07472107 0.18333595 0.
+ 0.22588366 0.12169814 0.         0.41873025 0.19726504 0.18333595
+ 0.16718747 0.19284659] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.719e-02    0.000e+00    1.719e-02        0      1      0s
+     3        0     1.095e-02    0.000e+00    1.095e-02        0      1      0s
+    14        0     1.362e-03    0.000e+00    1.362e-03       14      1      0s
+    76        0     1.123e-04    0.000e+00    1.123e-04      486      1      2s
+    76        0     9.928e-05    0.000e+00    9.928e-05      498      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.928381e-05, best bound 0.000000e+00, additive gap 9.928381e-05
+Starting Reptition No. 18
+First 20 entries in X [ 89811  52401 245410 167721 286369 120628 304803 303263  60032  73353
+  94083 140036 108910 309256 326639 110006 135175 279689 174536  38624] 
+
+First 20 entries in Y [0.36575531 0.28057466 0.08512838 0.17030904 0.19110064 0.09902455
+ 0.26933359 0.27286973 0.03722936 0.27038296 0.         0.00353614
+ 0.03722936 0.04971111 0.         0.         0.24041409 0.13625391
+ 0.08512838 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.439e-02    0.000e+00    1.439e-02        0      1      0s
+     3        0     9.780e-03    0.000e+00    9.780e-03        0      1      0s
+    18        0     7.463e-04    0.000e+00    7.463e-04       21      1      1s
+    66        0     9.997e-05    0.000e+00    9.997e-05      893      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.997473e-05, best bound 0.000000e+00, additive gap 9.997473e-05
+Starting Reptition No. 19
+First 20 entries in X [307268  65730 300080 211426 292669 336487 312383 243451 141163 218248
+  75557 233082 292797 296747  84715 334336 110461 289564 141172  98437] 
+
+First 20 entries in Y [0.05810632 0.07522328 0.13331913 0.         0.13331913 0.
+ 0.33397854 0.         0.         0.17376996 0.         0.14844325
+ 0.33397854 0.0253267  0.25876573 0.13331913 0.21910184 0.11936287
+ 0.28492308 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.238e-02    0.000e+00    1.238e-02        0      1      0s
+     3        0     8.357e-03    0.000e+00    8.357e-03        0      1      0s
+    18        0     8.631e-04    0.000e+00    8.631e-04       16      1      1s
+    71        0     9.935e-05    0.000e+00    9.935e-05      588      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.935281e-05, best bound 0.000000e+00, additive gap 9.935281e-05
+Starting Reptition No. 20
+First 20 entries in X [175040 121466  49662 203968  23158  58629 243652 279965 320136 168880
+ 134474 295105 125876 309084 197197  66181 326083 327468 216276 161057] 
+
+First 20 entries in Y [0.26693697 0.31903742 0.17432445 0.17613544 0.23340159 0.36547402
+ 0.07997198 0.13662606 0.07997198 0.01142352 0.         0.14856925
+ 0.05929058 0.         0.37680515 0.21659804 0.         0.0913955
+ 0.13662606 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.385e-02    0.000e+00    1.385e-02        0      1      0s
+     3        0     9.163e-03    0.000e+00    9.163e-03        0      1      0s
+    17        0     1.041e-03    0.000e+00    1.041e-03       17      1      0s
+    69        0     9.955e-05    0.000e+00    9.955e-05      675      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.954863e-05, best bound 0.000000e+00, additive gap 9.954863e-05
+Starting Reptition No. 21
+First 20 entries in X [ 21182 133157  97865 338350  98820  34001  85365 209515  91819 148129
+ 148425 320354 234435 196180  93130 165357 237459 274759  32538 283238] 
+
+First 20 entries in Y [0.3268869  0.29964418 0.26695596 0.24088892 0.0999344  0.26139882
+ 0.08590223 0.46110618 0.41040654 0.         0.13375809 0.33716181
+ 0.18402651 0.24088892 0.19604586 0.         0.         0.12708378
+ 0.02972855 0.37768979] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.386e-02    0.000e+00    1.386e-02        0      1      0s
+     3        0     9.178e-03    0.000e+00    9.178e-03        0      1      0s
+    15        0     1.149e-03    0.000e+00    1.149e-03       17      1      0s
+    71        0     9.949e-05    0.000e+00    9.949e-05      608      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.949276e-05, best bound 0.000000e+00, additive gap 9.949276e-05
+Starting Reptition No. 22
+First 20 entries in X [ 77697 276311 262980 190193 278527 336990 283513 128953 242967  85230
+  32950 130036 212331 326464 221151 258474 118561  98571  33311 215002] 
+
+First 20 entries in Y [0.10152535 0.13089647 0.         0.         0.         0.01493066
+ 0.16058235 0.0709525  0.16436022 0.         0.10152535 0.18423081
+ 0.13089647 0.22047092 0.30640948 0.         0.12452857 0.16436022
+ 0.01883605 0.14582713] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.319e-02    0.000e+00    1.319e-02        0      1      0s
+     3        0     8.367e-03    0.000e+00    8.367e-03        0      1      0s
+    16        0     9.319e-04    0.000e+00    9.319e-04       18      1      0s
+    58        0     9.998e-05    0.000e+00    9.998e-05      609      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.997506e-05, best bound 0.000000e+00, additive gap 9.997506e-05
+Starting Reptition No. 23
+First 20 entries in X [237673  48551 136996  36293  58280  34714  55470 340724  67514  69852
+ 245475 101400 225901  88924  56025 315417  41167 334820 325734 139216] 
+
+First 20 entries in Y [0.22031501 0.16863675 0.23505687 0.09008528 0.01753729 0.07254799
+ 0.         0.19559024 0.0909629  0.         0.         0.19559024
+ 0.         0.         0.         0.         0.2963315  0.1293521
+ 0.         0.07254799] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.173e-02    0.000e+00    1.173e-02        0      1      0s
+     3        0     8.249e-03    0.000e+00    8.249e-03        0      1      0s
+    18        0     9.358e-04    0.000e+00    9.358e-04       17      1      1s
+    59        0     9.975e-05    0.000e+00    9.975e-05      538      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.974807e-05, best bound 0.000000e+00, additive gap 9.974807e-05
+Starting Reptition No. 24
+First 20 entries in X [335927 278157 220985 124940  88112 172777  80528  11612 289229  22400
+ 214497  26726 239601 239683 282946 103821  52123 144368 206262  72559] 
+
+First 20 entries in Y [0.2887079  0.33017487 0.17214517 0.02741995 0.14790879 0.10032757
+ 0.18319372 0.32524655 0.13672401 0.17421724 0.         0.
+ 0.         0.         0.04646972 0.         0.         0.06724471
+ 0.18191064 0.18572745] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.261e-02    0.000e+00    1.261e-02        0      1      0s
+     3        0     7.981e-03    0.000e+00    7.981e-03        0      1      0s
+    15        0     9.633e-04    0.000e+00    9.633e-04       18      1      0s
+    54        0     9.912e-05    0.000e+00    9.912e-05      510      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.911732e-05, best bound 0.000000e+00, additive gap 9.911732e-05
+Starting Reptition No. 25
+First 20 entries in X [147620 216838 117831 123863  24815 272184 318881 178288 181421  41129
+ 170973 253662 118559 220763   7537 239855 175004  50614 234584 323963] 
+
+First 20 entries in Y [0.         0.         0.10830179 0.13563984 0.20807028 0.39840242
+ 0.06033549 0.44519831 0.26376275 0.         0.17547849 0.34801552
+ 0.         0.01578964 0.10499656 0.15284764 0.         0.22815199
+ 0.32696357 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.398e-02    0.000e+00    1.398e-02        0      1      0s
+     3        0     9.100e-03    0.000e+00    9.100e-03        0      1      0s
+    15        0     9.080e-04    0.000e+00    9.080e-04       19      1      0s
+    57        0     1.000e-04    0.000e+00    1.000e-04      703      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.999732e-05, best bound 0.000000e+00, additive gap 9.999732e-05
+Starting Reptition No. 26
+First 20 entries in X [275760 301848 289481 198656  83919 283511  71122 117785 230021 208376
+  18730 121564 327485 136663 277367 217259  89941  52422 299381  34547] 
+
+First 20 entries in Y [0.06298333 0.05242701 0.03956171 0.31968002 0.44326822 0.12071151
+ 0.         0.         0.2566967  0.         0.07364624 0.
+ 0.         0.         0.05242701 0.03956171 0.00066095 0.2566967
+ 0.00066095 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     2.314e-02    0.000e+00    2.314e-02        0      1      0s
+     3        0     1.283e-02    0.000e+00    1.283e-02        0      1      0s
+    12        0     2.691e-03    0.000e+00    2.691e-03       10      1      0s
+    65        0     3.050e-04    0.000e+00    3.050e-04      286      1      2s
+    91        0     9.998e-05    0.000e+00    9.998e-05     1224      1      4s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.997665e-05, best bound 0.000000e+00, additive gap 9.997665e-05
+Starting Reptition No. 27
+First 20 entries in X [282677 175854  83779 138937 256008  65558  49786  79048 336854 244654
+  69313 242196   8942 233582  18395 187581 224175   7178  53571 151743] 
+
+First 20 entries in Y [0.14410971 0.38209639 0.25579692 0.         0.25579692 0.
+ 0.12457756 0.19319111 0.31067263 0.         0.         0.18473305
+ 0.         0.03844082 0.12593959 0.25579692 0.         0.36220435
+ 0.         0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.382e-02    0.000e+00    1.382e-02        0      1      0s
+     3        0     9.109e-03    0.000e+00    9.109e-03        0      1      0s
+    18        0     8.860e-04    0.000e+00    8.860e-04       18      1      1s
+    66        0     9.994e-05    0.000e+00    9.994e-05      665      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.994123e-05, best bound 0.000000e+00, additive gap 9.994123e-05
+Starting Reptition No. 28
+First 20 entries in X [305137  86369  97952 114724 282166 137810 242908 189618 246326 320360
+ 266693 114887 171841  39304 207333   8829 227253 119556  95398 323170] 
+
+First 20 entries in Y [0.         0.20408326 0.02621782 0.2276611  0.20144328 0.15093694
+ 0.         0.06788549 0.         0.09621836 0.13340801 0.
+ 0.         0.37443448 0.00216737 0.02621782 0.         0.
+ 0.         0.19704164] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.540e-02    0.000e+00    1.540e-02        0      1      0s
+     3        0     9.712e-03    0.000e+00    9.712e-03        0      1      0s
+    14        0     1.429e-03    0.000e+00    1.429e-03       13      1      0s
+    76        0     1.083e-04    0.000e+00    1.083e-04      413      1      2s
+    73        0     9.971e-05    0.000e+00    9.971e-05      424      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.970578e-05, best bound 0.000000e+00, additive gap 9.970578e-05
+Starting Reptition No. 29
+First 20 entries in X [300370  38812  26237 204308 315840 211842 257644 208764 325991 243438
+  95529 249334  76019 237978 123366 235258 305503 281316  94861 178492] 
+
+First 20 entries in Y [0.08790604 0.         0.12637802 0.         0.         0.01359961
+ 0.         0.18926685 0.21130899 0.41155274 0.         0.
+ 0.21130899 0.14059278 0.20573238 0.14059278 0.20027608 0.00828532
+ 0.00531429 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.064e-02    0.000e+00    1.064e-02        0      1      0s
+     3        0     7.481e-03    0.000e+00    7.481e-03        0      1      0s
+    19        0     8.559e-04    0.000e+00    8.559e-04       18      1      1s
+    71        0     9.962e-05    0.000e+00    9.962e-05      650      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.962439e-05, best bound 0.000000e+00, additive gap 9.962439e-05
+Starting Reptition No. 30
+First 20 entries in X [ 95518 307582  55105 282661 272295 264694  54671 326246 192142  76665
+  14356 121572 236257  58147 233073 108904 333918 276663  82060 247422] 
+
+First 20 entries in Y [0.05114692 0.37067942 0.02909144 0.0082055  0.01980898 0.14543296
+ 0.20040626 0.20702706 0.12477845 0.20040626 0.         0.
+ 0.         0.0791614  0.36163322 0.15049741 0.         0.34583922
+ 0.09428604 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.610e-02    0.000e+00    1.610e-02        0      1      0s
+     3        0     1.089e-02    0.000e+00    1.089e-02        0      1      0s
+    15        0     1.437e-03    0.000e+00    1.437e-03       17      1      0s
+    84        0     1.004e-04    0.000e+00    1.004e-04      505      1      2s
+    84        0     9.992e-05    0.000e+00    9.992e-05      506      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.992295e-05, best bound 0.000000e+00, additive gap 9.992295e-05
+Starting Reptition No. 31
+First 20 entries in X [289327  96729  61320 265512 283643 327326 333398 302013  42848 208697
+ 151547 170431 243908  79657 320509 176701 191572 263113  81645  55746] 
+
+First 20 entries in Y [0.40763721 0.07411531 0.05326974 0.         0.05326974 0.22075164
+ 0.0247555  0.05326974 0.         0.24926587 0.         0.
+ 0.         0.09459558 0.         0.15840555 0.18703613 0.37281703
+ 0.         0.0247555 ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.274e-02    0.000e+00    1.274e-02        0      1      0s
+     3        0     8.481e-03    0.000e+00    8.481e-03        0      1      0s
+    17        0     9.829e-04    0.000e+00    9.829e-04       15      1      0s
+    70        0     9.987e-05    0.000e+00    9.987e-05      569      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.986945e-05, best bound 0.000000e+00, additive gap 9.986945e-05
+Starting Reptition No. 32
+First 20 entries in X [ 58325 181333 145602  63022 319712 297964 246737 107104 332870  45455
+ 320019 125253  59285 207967 129952  45597 112961  51457 176491 314988] 
+
+First 20 entries in Y [0.01558767 0.04065847 0.22453674 0.08518088 0.15494353 0.
+ 0.06959321 0.01558767 0.17161301 0.17842982 0.22360643 0.42893954
+ 0.10883662 0.31685538 0.         0.         0.01179491 0.
+ 0.         0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.374e-02    0.000e+00    1.374e-02        0      1      0s
+     3        0     8.849e-03    0.000e+00    8.849e-03        0      1      0s
+    14        0     1.416e-03    0.000e+00    1.416e-03       12      1      0s
+    70        0     1.028e-04    0.000e+00    1.028e-04      389      1      2s
+    70        0     9.894e-05    0.000e+00    9.894e-05      393      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.893960e-05, best bound 0.000000e+00, additive gap 9.893960e-05
+Starting Reptition No. 33
+First 20 entries in X [238678 208461 232302  42886 163114 249871 101166 105764 233404 175662
+ 223689 120954 333989 148337  86959 101316    748  74971  65269 261169] 
+
+First 20 entries in Y [0.29942424 0.10299395 0.         0.02662137 0.05364968 0.
+ 0.20658906 0.23297125 0.27214464 0.         0.19805925 0.05364968
+ 0.20913344 0.         0.18813965 0.         0.11406814 0.07637258
+ 0.36573345 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.306e-02    0.000e+00    1.306e-02        0      1      0s
+     3        0     8.328e-03    0.000e+00    8.328e-03        0      1      0s
+    15        0     9.900e-04    0.000e+00    9.900e-04       18      1      0s
+    62        0     9.982e-05    0.000e+00    9.982e-05      798      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.981521e-05, best bound 0.000000e+00, additive gap 9.981521e-05
+Starting Reptition No. 34
+First 20 entries in X [156253  18787 306473 112750 263015 157356 282761 299322 167906 246599
+ 288131  11570  87313 309784 318750  92756  94357 273217  53603  38558] 
+
+First 20 entries in Y [0.03931594 0.         0.17667342 0.08631149 0.11454858 0.11933293
+ 0.         0.14715401 0.04946476 0.0887807  0.33080289 0.17667342
+ 0.         0.         0.04946476 0.1056532  0.04946476 0.
+ 0.11454858 0.19938181] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.250e-02    0.000e+00    1.250e-02        0      1      0s
+     3        0     8.430e-03    0.000e+00    8.430e-03        0      1      0s
+    19        0     6.970e-04    0.000e+00    6.970e-04       22      1      1s
+    50        0     9.842e-05    0.000e+00    9.842e-05      628      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.842458e-05, best bound 0.000000e+00, additive gap 9.842458e-05
+Starting Reptition No. 35
+First 20 entries in X [147410 120758 108435 313285   6334 214205 128515   4068 210621 281519
+ 338963 326287 232767 254691 294712 182931  88170 173632 222141 227628] 
+
+First 20 entries in Y [0.         0.00063857 0.13825999 0.13961467 0.         0.11521994
+ 0.         0.21936624 0.36782338 0.         0.08258929 0.00063857
+ 0.00063857 0.26326059 0.22220397 0.00063857 0.13961467 0.
+ 0.13961467 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.312e-02    0.000e+00    1.312e-02        0      1      0s
+     3        0     9.125e-03    0.000e+00    9.125e-03        0      1      0s
+    15        0     8.667e-04    0.000e+00    8.667e-04       20      1      1s
+    57        0     9.960e-05    0.000e+00    9.960e-05      622      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.960219e-05, best bound 0.000000e+00, additive gap 9.960219e-05
+Starting Reptition No. 36
+First 20 entries in X [250860  54915  63118 249077 167743 121688 201970  24972 174408 342871
+ 216034 156741  65648 159680 295358 259750 301891 320780 133409  42824] 
+
+First 20 entries in Y [0.00000000e+00 0.00000000e+00 1.61781567e-01 5.77445347e-02
+ 0.00000000e+00 2.36063549e-01 2.40123473e-01 2.12931990e-01
+ 1.55203222e-01 1.55035038e-01 1.59762113e-01 3.71152907e-01
+ 1.55203222e-01 0.00000000e+00 1.78319014e-01 1.52417335e-04
+ 1.65374470e-02 7.74520940e-02 0.00000000e+00 1.65374470e-02] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.527e-02    0.000e+00    1.527e-02        0      1      0s
+     3        0     9.841e-03    0.000e+00    9.841e-03        0      1      0s
+    16        0     1.098e-03    0.000e+00    1.098e-03       17      1      0s
+    66        0     9.916e-05    0.000e+00    9.916e-05      656      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.915969e-05, best bound 0.000000e+00, additive gap 9.915969e-05
+Starting Reptition No. 37
+First 20 entries in X [302546 284969 170780 223859  56052 214056  14547 144481 177607 227109
+ 259148 275291  39906 207613 328700 307926 164871  49672 283495  83141] 
+
+First 20 entries in Y [0.21492593 0.14706038 0.43001015 0.         0.16049574 0.02919342
+ 0.08178767 0.         0.03709743 0.2206678  0.11203862 0.
+ 0.41387863 0.05053279 0.         0.21276379 0.26641556 0.29353332
+ 0.06629085 0.10996295] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.324e-02    0.000e+00    1.324e-02        0      1      0s
+     3        0     8.607e-03    0.000e+00    8.607e-03        0      1      0s
+    14        0     1.094e-03    0.000e+00    1.094e-03       18      1      0s
+    58        0     9.906e-05    0.000e+00    9.906e-05      574      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.906306e-05, best bound 0.000000e+00, additive gap 9.906306e-05
+Starting Reptition No. 38
+First 20 entries in X [319044 187012 191450 124232 331554 106559  39172 226650  73838 330559
+ 191122 302066  79879 104472  31868  50289  21886 155953  26850  98021] 
+
+First 20 entries in Y [0.33153778 0.         0.         0.15591702 0.02552504 0.
+ 0.1060615  0.14676945 0.06880805 0.15591702 0.         0.42220879
+ 0.16592811 0.         0.27198961 0.15591702 0.         0.38699111
+ 0.07516093 0.3970022 ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.644e-02    0.000e+00    1.644e-02        0      1      0s
+     3        0     1.023e-02    0.000e+00    1.023e-02        0      1      0s
+    14        0     1.430e-03    0.000e+00    1.430e-03       16      1      0s
+    74        0     1.194e-04    0.000e+00    1.194e-04      514      1      2s
+    72        0     9.953e-05    0.000e+00    9.953e-05      533      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.952561e-05, best bound 0.000000e+00, additive gap 9.952561e-05
+Starting Reptition No. 39
+First 20 entries in X [140453 233965 197278 227151 326916 123858  86433  96681 217131 261718
+ 171646 308234 277318 296832 120016 105786 154275 245078 124558 134250] 
+
+First 20 entries in Y [0.25746323 0.13548606 0.09113867 0.10083146 0.11935536 0.0469692
+ 0.15706005 0.17376529 0.08240553 0.09113867 0.35830171 0.00743371
+ 0.09339775 0.08240553 0.         0.09135976 0.         0.
+ 0.         0.34903018] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.384e-02    0.000e+00    1.384e-02        0      1      0s
+     3        0     8.898e-03    0.000e+00    8.898e-03        0      1      0s
+    16        0     9.637e-04    0.000e+00    9.637e-04       16      1      1s
+    77        0     9.947e-05    0.000e+00    9.947e-05      667      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.947151e-05, best bound 0.000000e+00, additive gap 9.947151e-05
+Starting Reptition No. 40
+First 20 entries in X [283545  12223 162837 170140 147401 181037  23538 109322 307474 178128
+ 182180 132411 141226  24954 334429 175680 317070 150126  41829  39689] 
+
+First 20 entries in Y [0.16347091 0.44881673 0.         0.23107366 0.45340946 0.
+ 0.57502718 0.24627885 0.2416084  0.18294905 0.30568635 0.19426573
+ 0.30109362 0.16694406 0.06329602 0.02807008 0.25727574 0.42533938
+ 0.         0.0945062 ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.520e-02    0.000e+00    1.520e-02        0      1      0s
+     3        0     1.042e-02    0.000e+00    1.042e-02        0      1      0s
+    17        0     1.028e-03    0.000e+00    1.028e-03       19      1      1s
+    75        0     9.980e-05    0.000e+00    9.980e-05      634      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.980066e-05, best bound 0.000000e+00, additive gap 9.980066e-05
+Starting Reptition No. 41
+First 20 entries in X [262997 289891 129863 276066 132536 319212 147427 148808 332502 142794
+ 337590 291794 247864 314480 173349 185481 164376  86034 301930 220017] 
+
+First 20 entries in Y [0.         0.11814065 0.         0.18250314 0.00964559 0.
+ 0.         0.21546356 0.00964559 0.12130107 0.         0.
+ 0.2334245  0.24962914 0.07691676 0.07691676 0.         0.23616337
+ 0.         0.27997454] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.196e-02    0.000e+00    1.196e-02        0      1      0s
+     3        0     8.355e-03    0.000e+00    8.355e-03        0      1      0s
+    17        0     8.900e-04    0.000e+00    8.900e-04       24      1      0s
+    54        0     9.953e-05    0.000e+00    9.953e-05      646      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.952716e-05, best bound 0.000000e+00, additive gap 9.952716e-05
+Starting Reptition No. 42
+First 20 entries in X [325348 186738 244703 256498 324495 198954 242862 252383  64641 300378
+ 104531 337139 179833 192885 193821 323083  31889 207289  16741    835] 
+
+First 20 entries in Y [0.28950124 0.08597355 0.05696207 0.21736543 0.16040336 0.
+ 0.16040336 0.14477592 0.21736543 0.16020293 0.13902585 0.14273841
+ 0.15027496 0.05880237 0.28176426 0.2738738  0.         0.05880237
+ 0.         0.13902585] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.050e-02    0.000e+00    1.050e-02        0      1      0s
+     3        0     7.063e-03    0.000e+00    7.063e-03        0      1      0s
+    17        0     8.023e-04    0.000e+00    8.023e-04       18      1      0s
+    63        0     9.804e-05    0.000e+00    9.804e-05      696      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.803739e-05, best bound 0.000000e+00, additive gap 9.803739e-05
+Starting Reptition No. 43
+First 20 entries in X [ 36877 185092 154864    414 207078  14427 260843  97092 118949  68136
+ 143988 114332 108262   5964 101681 339844  17205 185872  13584 263329] 
+
+First 20 entries in Y [0.2073084  0.01579017 0.         0.01579017 0.21754029 0.16357691
+ 0.         0.21198788 0.20312943 0.         0.55721416 0.14340602
+ 0.         0.20120004 0.23909049 0.24871844 0.         0.12976469
+ 0.16357691 0.01579017] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.421e-02    0.000e+00    1.421e-02        0      1      0s
+     3        0     9.456e-03    0.000e+00    9.456e-03        0      1      0s
+    17        0     8.934e-04    0.000e+00    8.934e-04       21      1      0s
+    56        0     9.954e-05    0.000e+00    9.954e-05      655      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.953935e-05, best bound 0.000000e+00, additive gap 9.953935e-05
+Starting Reptition No. 44
+First 20 entries in X [ 14262 325000 274519 115099  29013 172455 305569 321297  17612 102147
+  74796 322016 161127  54921 154425 185543   9110 178054  26838 300822] 
+
+First 20 entries in Y [0.         0.         0.14832369 0.13803247 0.14274126 0.238732
+ 0.         0.06311756 0.24406622 0.05753513 0.06199185 0.17674014
+ 0.22956649 0.44135816 0.19729194 0.10603375 0.13803247 0.
+ 0.00470879 0.17674014] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.560e-02    0.000e+00    1.560e-02        0      1      0s
+     3        0     1.034e-02    0.000e+00    1.034e-02        0      1      0s
+    18        0     1.046e-03    0.000e+00    1.046e-03       16      1      1s
+    72        0     9.963e-05    0.000e+00    9.963e-05      532      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.963341e-05, best bound 0.000000e+00, additive gap 9.963341e-05
+Starting Reptition No. 45
+First 20 entries in X [133289  28558 130571  20817 137161 293258 283734 125291  65027 149170
+  66042 327922 189630 216254 193581  18689 246044 319073 108891 254309] 
+
+First 20 entries in Y [0.0564736  0.0564736  0.0564736  0.03551402 0.14828172 0.
+ 0.03567333 0.39962243 0.         0.12445355 0.27635097 0.11559682
+ 0.03551402 0.33634592 0.32246476 0.         0.         0.06233062
+ 0.20883807 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.244e-02    0.000e+00    1.244e-02        0      1      0s
+     3        0     7.848e-03    0.000e+00    7.848e-03        0      1      0s
+    16        0     9.419e-04    0.000e+00    9.419e-04       18      1      0s
+    60        0     9.979e-05    0.000e+00    9.979e-05      598      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.978597e-05, best bound 0.000000e+00, additive gap 9.978597e-05
+Starting Reptition No. 46
+First 20 entries in X [115424 276343 289882  48167 119960 143353 121215 180980  41862  73531
+ 194966 222955 102240 103838 314571 176006 148709 199693 244180 123463] 
+
+First 20 entries in Y [0.08209882 0.         0.33186457 0.23512532 0.16136068 0.20535483
+ 0.         0.         0.18354176 0.08209882 0.         0.36578981
+ 0.07926185 0.22534696 0.         0.20293463 0.23176607 0.18354176
+ 0.22534696 0.22795267] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.035e-02    0.000e+00    1.035e-02        0      1      0s
+     3        0     7.421e-03    0.000e+00    7.421e-03        0      1      0s
+    19        0     6.986e-04    0.000e+00    6.986e-04       28      1      0s
+    54        0     9.999e-05    0.000e+00    9.999e-05      783      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.998994e-05, best bound 0.000000e+00, additive gap 9.998994e-05
+Starting Reptition No. 47
+First 20 entries in X [ 37972  80207 197732 244463 123415 194362 301249 239123 262299  84949
+ 329400 271193 186591 272818 296059 122427  82276 336712 220320 115544] 
+
+First 20 entries in Y [0.20379396 0.11315089 0.         0.2746737  0.0490147  0.
+ 0.         0.33081092 0.40927369 0.         0.13459998 0.29744977
+ 0.24532407 0.         0.31071411 0.         0.         0.36546309
+ 0.35133125 0.25993118] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.615e-02    0.000e+00    1.615e-02        0      1      0s
+     3        0     1.075e-02    0.000e+00    1.075e-02        0      1      0s
+    15        0     1.132e-03    0.000e+00    1.132e-03       20      1      0s
+    67        0     9.994e-05    0.000e+00    9.994e-05      662      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.993886e-05, best bound 0.000000e+00, additive gap 9.993886e-05
+Starting Reptition No. 48
+First 20 entries in X [282406  60960  54220 305657 202565 150835  27382 203111 279978  85509
+  21444  28619 286933  41051 130507   6553 206586  24998 100448 183515] 
+
+First 20 entries in Y [0.03926179 0.         0.         0.18843559 0.32821666 0.12629617
+ 0.29308846 0.         0.05545665 0.         0.06286195 0.14770708
+ 0.03926179 0.         0.03926179 0.07438999 0.14770708 0.
+ 0.09116798 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.235e-02    0.000e+00    1.235e-02        0      1      0s
+     3        0     8.144e-03    0.000e+00    8.144e-03        0      1      0s
+    18        0     8.636e-04    0.000e+00    8.636e-04       17      1      0s
+    82        0     9.968e-05    0.000e+00    9.968e-05      615      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.967948e-05, best bound 0.000000e+00, additive gap 9.967948e-05
+Starting Reptition No. 49
+First 20 entries in X [241833  27891  54057  83052 163572 295725 305647 192624 168438   9594
+ 203434  59784 135363  55446 337100 331234 248328 156349  44656 269093] 
+
+First 20 entries in Y [0.1863452  0.11958623 0.         0.20805877 0.11958623 0.06675897
+ 0.03625364 0.         0.14860862 0.03625364 0.         0.
+ 0.16832545 0.09091299 0.06675897 0.21392146 0.03625364 0.14862215
+ 0.34094312 0.28149297] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.117e-02    0.000e+00    1.117e-02        0      1      0s
+     3        0     7.754e-03    0.000e+00    7.754e-03        0      1      0s
+    17        0     8.442e-04    0.000e+00    8.442e-04       19      1      0s
+    62        0     9.986e-05    0.000e+00    9.986e-05      662      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.985785e-05, best bound 0.000000e+00, additive gap 9.985785e-05
+Starting Reptition No. 50
+First 20 entries in X [ 81703 322989 290970  51695 161057 171816 261200 258799 282177 263473
+ 258739  44763 293563 167316 211809 148680  61326 331761 304381 239481] 
+
+First 20 entries in Y [0.         0.14993641 0.19779939 0.         0.07207835 0.13027282
+ 0.         0.07207835 0.10116633 0.10116633 0.64739148 0.
+ 0.15421343 0.19779939 0.         0.         0.12334759 0.1178383
+ 0.15263514 0.07785806] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.666e-02    0.000e+00    1.666e-02        0      1      0s
+     3        0     1.055e-02    0.000e+00    1.055e-02        0      1      0s
+    13        0     1.351e-03    0.000e+00    1.351e-03       17      1      0s
+    66        0     1.059e-04    0.000e+00    1.059e-04      591      1      2s
+    66        0     9.989e-05    0.000e+00    9.989e-05      605      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.989130e-05, best bound 0.000000e+00, additive gap 9.989130e-05
+Starting Reptition No. 51
+First 20 entries in X [ 19292   6952 227976 195750 232317 193653  61479  37141 222143 340231
+ 227346 236641  85624  55028 119776 326986 340918 316309 141098 233109] 
+
+First 20 entries in Y [0.         0.         0.10452758 0.14908596 0.07570041 0.18022799
+ 0.30486039 0.05003938 0.         0.09459776 0.         0.15312332
+ 0.30486039 0.01223415 0.12171356 0.         0.09459776 0.12171356
+ 0.07570041 0.12025879] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.483e-02    0.000e+00    1.483e-02        0      1      0s
+     3        0     9.140e-03    0.000e+00    9.140e-03        0      1      0s
+    16        0     9.877e-04    0.000e+00    9.877e-04       17      1      0s
+    64        0     9.943e-05    0.000e+00    9.943e-05      597      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.943406e-05, best bound 0.000000e+00, additive gap 9.943406e-05
+Starting Reptition No. 52
+First 20 entries in X [316360  81867 227330 308943 241699  26583 186297  72997 232454 182302
+ 298814  14578  20987 333932 270486 102468 237377 200319  34712  65250] 
+
+First 20 entries in Y [0.18320424 0.08139211 0.         0.         0.         0.04919069
+ 0.25039706 0.05927012 0.04295988 0.14138494 0.         0.
+ 0.2903287  0.24662974 0.05927012 0.19730463 0.3335859  0.15171801
+ 0.30720333 0.04295988] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.310e-02    0.000e+00    1.310e-02        0      1      0s
+     3        0     8.484e-03    0.000e+00    8.484e-03        0      1      0s
+    16        0     8.394e-04    0.000e+00    8.394e-04       21      1      0s
+    61        0     9.975e-05    0.000e+00    9.975e-05      753      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.975209e-05, best bound 0.000000e+00, additive gap 9.975209e-05
+Starting Reptition No. 53
+First 20 entries in X [322963 138823  85413 242411   3407  47913  95905 139066  27374  40404
+ 134149  69386  83863 113296 198877 243291  64763 186810   1792 155203] 
+
+First 20 entries in Y [0.24597811 0.12725917 0.17763526 0.30933045 0.15774969 0.12725917
+ 0.30933045 0.27786865 0.39572764 0.11867482 0.21084632 0.35374475
+ 0.         0.0032731  0.20012562 0.30749922 0.05037609 0.
+ 0.         0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.520e-02    0.000e+00    1.520e-02        0      1      0s
+     3        0     9.987e-03    0.000e+00    9.987e-03        0      1      0s
+    14        0     1.157e-03    0.000e+00    1.157e-03       16      1      0s
+    69        0     9.998e-05    0.000e+00    9.998e-05      713      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.997722e-05, best bound 0.000000e+00, additive gap 9.997722e-05
+Starting Reptition No. 54
+First 20 entries in X [296453 171361 326403 237150 337221  16354 172990 292436 148044 215064
+  59198 329980 145436  63969   5709  54823 277052 213958 242468 181811] 
+
+First 20 entries in Y [0.         0.         0.2434854  0.         0.22654888 0.
+ 0.         0.16518708 0.05479134 0.16518708 0.1543974  0.114433
+ 0.16518708 0.         0.46655594 0.38547083 0.13740244 0.
+ 0.11027471 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.173e-02    0.000e+00    1.173e-02        0      1      0s
+     3        0     7.923e-03    0.000e+00    7.923e-03        0      1      0s
+    17        0     9.650e-04    0.000e+00    9.650e-04       20      1      1s
+    76        0     9.980e-05    0.000e+00    9.980e-05      661      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.979818e-05, best bound 0.000000e+00, additive gap 9.979818e-05
+Starting Reptition No. 55
+First 20 entries in X [127620 105044 319657  75415  75500 204445 240207 340809  29961  37752
+   7916 105203  82514 295202 124547 303137 155830 333659 333958 293906] 
+
+First 20 entries in Y [0.1741253  0.09911024 0.01874722 0.11288771 0.12570066 0.
+ 0.02798831 0.20165808 0.2204053  0.         0.01733957 0.09911024
+ 0.27104684 0.         0.41192286 0.04673553 0.         0.11785746
+ 0.         0.20279739] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.370e-02    0.000e+00    1.370e-02        0      1      0s
+     3        0     9.159e-03    0.000e+00    9.159e-03        0      1      0s
+    17        0     1.100e-03    0.000e+00    1.100e-03       16      1      0s
+    71        0     9.916e-05    0.000e+00    9.916e-05      624      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.915913e-05, best bound 0.000000e+00, additive gap 9.915913e-05
+Starting Reptition No. 56
+First 20 entries in X [112069 212336   3206  59293  24319 118161 151069 150162 265220 167646
+ 110439 140160 193062 180823 187466 247795 334190 339841 307122  54072] 
+
+First 20 entries in Y [0.03894089 0.13432367 0.01208828 0.16889564 0.24284183 0.16889564
+ 0.03894089 0.         0.         0.08757794 0.         0.17661627
+ 0.27400422 0.         0.14841711 0.36310042 0.04103366 0.
+ 0.         0.13432367] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.386e-02    0.000e+00    1.386e-02        0      1      0s
+     3        0     8.910e-03    0.000e+00    8.910e-03        0      1      0s
+    16        0     1.101e-03    0.000e+00    1.101e-03       17      1      0s
+    59        0     9.969e-05    0.000e+00    9.969e-05      571      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.968992e-05, best bound 0.000000e+00, additive gap 9.968992e-05
+Starting Reptition No. 57
+First 20 entries in X [215887 167496 219395 118575 281558  73875 117328 309431 224535  33107
+ 112103 331350  94771 194031 207427 207473 226407  93151  50169 177609] 
+
+First 20 entries in Y [0.07122474 0.04671119 0.00335094 0.19066399 0.17536188 0.12026322
+ 0.00335094 0.14730375 0.14395281 0.22465673 0.         0.0984589
+ 0.         0.24618926 0.         0.         0.19444154 0.
+ 0.19444154 0.11676793] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.235e-02    0.000e+00    1.235e-02        0      1      0s
+     3        0     7.842e-03    0.000e+00    7.842e-03        0      1      0s
+    17        0     8.572e-04    0.000e+00    8.572e-04       16      1      0s
+    51        0     9.876e-05    0.000e+00    9.876e-05      538      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.876341e-05, best bound 0.000000e+00, additive gap 9.876341e-05
+Starting Reptition No. 58
+First 20 entries in X [211071 122955 172760 108853 224095  86295 180985  57805 325211 304831
+ 145924 326365 284151 142695 230580  28346  40186  51990   3156 213120] 
+
+First 20 entries in Y [0.55908881 0.21889792 0.         0.25241303 0.33582665 0.
+ 0.         0.173236   0.25593433 0.14657142 0.1786363  0.18912134
+ 0.239976   0.07221329 0.20888628 0.         0.         0.14657142
+ 0.18022042 0.2644563 ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.041e-02    0.000e+00    1.041e-02        0      1      0s
+     3        0     7.180e-03    0.000e+00    7.180e-03        0      1      0s
+    19        0     6.379e-04    0.000e+00    6.379e-04       22      1      1s
+    56        0     9.986e-05    0.000e+00    9.986e-05      814      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.985671e-05, best bound 0.000000e+00, additive gap 9.985671e-05
+Starting Reptition No. 59
+First 20 entries in X [172800 251400 320099 187568 315243  95680 251030 140312 117252 317478
+  38300 150598 288247  54622 300138  62196 107770  22484 325220 108756] 
+
+First 20 entries in Y [0.22518397 0.         0.03062289 0.         0.         0.03108546
+ 0.13585239 0.19456108 0.11644298 0.         0.20082164 0.21812341
+ 0.03062289 0.06751939 0.11442184 0.17019875 0.09941846 0.11644298
+ 0.068333   0.23517554] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.431e-02    0.000e+00    1.431e-02        0      1      0s
+     3        0     8.904e-03    0.000e+00    8.904e-03        0      1      0s
+    15        0     1.207e-03    0.000e+00    1.207e-03       17      1      0s
+    76        0     9.984e-05    0.000e+00    9.984e-05      593      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.983654e-05, best bound 0.000000e+00, additive gap 9.983654e-05
+Starting Reptition No. 60
+First 20 entries in X [ 45981 289976 213602 335611 275149 314990  81006 309363 221330  66094
+ 156717 242308  60696 166702 247637 291283  39031   7544  18627 270769] 
+
+First 20 entries in Y [0.63814472 0.22771327 0.35837502 0.13896358 0.03752475 0.19339546
+ 0.         0.22771327 0.         0.33141747 0.         0.43645055
+ 0.02563179 0.         0.         0.02737843 0.13760112 0.
+ 0.22771327 0.21878576] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     2.161e-02    0.000e+00    2.161e-02        0      1      0s
+     3        0     1.355e-02    0.000e+00    1.355e-02        0      1      0s
+    13        0     2.136e-03    0.000e+00    2.136e-03       13      1      0s
+    67        0     2.326e-04    0.000e+00    2.326e-04      336      1      2s
+    88        0     9.999e-05    0.000e+00    9.999e-05     1057      1      3s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.998613e-05, best bound 0.000000e+00, additive gap 9.998613e-05
+Starting Reptition No. 61
+First 20 entries in X [314371  55475  57749 130893 135498  56813 318611 262739 188824 170492
+  86794 193535 312248 180502  79530 101207 290482 167902 249779 105786] 
+
+First 20 entries in Y [0.05828534 0.18083764 0.35741644 0.11038649 0.         0.
+ 0.         0.35722596 0.05914331 0.07172228 0.08170235 0.18064716
+ 0.         0.1765788  0.18559816 0.05914331 0.33402677 0.
+ 0.42062812 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.645e-02    0.000e+00    1.645e-02        0      1      0s
+     3        0     1.090e-02    0.000e+00    1.090e-02        0      1      0s
+    16        0     1.294e-03    0.000e+00    1.294e-03       19      1      1s
+    75        0     9.941e-05    0.000e+00    9.941e-05      547      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.940699e-05, best bound 0.000000e+00, additive gap 9.940699e-05
+Starting Reptition No. 62
+First 20 entries in X [204777 105277 285638 326488  92016 185242  18731  25929 273868 283490
+ 241954 107472  53101 292999 337914  87261 280599  61166 276676 335557] 
+
+First 20 entries in Y [0.20372271 0.         0.26101973 0.24084005 0.         0.11383457
+ 0.02835745 0.28011913 0.1010813  0.11383457 0.41680694 0.
+ 0.14706361 0.         0.         0.         0.13975875 0.
+ 0.         0.13975875] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.419e-02    0.000e+00    1.419e-02        0      1      0s
+     3        0     9.661e-03    0.000e+00    9.661e-03        0      1      0s
+    17        0     9.160e-04    0.000e+00    9.160e-04       20      1      1s
+    68        0     9.996e-05    0.000e+00    9.996e-05      733      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.995559e-05, best bound 0.000000e+00, additive gap 9.995559e-05
+Starting Reptition No. 63
+First 20 entries in X [216605 154242 252221 256440  22522 165403  15544  96634  43992  13311
+  49836 131072  28173  25167 186873 284238  83362 102773 286688 144326] 
+
+First 20 entries in Y [0.         0.24748515 0.35421889 0.13455718 0.         0.20636705
+ 0.26184272 0.04431948 0.14258225 0.13455718 0.12019962 0.47068346
+ 0.26278187 0.09381362 0.         0.12019962 0.09381362 0.
+ 0.12019962 0.16451909] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.207e-02    0.000e+00    1.207e-02        0      1      0s
+     3        0     8.296e-03    0.000e+00    8.296e-03        0      1      0s
+    18        0     8.606e-04    0.000e+00    8.606e-04       21      1      1s
+    63        0     9.992e-05    0.000e+00    9.992e-05      721      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.992473e-05, best bound 0.000000e+00, additive gap 9.992473e-05
+Starting Reptition No. 64
+First 20 entries in X [ 67689  89535 223260 264356 222984 107779 132334 292853 111658  84970
+ 137176 162365 316894  45760 296375 167285  80579 248941 127606 320033] 
+
+First 20 entries in Y [0.04197631 0.31516459 0.08829806 0.27567654 0.21123694 0.2117643
+ 0.06142398 0.23996252 0.         0.         0.         0.34223491
+ 0.24771672 0.07845609 0.35164437 0.         0.         0.
+ 0.40915887 0.06142398] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.473e-02    0.000e+00    1.473e-02        0      1      0s
+     3        0     9.499e-03    0.000e+00    9.499e-03        0      1      0s
+    14        0     1.171e-03    0.000e+00    1.171e-03       16      1      0s
+    70        0     9.972e-05    0.000e+00    9.972e-05      576      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.972442e-05, best bound 0.000000e+00, additive gap 9.972442e-05
+Starting Reptition No. 65
+First 20 entries in X [278195 340074  58994 180769 168986 156262 283256 243677 140272  71733
+ 312060 260919 110032 241919 304183  60974 312295 204239  61267 102326] 
+
+First 20 entries in Y [0.02579359 0.00736792 0.12835642 0.21471494 0.15059173 0.20137118
+ 0.32332557 0.         0.01842567 0.         0.18705251 0.
+ 0.03274434 0.01842567 0.03280336 0.13246342 0.         0.18705251
+ 0.01431867 0.25646772] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.551e-02    0.000e+00    1.551e-02        0      1      0s
+     3        0     9.876e-03    0.000e+00    9.876e-03        0      1      0s
+    17        0     1.194e-03    0.000e+00    1.194e-03       17      1      1s
+    68        0     1.064e-04    0.000e+00    1.064e-04      594      1      2s
+    67        0     9.990e-05    0.000e+00    9.990e-05      611      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.990476e-05, best bound 0.000000e+00, additive gap 9.990476e-05
+Starting Reptition No. 66
+First 20 entries in X [165416 209507 187285  67535 248317 263737 226663 325141  67588 252784
+ 257987  70180 261111 336840  45977 275446 288771 117424 231721 310539] 
+
+First 20 entries in Y [0.1313467  0.18681887 0.47232932 0.41372865 0.00334732 0.
+ 0.         0.         0.07186098 0.01489252 0.         0.29593139
+ 0.00334732 0.29593139 0.07186098 0.         0.08762736 0.04867369
+ 0.         0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     2.127e-02    0.000e+00    2.127e-02        0      1      0s
+     3        0     1.196e-02    0.000e+00    1.196e-02        0      1      0s
+    12        0     1.828e-03    0.000e+00    1.828e-03       12      1      0s
+    75        0     1.256e-04    0.000e+00    1.256e-04      416      1      2s
+    74        0     9.992e-05    0.000e+00    9.992e-05      436      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.991891e-05, best bound 0.000000e+00, additive gap 9.991891e-05
+Starting Reptition No. 67
+First 20 entries in X [ 10927 271854 118771 280504 268335 112291  85498 230046  72414 242881
+  62939  54006  76144 265419 210467 125878 272991  17538 159621 209563] 
+
+First 20 entries in Y [0.         0.25182823 0.         0.11259044 0.         0.27649971
+ 0.11259044 0.16660467 0.         0.23754714 0.08522356 0.1249567
+ 0.19150244 0.16390927 0.16660467 0.21018026 0.17706379 0.
+ 0.         0.16660467] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.256e-02    0.000e+00    1.256e-02        0      1      0s
+     3        0     8.519e-03    0.000e+00    8.519e-03        0      1      0s
+    18        0     9.443e-04    0.000e+00    9.443e-04       18      1      1s
+    78        0     9.982e-05    0.000e+00    9.982e-05      717      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.981697e-05, best bound 0.000000e+00, additive gap 9.981697e-05
+Starting Reptition No. 68
+First 20 entries in X [217804 263002 321711 181646 260832 197565  82730 161853 305411   9218
+ 107258 134506  44429 251966 191540 186119 336445  79318 204053 244813] 
+
+First 20 entries in Y [0.1489076  0.10658804 0.         0.18278262 0.10658804 0.19440022
+ 0.         0.07346318 0.         0.18005122 0.19440022 0.
+ 0.10658804 0.14780417 0.         0.         0.44029903 0.14780417
+ 0.         0.02187677] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.632e-02    0.000e+00    1.632e-02        0      1      0s
+     3        0     9.764e-03    0.000e+00    9.764e-03        0      1      0s
+    15        0     1.042e-03    0.000e+00    1.042e-03       20      1      0s
+    64        0     9.904e-05    0.000e+00    9.904e-05      748      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.903978e-05, best bound 0.000000e+00, additive gap 9.903978e-05
+Starting Reptition No. 69
+First 20 entries in X [181830 183719  46264  88346 193108 322961  60635 340443   3685 162904
+ 166318 292078 279646 299886  81322 266726  34888 232033 307973 235108] 
+
+First 20 entries in Y [0.16978886 0.         0.1924497  0.20146865 0.02266085 0.20872084
+ 0.20872084 0.08427812 0.34559729 0.         0.26039446 0.03092322
+ 0.23773362 0.26865684 0.19324183 0.         0.03092322 0.
+ 0.26814891 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.299e-02    0.000e+00    1.299e-02        0      1      0s
+     3        0     8.822e-03    0.000e+00    8.822e-03        0      1      0s
+    17        0     8.776e-04    0.000e+00    8.776e-04       24      1      1s
+    72        0     9.993e-05    0.000e+00    9.993e-05      814      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.993239e-05, best bound 0.000000e+00, additive gap 9.993239e-05
+Starting Reptition No. 70
+First 20 entries in X [  7305 337800   3233 232463 325978  50294 265053 326138 166690 283529
+ 298980 254140 223605    473  19208  44911 339779 283063 184940 249418] 
+
+First 20 entries in Y [0.21260939 0.2821776  0.51073048 0.12960559 0.         0.
+ 0.10237284 0.10237284 0.         0.11967709 0.17322551 0.22812397
+ 0.10237284 0.23699068 0.09293229 0.         0.08406558 0.09755973
+ 0.22204993 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.200e-02    0.000e+00    1.200e-02        0      1      0s
+     3        0     8.232e-03    0.000e+00    8.232e-03        0      1      0s
+    18        0     8.004e-04    0.000e+00    8.004e-04       20      1      1s
+    63        0     9.991e-05    0.000e+00    9.991e-05      725      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.991130e-05, best bound 0.000000e+00, additive gap 9.991130e-05
+Starting Reptition No. 71
+First 20 entries in X [ 94441  33850 324860 303769 188848 251899  42405 227746 331024 128559
+ 197683  87641 121971  40120  93469 272759 182831 326862 208027  82865] 
+
+First 20 entries in Y [0.00060531 0.31701974 0.27933725 0.15021703 0.51502269 0.2654747
+ 0.15364987 0.12209178 0.23266672 0.         0.         0.
+ 0.15425518 0.         0.         0.21095635 0.         0.15364987
+ 0.30624916 0.15364987] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.455e-02    0.000e+00    1.455e-02        0      1      0s
+     3        0     9.290e-03    0.000e+00    9.290e-03        0      1      0s
+    14        0     1.172e-03    0.000e+00    1.172e-03       20      1      0s
+    87        0     9.989e-05    0.000e+00    9.989e-05      687      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.989485e-05, best bound 0.000000e+00, additive gap 9.989485e-05
+Starting Reptition No. 72
+First 20 entries in X [ 40111 229074 312380 145573 287825  30414 241553 201833 258746  66128
+ 182741 333752  70490  86876 260618 228021 180091 228582  11156 117612] 
+
+First 20 entries in Y [0.13831779 0.13831779 0.40559351 0.22084104 0.15041867 0.
+ 0.         0.20119444 0.         0.01026534 0.16782215 0.
+ 0.26654586 0.         0.13831779 0.27779185 0.20439907 0.13831779
+ 0.         0.23482126] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.390e-02    0.000e+00    1.390e-02        0      1      0s
+     3        0     9.252e-03    0.000e+00    9.252e-03        0      1      0s
+    15        0     1.143e-03    0.000e+00    1.143e-03       15      1      0s
+    61        0     9.869e-05    0.000e+00    9.869e-05      568      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.869218e-05, best bound 0.000000e+00, additive gap 9.869218e-05
+Starting Reptition No. 73
+First 20 entries in X [ 69603  52827 316970 304793  80877  89342 222255 242749 278917 101663
+ 196098  38582 254951 294701 301362 307174 113755 285110 253071 154325] 
+
+First 20 entries in Y [0.         0.0566395  0.00163352 0.0566395  0.         0.24445406
+ 0.         0.23336054 0.38014948 0.00163352 0.14726427 0.17674947
+ 0.23336054 0.         0.14029861 0.21773214 0.07129043 0.
+ 0.00163352 0.21773214] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.853e-02    0.000e+00    1.853e-02        0      1      0s
+     3        0     1.176e-02    0.000e+00    1.176e-02        0      1      0s
+    13        0     1.616e-03    0.000e+00    1.616e-03       14      1      0s
+    77        0     1.032e-04    0.000e+00    1.032e-04      438      1      2s
+    76        0     9.949e-05    0.000e+00    9.949e-05      443      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.948556e-05, best bound 0.000000e+00, additive gap 9.948556e-05
+Starting Reptition No. 74
+First 20 entries in X [256585 139401 290348 335457 142291 177247 158947 309786 261552  85552
+ 259457  22953 190966 241464  56973 131174  15699 141863  97282 214308] 
+
+First 20 entries in Y [0.04493307 0.09689748 0.14778813 0.13557305 0.00654066 0.
+ 0.08978642 0.04493307 0.         0.19756385 0.         0.10066637
+ 0.17465071 0.         0.10066637 0.         0.17465071 0.19272119
+ 0.         0.17233465] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.483e-02    0.000e+00    1.483e-02        0      1      0s
+     3        0     9.650e-03    0.000e+00    9.650e-03        0      1      0s
+    15        0     1.212e-03    0.000e+00    1.212e-03       18      1      0s
+    73        0     9.961e-05    0.000e+00    9.961e-05      669      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.960503e-05, best bound 0.000000e+00, additive gap 9.960503e-05
+Starting Reptition No. 75
+First 20 entries in X [ 80471 218568 260787 194753  55782 303588  31895 293377 153192 142095
+ 242269  42233 124037 338864 194365 120856 134456  99461 125986 156380] 
+
+First 20 entries in Y [0.14085845 0.         0.         0.1225393  0.22325827 0.08895813
+ 0.34600838 0.         0.08200999 0.         0.         0.1225393
+ 0.08200999 0.         0.26339775 0.27696301 0.         0.
+ 0.         0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.127e-02    0.000e+00    1.127e-02        0      1      0s
+     3        0     7.689e-03    0.000e+00    7.689e-03        0      1      0s
+    17        0     7.886e-04    0.000e+00    7.886e-04       18      1      0s
+    57        0     9.973e-05    0.000e+00    9.973e-05      541      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.972602e-05, best bound 0.000000e+00, additive gap 9.972602e-05
+Starting Reptition No. 76
+First 20 entries in X [292746 338096 294660 235339 208721 299213 259391 311613  99188 321643
+  74780 151354 292400 287181 179761 146905 159811 105061  62575 102251] 
+
+First 20 entries in Y [0.         0.02488615 0.3056057  0.15165556 0.2877576  0.00204804
+ 0.10795233 0.         0.11121589 0.15395015 0.12213028 0.15599819
+ 0.         0.26800981 0.29867199 0.25858369 0.29867199 0.03466363
+ 0.         0.11121589] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.330e-02    0.000e+00    1.330e-02        0      1      0s
+     3        0     8.824e-03    0.000e+00    8.824e-03        0      1      0s
+    16        0     1.025e-03    0.000e+00    1.025e-03       24      1      0s
+    68        0     9.875e-05    0.000e+00    9.875e-05      743      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.875025e-05, best bound 0.000000e+00, additive gap 9.875025e-05
+Starting Reptition No. 77
+First 20 entries in X [141321 127409 264375  89139 328478 234144  21650 325552 260416  71437
+ 254355 106373 329163 136710  25275  30544 187645 182634 322787 276662] 
+
+First 20 entries in Y [0.16037707 0.         0.26892668 0.17009323 0.12683568 0.
+ 0.         0.06154363 0.3512342  0.24070286 0.14186941 0.05301526
+ 0.         0.         0.05434783 0.         0.06154363 0.17339719
+ 0.38276197 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.440e-02    0.000e+00    1.440e-02        0      1      0s
+     3        0     9.742e-03    0.000e+00    9.742e-03        0      1      0s
+    17        0     9.438e-04    0.000e+00    9.438e-04       18      1      1s
+    59        0     9.962e-05    0.000e+00    9.962e-05      599      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.961504e-05, best bound 0.000000e+00, additive gap 9.961504e-05
+Starting Reptition No. 78
+First 20 entries in X [149750 190184  95177  54908  10945 217474 124749 209177 191248 277749
+   8588  53266  55622 280545 121280 194601 281930 132202 162825  85571] 
+
+First 20 entries in Y [0.         0.32242444 0.16903771 0.         0.08334239 0.33772224
+ 0.         0.13952062 0.01939651 0.05209795 0.13952062 0.
+ 0.11773809 0.16903771 0.07981143 0.01939651 0.35821971 0.14293837
+ 0.07981143 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.366e-02    0.000e+00    1.366e-02        0      1      0s
+     3        0     8.514e-03    0.000e+00    8.514e-03        0      1      0s
+    15        0     9.433e-04    0.000e+00    9.433e-04       22      1      0s
+    60        0     9.970e-05    0.000e+00    9.970e-05      624      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.970115e-05, best bound 0.000000e+00, additive gap 9.970115e-05
+Starting Reptition No. 79
+First 20 entries in X [129678 141693 139240  40752 101088   6843 155699 103240 103592 250094
+  42902 166086 318007  44542 342106 199988 267567 284304 175723  54587] 
+
+First 20 entries in Y [0.1593188  0.44077298 0.10392892 0.06794199 0.06794199 0.25500777
+ 0.12044795 0.06661783 0.         0.05799505 0.         0.
+ 0.10191113 0.16373524 0.09270097 0.09270097 0.09270097 0.06794199
+ 0.         0.07494263] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.157e-02    0.000e+00    1.157e-02        0      1      0s
+     3        0     7.922e-03    0.000e+00    7.922e-03        0      1      0s
+    17        0     7.354e-04    0.000e+00    7.354e-04       20      1      0s
+    41        0     9.998e-05    0.000e+00    9.998e-05      450      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.998175e-05, best bound 0.000000e+00, additive gap 9.998175e-05
+Starting Reptition No. 80
+First 20 entries in X [253038 100026  13835 306499 297208 274886 181780 263660  44115 268636
+ 205984 279383  48566 103540 256286  10681  50774 118165 279041 312599] 
+
+First 20 entries in Y [0.         0.10025156 0.1277087  0.42243594 0.0095565  0.
+ 0.04676701 0.0276194  0.         0.         0.         0.
+ 0.         0.1277087  0.06122463 0.02338474 0.         0.03294124
+ 0.24584682 0.1277087 ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.989e-02    0.000e+00    1.989e-02        0      1      0s
+     3        0     1.260e-02    0.000e+00    1.260e-02        0      1      0s
+    14        0     1.637e-03    0.000e+00    1.637e-03       13      1      0s
+    75        0     1.301e-04    0.000e+00    1.301e-04      382      1      2s
+    71        0     9.987e-05    0.000e+00    9.987e-05      407      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.987494e-05, best bound 0.000000e+00, additive gap 9.987494e-05
+Starting Reptition No. 81
+First 20 entries in X [ 50292 201260 263104 159509 277384 325954  26816 116529 310955   5709
+  38025 341561  49758  99505 332017 208572 297795  41732 243393 151160] 
+
+First 20 entries in Y [0.35089274 0.00812362 0.         0.03429851 0.12988357 0.17197471
+ 0.16418209 0.17197471 0.17338846 0.         0.3564383  0.16331893
+ 0.04966556 0.00408442 0.17605913 0.16526484 0.         0.
+ 0.         0.12988357] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.359e-02    0.000e+00    1.359e-02        0      1      0s
+     3        0     9.201e-03    0.000e+00    9.201e-03        0      1      0s
+    18        0     9.321e-04    0.000e+00    9.321e-04       18      1      1s
+    72        0     9.915e-05    0.000e+00    9.915e-05      674      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.915053e-05, best bound 0.000000e+00, additive gap 9.915053e-05
+Starting Reptition No. 82
+First 20 entries in X [341661  33419 314982 285825 228119 211646  55505 155228 303182 128048
+  35067  66929 290044 308512 255241  55121 254324 165499 235072 179577] 
+
+First 20 entries in Y [0.15254379 0.06952469 0.12570827 0.         0.15254379 0.22790136
+ 0.16135896 0.15254379 0.3311341  0.         0.10847693 0.
+ 0.         0.23679198 0.         0.         0.2195647  0.23916089
+ 0.39454001 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.321e-02    0.000e+00    1.321e-02        0      1      0s
+     3        0     8.156e-03    0.000e+00    8.156e-03        0      1      0s
+    15        0     9.243e-04    0.000e+00    9.243e-04       21      1      0s
+    72        0     9.986e-05    0.000e+00    9.986e-05      703      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.986390e-05, best bound 0.000000e+00, additive gap 9.986390e-05
+Starting Reptition No. 83
+First 20 entries in X [ 81778 100350  63231 176727 272247 326915 232496 220161 215561  74201
+  51971 325899 131878 274017 291362  95435 332249 237686 190332 258413] 
+
+First 20 entries in Y [0.14189229 0.         0.18209494 0.0361353  0.17907041 0.21629033
+ 0.19201848 0.         0.03717812 0.         0.1930613  0.32148828
+ 0.15805772 0.05068523 0.19523584 0.02403722 0.30749739 0.
+ 0.16270126 0.15805772] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.260e-02    0.000e+00    1.260e-02        0      1      0s
+     3        0     8.446e-03    0.000e+00    8.446e-03        0      1      0s
+    17        0     8.924e-04    0.000e+00    8.924e-04       17      1      1s
+    63        0     9.997e-05    0.000e+00    9.997e-05      559      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.997403e-05, best bound 0.000000e+00, additive gap 9.997403e-05
+Starting Reptition No. 84
+First 20 entries in X [ 47426 281580 167465  74589 204816 275919 213746  87781  90277 158787
+ 328289   5573   7312 183762 247100 206524  95738  73919  84490 184734] 
+
+First 20 entries in Y [0.         0.05964317 0.07408496 0.07623736 0.32419277 0.
+ 0.05964317 0.0980531  0.07408496 0.         0.15881996 0.0825826
+ 0.07408496 0.07408496 0.15666756 0.05964317 0.21846313 0.1515747
+ 0.0980531  0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.534e-02    0.000e+00    1.534e-02        0      1      0s
+     3        0     9.177e-03    0.000e+00    9.177e-03        0      1      0s
+    14        0     9.707e-04    0.000e+00    9.707e-04       20      1      0s
+    63        0     9.988e-05    0.000e+00    9.988e-05      666      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.987721e-05, best bound 0.000000e+00, additive gap 9.987721e-05
+Starting Reptition No. 85
+First 20 entries in X [321994 133085  79526 286009 257450 294162 235775 202745  88518 246779
+  51215 293256 261359 166776 342579  14113  60662  74402 277590 179582] 
+
+First 20 entries in Y [0.         0.10327275 0.26756494 0.         0.         0.16202879
+ 0.1394783  0.         0.14329089 0.21980528 0.04502769 0.
+ 0.10327275 0.04502769 0.         0.         0.15273808 0.1883142
+ 0.         0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.251e-02    0.000e+00    1.251e-02        0      1      0s
+     3        0     8.469e-03    0.000e+00    8.469e-03        0      1      0s
+    15        0     9.714e-04    0.000e+00    9.714e-04       21      1      0s
+    57        0     9.998e-05    0.000e+00    9.998e-05      598      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.998015e-05, best bound 0.000000e+00, additive gap 9.998015e-05
+Starting Reptition No. 86
+First 20 entries in X [166582 106165 301693 315791  83770  35537 117879 137175  94020  87415
+ 155954  59790  21960 105475 111379 314487  60905 338559 163118 292435] 
+
+First 20 entries in Y [0.         0.03759416 0.16772553 0.04891376 0.         0.18616074
+ 0.16772553 0.         0.14034765 0.03759416 0.         0.16772553
+ 0.10110362 0.03759416 0.17794181 0.05828735 0.         0.03759416
+ 0.21469328 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.166e-02    0.000e+00    1.166e-02        0      1      0s
+     3        0     7.534e-03    0.000e+00    7.534e-03        0      1      0s
+    16        0     9.744e-04    0.000e+00    9.744e-04       16      1      0s
+    64        0     9.945e-05    0.000e+00    9.945e-05      623      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.945028e-05, best bound 0.000000e+00, additive gap 9.945028e-05
+Starting Reptition No. 87
+First 20 entries in X [ 76022  39911 156236 188462 235731 174213 313437 295430 167791 321526
+ 214643  99283   1899 321286 303870 198636 135650 148967 207114 146197] 
+
+First 20 entries in Y [0.1660932  0.15637538 0.         0.1992229  0.         0.02754647
+ 0.29996401 0.02754647 0.20079707 0.45110189 0.2059166  0.07796563
+ 0.27751145 0.12882891 0.         0.08455932 0.32246858 0.1055121
+ 0.19363967 0.21338823] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.455e-02    0.000e+00    1.455e-02        0      1      0s
+     3        0     9.240e-03    0.000e+00    9.240e-03        0      1      0s
+    15        0     9.995e-04    0.000e+00    9.995e-04       18      1      0s
+    66        0     9.986e-05    0.000e+00    9.986e-05      743      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.986239e-05, best bound 0.000000e+00, additive gap 9.986239e-05
+Starting Reptition No. 88
+First 20 entries in X [274846  11127  89330  18415  47511   5479 120603 169775 276137 215339
+ 175656 228174 266747 175615 308950  18098 235882  90419  93173 275928] 
+
+First 20 entries in Y [0.11476464 0.         0.         0.10689077 0.22165541 0.
+ 0.09111986 0.12150286 0.12150286 0.         0.3648108  0.09111986
+ 0.         0.10689077 0.15558935 0.10689077 0.16680017 0.33862998
+ 0.06412783 0.11476464] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.210e-02    0.000e+00    1.210e-02        0      1      0s
+     3        0     8.340e-03    0.000e+00    8.340e-03        0      1      0s
+    21        0     8.208e-04    0.000e+00    8.208e-04       20      1      1s
+    68        0     9.900e-05    0.000e+00    9.900e-05      643      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.900181e-05, best bound 0.000000e+00, additive gap 9.900181e-05
+Starting Reptition No. 89
+First 20 entries in X [242812 210270 150474 324138 325010  73929  47810  60296 300092  79763
+  33332  53829 299146 101786 281852  17676 261636 284080 247368 215192] 
+
+First 20 entries in Y [0.05391384 0.0158376  0.1078008  0.03195896 0.05388696 0.08218505
+ 0.23389462 0.12736373 0.08218505 0.08218505 0.41394251 0.22707949
+ 0.05391384 0.35324042 0.         0.         0.44598354 0.17316565
+ 0.         0.18007477] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.357e-02    0.000e+00    1.357e-02        0      1      0s
+     3        0     9.420e-03    0.000e+00    9.420e-03        0      1      0s
+    17        0     1.144e-03    0.000e+00    1.144e-03       19      1      0s
+    72        0     9.966e-05    0.000e+00    9.966e-05      548      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.965988e-05, best bound 0.000000e+00, additive gap 9.965988e-05
+Starting Reptition No. 90
+First 20 entries in X [110854 151897 263893 152119  10966   5054 317916  42790 135697 224782
+ 327807 236400 229885 172671      1 287365  25027 110419  76958 110688] 
+
+First 20 entries in Y [0.         0.24036151 0.13775368 0.         0.21962469 0.13414627
+ 0.13414627 0.41820625 0.13414627 0.0542838  0.26443348 0.09909259
+ 0.23323886 0.16353521 0.14126892 0.0542838  0.         0.105644
+ 0.44940087 0.03253244] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.346e-02    0.000e+00    1.346e-02        0      1      0s
+     3        0     8.918e-03    0.000e+00    8.918e-03        0      1      0s
+    16        0     9.150e-04    0.000e+00    9.150e-04       17      1      0s
+    66        0     9.994e-05    0.000e+00    9.994e-05      816      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.994332e-05, best bound 0.000000e+00, additive gap 9.994332e-05
+Starting Reptition No. 91
+First 20 entries in X [205901 340630 305744 248050 215288 125092 222421  64096 280368 283037
+ 317245 283587 152851 113280  18686 295001 300861 128310 219118 204277] 
+
+First 20 entries in Y [0.         0.17910123 0.         0.25384452 0.         0.
+ 0.         0.08741565 0.         0.         0.         0.
+ 0.         0.         0.1136164  0.43001203 0.28744908 0.
+ 0.         0.17910123] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.297e-02    0.000e+00    1.297e-02        0      1      0s
+     3        0     8.524e-03    0.000e+00    8.524e-03        0      1      0s
+    17        0     9.348e-04    0.000e+00    9.348e-04       18      1      1s
+    55        0     9.995e-05    0.000e+00    9.995e-05      644      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.995082e-05, best bound 0.000000e+00, additive gap 9.995082e-05
+Starting Reptition No. 92
+First 20 entries in X [200314 330358  49185 130478 258182 286256  40430  18000 331636 339139
+ 181189 126027 340943 156181 288408  73737 160191 254787  93586 167400] 
+
+First 20 entries in Y [0.29113022 0.04588843 0.14604479 0.04722657 0.09263663 0.
+ 0.17950013 0.14604479 0.18067067 0.19193323 0.04588843 0.17816199
+ 0.13227355 0.32493028 0.         0.36990887 0.         0.06431547
+ 0.13478224 0.13227355] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.531e-02    0.000e+00    1.531e-02        0      1      0s
+     3        0     9.680e-03    0.000e+00    9.680e-03        0      1      0s
+    16        0     9.791e-04    0.000e+00    9.791e-04       22      1      0s
+    54        0     9.868e-05    0.000e+00    9.868e-05      586      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.868295e-05, best bound 0.000000e+00, additive gap 9.868295e-05
+Starting Reptition No. 93
+First 20 entries in X [235146 308577 101309 319180 113318 211699  31758 225600 293195 228195
+ 154051 278635  93213  90991 137219  18253 275856 132586 337978 324942] 
+
+First 20 entries in Y [0.01369472 0.32642867 0.         0.02551473 0.30263116 0.
+ 0.02551473 0.         0.24018259 0.11221997 0.2884324  0.11783941
+ 0.02551473 0.12499455 0.23005938 0.         0.         0.22840745
+ 0.         0.00092014] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     2.237e-02    0.000e+00    2.237e-02        0      1      0s
+     3        0     1.298e-02    0.000e+00    1.298e-02        0      1      0s
+    12        0     2.240e-03    0.000e+00    2.240e-03       12      1      0s
+    59        0     2.291e-04    0.000e+00    2.291e-04      323      1      2s
+    73        0     9.971e-05    0.000e+00    9.971e-05      839      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.970921e-05, best bound 0.000000e+00, additive gap 9.970921e-05
+Starting Reptition No. 94
+First 20 entries in X [  1580 342194 337558  65050 151560 278386  73196 160096  77527 130002
+ 243807 198410 184091 133444  77136 202129 209240 260784 109106  20509] 
+
+First 20 entries in Y [0.         0.         0.00612031 0.         0.14278525 0.00612031
+ 0.25487591 0.18161317 0.0858255  0.         0.26642427 0.10148654
+ 0.39134251 0.08229681 0.         0.10254992 0.30803129 0.08123701
+ 0.         0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.690e-02    0.000e+00    1.690e-02        0      1      0s
+     3        0     1.063e-02    0.000e+00    1.063e-02        0      1      0s
+    14        0     1.351e-03    0.000e+00    1.351e-03       16      1      1s
+    76        0     9.959e-05    0.000e+00    9.959e-05      520      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.959418e-05, best bound 0.000000e+00, additive gap 9.959418e-05
+Starting Reptition No. 95
+First 20 entries in X [292654 151571 154964  69304  57292  10203 167082 305099  97394 128255
+  38640  17578 276710 295190  62952 298430  97034 271594 181673 246510] 
+
+First 20 entries in Y [0.         0.06439079 0.         0.         0.35498793 0.06439079
+ 0.11028457 0.28360796 0.         0.24971637 0.20084164 0.22455219
+ 0.26443086 0.05972147 0.         0.12411226 0.         0.00894709
+ 0.         0.11028457] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.420e-02    0.000e+00    1.420e-02        0      1      0s
+     3        0     9.747e-03    0.000e+00    9.747e-03        0      1      0s
+    18        0     1.032e-03    0.000e+00    1.032e-03       16      1      1s
+    63        0     9.950e-05    0.000e+00    9.950e-05      598      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.949864e-05, best bound 0.000000e+00, additive gap 9.949864e-05
+Starting Reptition No. 96
+First 20 entries in X [207899 316916 262463  65853  92917 171771 146925 242126 242637 246241
+ 306561 238012 215547 244905  33160 214645 161958 234469 199717 259937] 
+
+First 20 entries in Y [0.18794721 0.33177362 0.15554053 0.         0.03172776 0.31318283
+ 0.         0.15264296 0.07466164 0.07466164 0.10619804 0.07466164
+ 0.09350787 0.15514524 0.         0.15264296 0.07466164 0.
+ 0.         0.10619804] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.451e-02    0.000e+00    1.451e-02        0      1      0s
+     3        0     9.661e-03    0.000e+00    9.661e-03        0      1      0s
+    17        0     9.268e-04    0.000e+00    9.268e-04       17      1      1s
+    74        0     9.968e-05    0.000e+00    9.968e-05      670      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.968155e-05, best bound 0.000000e+00, additive gap 9.968155e-05
+Starting Reptition No. 97
+First 20 entries in X [313626  65505  41307 164672 299092 104203 270814 210607 270743 195980
+ 332604 210077 342323  26525 155707 217355 184133 107245 330373 120244] 
+
+First 20 entries in Y [0.08282677 0.         0.2552715  0.         0.16255258 0.20613198
+ 0.12330521 0.1158203  0.0156748  0.0156748  0.12410348 0.
+ 0.16343293 0.         0.         0.         0.         0.
+ 0.1158203  0.49162263] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.222e-02    0.000e+00    1.222e-02        0      1      0s
+     3        0     8.364e-03    0.000e+00    8.364e-03        0      1      0s
+    14        0     8.929e-04    0.000e+00    8.929e-04       17      1      0s
+    57        0     9.960e-05    0.000e+00    9.960e-05      561      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.959705e-05, best bound 0.000000e+00, additive gap 9.959705e-05
+Starting Reptition No. 98
+First 20 entries in X [ 88838 338706 107344 322860  52479 253051 129400 247820 265215 240601
+ 257015 149789 107125  21247    293 286917 268765    884  29811 257186] 
+
+First 20 entries in Y [0.01051951 0.0458598  0.         0.1117073  0.37094493 0.00716484
+ 0.         0.         0.         0.13165741 0.09296245 0.1117073
+ 0.39409118 0.16823662 0.09296245 0.1117073  0.16054172 0.35814203
+ 0.16054172 0.        ] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.667e-02    0.000e+00    1.667e-02        0      1      0s
+     3        0     1.039e-02    0.000e+00    1.039e-02        0      1      0s
+    13        0     1.443e-03    0.000e+00    1.443e-03       16      1      0s
+    70        0     1.230e-04    0.000e+00    1.230e-04      521      1      2s
+    69        0     9.981e-05    0.000e+00    9.981e-05      557      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.981249e-05, best bound 0.000000e+00, additive gap 9.981249e-05
+Starting Reptition No. 99
+First 20 entries in X [309395  67755 120074 247558 280095 241841 252707 146018 266626 250564
+ 231758 256190 115257 168845  78699  70931   2799 285727 206472  38108] 
+
+First 20 entries in Y [0.         0.         0.10481914 0.08075558 0.2817839  0.25617435
+ 0.10933423 0.39448113 0.17781476 0.         0.         0.07757832
+ 0.26175677 0.         0.02406356 0.02002713 0.         0.0805704
+ 0.09705918 0.04409068] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     1.979e-02    0.000e+00    1.979e-02        0      1      0s
+     3        0     1.244e-02    0.000e+00    1.244e-02        0      1      0s
+    12        0     1.759e-03    0.000e+00    1.759e-03       13      1      0s
+    72        0     1.507e-04    0.000e+00    1.507e-04      404      1      2s
+    69        0     9.998e-05    0.000e+00    9.998e-05      499      1      2s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.997972e-05, best bound 0.000000e+00, additive gap 9.997972e-05
+Starting Reptition No. 100
+First 20 entries in X [ 71588  90784 141851  82282 309261  29535 154176 285586 309047 143181
+ 144694 319445 284607 302408 185254 275910  88874 216939  37034   9783] 
+
+First 20 entries in Y [0.3804261  0.         0.0506933  0.09048783 0.08264088 0.26233445
+ 0.31697939 0.19133304 0.08264088 0.34247786 0.10045152 0.10783571
+ 0.31697939 0.         0.18309241 0.09988732 0.10783571 0.17993535
+ 0.10045152 0.10783571] 
+
+
+Running BCG...
+
+   Active Sets   |           Objective Bounds            |         Work
+  Size    Drops  |  Incumbent       BestBd       AddGap  |  SiGD  IntPrg   Time
+
+     2        0     9.453e-03    0.000e+00    9.453e-03        0      1      0s
+     3        0     6.428e-03    0.000e+00    6.428e-03        0      1      0s
+    19        0     6.284e-04    0.000e+00    6.284e-04       26      1      0s
+    40        0     9.990e-05    0.000e+00    9.990e-05      493      1      1s
+
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.990455e-05, best bound 0.000000e+00, additive gap 9.990455e-05
+
+Experiment Results: 
+
+BCG with False indices, False pattern, False sparse, True, nag speed ups:
+Mean (NMSE, Time, iter_count, sigd_count, ip_count, as_size, as_drops)
+[4.95237601e-01 2.18656861e+00 7.01910000e+02 6.28680000e+02
+ 1.00000000e+00 6.69400000e+01 0.00000000e+00]
+
+Standard Error (NMSE, Time, iter_count, sigd_count, ip_count, as_size, as_drops)
+[4.54405251e-03 4.18895439e-02 1.27897545e+01 1.21588147e+01
+ 0.00000000e+00 9.36890602e-01 0.00000000e+00]
+
+Minimum (NMSE, Time, iter_count, sigd_count, ip_count, as_size, as_drops)
+[3.54674347e-01 1.54804683e+00 4.70000000e+02 3.93000000e+02
+ 1.00000000e+00 4.00000000e+01 0.00000000e+00]
+
+Maximum (NMSE, Time, iter_count, sigd_count, ip_count, as_size, as_drops)
+[6.28246775e-01 4.44832516e+00 1.37000000e+03 1.22400000e+03
+ 1.00000000e+00 9.10000000e+01 0.00000000e+00]
+
+25% Percentile (NMSE, Time, iter_count, sigd_count, ip_count, as_size, as_drops)
+[4.64942474e-01 1.91621691e+00 6.31000000e+02 5.58500000e+02
+ 1.00000000e+00 6.00000000e+01 0.00000000e+00]
+
+50% Percentile (NMSE, Time, iter_count, sigd_count, ip_count, as_size, as_drops)
+[4.96022142e-01 2.08387101e+00 6.88000000e+02 6.15500000e+02
+ 1.00000000e+00 6.80000000e+01 0.00000000e+00]
+
+75% Percentile (NMSE, Time, iter_count, sigd_count, ip_count, as_size, as_drops)
+[5.23272572e-01 2.37195486e+00 7.51000000e+02 6.72500000e+02
+ 1.00000000e+00 7.22500000e+01 0.00000000e+00]
